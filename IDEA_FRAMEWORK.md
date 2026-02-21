@@ -1,3 +1,20 @@
+# Idea Framework: Blockchain Project Validation
+
+## Executive Summary
+
+This document provides a structured methodology for validating and developing new blockchain project ideas. It includes:
+
+- **6-Question Blockchain Filter**: Quick assessment to determine if blockchain is the right technology choice
+- **12 Project Filters**: Detailed evaluation criteria covering regulatory, technical, and business aspects
+- **Integration Canvas**: Framework for defining enterprise pain points and on-chain primitives
+- **Problem Framing**: User-centric approach to define target users and problem statements
+- **Product Strategy**: Core purpose, direction, and value proposition guidelines
+- **User-Centric Design Principles**: UX best practices for Web3 products
+
+**Purpose**: To systematically evaluate, validate, and shape new project ideas before development, ensuring blockchain is the appropriate solution and the product addresses real user needs.
+
+---
+
 # The 6-Question Blockchain Filter
 
 ### 1. Is the process repeatable or automatable?

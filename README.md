@@ -2,9 +2,13 @@
 
 This is a monorepo for the Avalanche Build Games Hackathon.
 
-## Project Definition
+## Idea Bootstrapping Framework
 
 See [IDEA_FRAMEWORK.md](./IDEA_FRAMEWORK.md) for the living working document that serves as a bootstrap framework for idea validation.
+
+### Translations
+
+- [Español](./IDEA_FRAMEWORK_ES.md)
 
 ## Contact
 
