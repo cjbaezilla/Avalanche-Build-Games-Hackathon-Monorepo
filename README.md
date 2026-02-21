@@ -4,11 +4,13 @@ This is a monorepo for the Avalanche Build Games Hackathon.
 
 ## Idea Bootstrapping Framework
 
-See [IDEA_FRAMEWORK.md](./IDEA_FRAMEWORK.md) for the living working document that serves as a bootstrap framework for idea validation.
+- [for the living working document that serves as a bootstrap framework for idea validation](./IDEA_FRAMEWORK.md)
+- [para el documento de trabajo vivo que sirve como marco de arranque para la validación de ideas](./IDEA_FRAMEWORK_ES.md)
 
-### Translations
+## Project Documentation
 
-- [Español](./IDEA_FRAMEWORK_ES.md)
+- [SciForge L1 — The Layer 1 for Scientific Academic Research](./PROJECTS_DESCi_EDUCATION.md)
+- [SciForge L1 — La Capa 1 para Investigación Científica Académica](./PROJECTS_DESCi_EDUCATION_ES.md)
 
 ## Contact
 
