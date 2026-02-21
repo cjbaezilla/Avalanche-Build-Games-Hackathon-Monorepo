@@ -128,7 +128,69 @@ A rigorous user-framing process enables you to define a focused and well-articul
 
 *   **Rooted** — When we jump to conclusions we often solve the symptoms, while real problem statements focus on the root cause
 
-*   **Positive & Negatives** — Problem statements can also capture opportunities, not only problems.
+* **Positive & Negatives** — Problem statements can also capture opportunities, not only problems.
+
+**Define Target User**
+
+Why it's important?
+
+1. It turns vague problems into solvable ones
+"Users" is not a usable product input. Clear personas let teams frame problems precisely instead of building generic features based on assumptions.
+
+2. It aligns the entire team around the same user
+Personas create a shared language so decisions are driven by the needs of a clearly defined user, guiding product roadmap and backlog direction.
+
+3. It enables better prioritization & user-centric approach
+Every product team faces trade-offs. When a persona is defined, prioritization becomes strategic instead of political, placing users priorities first.
+
+4. It improves product-market fit
+Strong products aim to be exceptionally valuable to a specific group. This depth is what leads to real adoption and retention.
+
+5. Removes bias preventing solution-first thinking
+Without personas, teams often jump straight to features or technology. Personas force a user-first approach, leaving feature or functional decisions for last.
+
+6. It sharpens design and UX decisions
+Design is about trade-offs: simplicity vs. power, guidance vs. flexibility. This leads to more intuitive, intentional experiences.
+
+**Personas, Segments & Mental Models**
+
+**Defining Segments, User Personas & Mental Models**
+
+There are 3 interdependent aspects you need to explore in order to define your target user.
+
+*   **Segments** define who you are building for
+*   **Mental models** define how they think
+*   **Personas** make it usable for product decisions
+
+*   **Without personas**, segments stay abstract.
+*   **Without segments**, personas become fictional.
+*   **Without mental models**, UX becomes misaligned.
+
+**How to elaborate this user analysis into meaningful information and insights:**
+
+**1. Define the Segment across 4 dimensions:**
+*   **Goals** - What are they trying to achieve?
+*   **Fears** - What are they afraid of?
+*   **Knowledge** - What do they already understand?
+*   **Behavior** - How do they currently solve this?
+
+**2. Use Mental Models to explain:**
+*   What does this user believe about how the system works?
+
+**3. Create a User Persona to define:**
+*   A realistic, specific representation of your primary user inside a segment.
+
+**How would these aspects influence my product?**
+
+Your User Persona characteristics will determine:
+
+1. MVP Feature Scope & Prioritization
+2. Complexity Level
+3. Trust & Safety Design
+4. Language & Vocabulary
+5. Overall User Experience
+6. Product Positioning & Messaging
+7. Growth Strategy
 
 ---
 
