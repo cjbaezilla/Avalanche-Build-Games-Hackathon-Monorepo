@@ -4,7 +4,7 @@ This is a monorepo for the Avalanche Build Games Hackathon.
 
 ## Project Definition
 
-See [PROJECT_DEFINITION.md](./PROJECT_DEFINITION.md) for the living working document that serves as a bootstrap framework for idea validation.
+See [IDEA_FRAMEWORK.md](./IDEA_FRAMEWORK.md) for the living working document that serves as a bootstrap framework for idea validation.
 
 ## Contact
 
