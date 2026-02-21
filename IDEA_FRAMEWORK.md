@@ -102,6 +102,36 @@ What can a risk-averse enterprise say yes to in 90 days?
 
 ---
 
+**Problem Framing**
+
+The 4 parts of a Problem Framing process
+A good, complete problem framing process will tell you 4 things:
+
+*   **What is the problem?** What are the struggles? What task needs to be accomplished? What pain point needs to be relieved?
+
+*   **Who is affected?** Who is experiencing the problem? Can this user be further specified (by persona, motivation, reason for being in the situation)?
+
+*   **Where does it happen?** What is the context in which the user experiences the problem? Is it in a physical or digital space? Who else is involved?
+
+*   **Why is this problem worth solving?** What value does it bring to the user? Why is blockchain the appropriate technology to solve this problem?
+
+**Problem Statement**
+
+**Defining your Problem Statement**
+A rigorous user-framing process enables you to define a focused and well-articulated problem statement — one that will guide you through the following research, ideation, product development phases and pitching.
+
+**The articulated Problem Statements should be:**
+
+*   **Brief** — If you can condense your problem statement down to a few sentences, others will quickly understand what you focus on and why, and what's out of scope.
+
+*   **Factual & Unbiased** — Look at all of the information you have with an open, honest mind
+
+*   **Rooted** — When we jump to conclusions we often solve the symptoms, while real problem statements focus on the root cause
+
+*   **Positive & Negatives** — Problem statements can also capture opportunities, not only problems.
+
+---
+
 **Sources**
 
 - Raquel Raigal: [https://x.com/rraigal_](https://x.com/rraigal_) | [Presentation](https://docs.google.com/presentation/d/e/2PACX-1vRtmYii9GBGIgjgbxBDoS8DLcSAz8fLbKUIiCv-d1xNPjzvMcpKhhNOpCduKNNHEg/pub)
