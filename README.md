@@ -11,6 +11,8 @@ This is a monorepo for the Avalanche Build Games Hackathon.
 
 - [SciForge L1 — The Layer 1 for Scientific Academic Research](./PROJECTS_DESCi_EDUCATION.md)
 - [SciForge L1 — La Capa 1 para Investigación Científica Académica](./PROJECTS_DESCi_EDUCATION_ES.md)
+- [Vibe2Wizard — The Gamified Web3 & Solidity Mastery Platform](./PROJECTS_VIBE2WIZARD_GAMIFIED_WEB3.md)
+- [Vibe2Wizard — La Plataforma Gamificada de Dominio Web3 y Solidity](./PROJECTS_VIBE2WIZARD_GAMIFIED_WEB3_ES.md)
 
 ## Contact
 
