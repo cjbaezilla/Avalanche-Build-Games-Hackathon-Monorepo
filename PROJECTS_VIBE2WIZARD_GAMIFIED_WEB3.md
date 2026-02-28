@@ -7,6 +7,7 @@
 Vibe2Wizard is a gamified learning platform that turns anyone — from curious designers to seasoned engineers — into verifiable onchain developers. We solve three interconnected problems: the lack of safe, risk-free environments to learn Solidity; the impossibility of proving your skills without putting real money on the line; and protocols' inability to distinguish genuine users from airdrop hunters.
 
 Our core innovation is the Soulbound Passport — an ERC-5192 identity that lives forever onchain, owns its own smart wallet, and visually evolves from a hooded initiate to a glowing Archmage as you complete real onchain deployments. Every badge links to an actual transaction. Every skill is verifiable. Every credential travels with you across chains.
+Our core innovation is the Soulbound Passport — an ERC-1155 soulbound identity that lives forever onchain, owns its own smart wallet, and visually evolves from a hooded initiate to a glowing Archmage as you complete real onchain deployments. Every badge links to an actual transaction. Every skill is verifiable. Every credential travels with you across chains.
 
 We differ from existing platforms because we don't just track completion — we track real onchain actions. Galxe gives you transferable credential tokens. Layer3 offers shallow verification. CryptoZombies leaves you with local progress and nothing to show. We built what we wished existed when we were learning: a platform where your work actually belongs to you, forever, in a form anyone can verify.
 
@@ -89,7 +90,7 @@ DAOs and protocols need to hire, but they have almost no tools to verify whether
 
 Several trends are converging that make this the right time:
 
-- **ERC standards are mature.** ERC-5192, 6239, 5484, 1155, 721, 4973, 7510, 6454, 5646, 5679, 4906, 4361, 2981 give us the building blocks for portable, non-transferable, machine-readable credentials with Token Bound Accounts, dynamic metadata, and state fingerprinting that simply didn't exist two years ago. We implement using only Final-status standards.
+- **ERC standards are mature.** ERC-1155, 6239, 7510, 5646, 5679, 4906, 4361, 2981 give us the building blocks for portable, non-transferable, machine-readable credentials with Token Bound Accounts, dynamic metadata, and state fingerprinting that simply didn't exist two years ago. We implement using only Final-status standards.
 - **Cross-chain infrastructure works.** Axelar, LayerZero, and similar protocols make it realistic to build credentials that actually travel across chains, not just exist in one ecosystem.
 - **Gamification works.** The success of Galxe, Layer3, and even pump.fun proves that users respond to progress tracking, badges, and visual rewards. We're taking that same psychology and applying it to actual skill-building.
 - **Protocols are desperate.** The airdrop model is broken. Marketing budgets are being scrutinized. Any platform that can deliver genuinely engaged users instead of wallet farmers is worth serious money.
@@ -126,7 +127,7 @@ The whole point is simple: if you put in the work, you should have something to 
 - **Learning path:** Two tracks — Vibe Track for non-coders who want to ship without syntax anxiety, Code Track for developers who want to go deep into Solidity, security, and advanced patterns
 - **Progress system:** Your Passport evolves visually as you level up — starting as a hooded initiate, unlocking robes, sigils, and eventually glowing Archmage status with animated runes that reflect your actual onchain history
 - **Proof mechanism:** Every badge links to an onchain transaction — no faith required, anyone can verify exactly what you deployed and when
-- **Safety layer:** First 15 actions come with sponsored gas so you never have to touch a faucet or risk real money while learning. Testnet first, mainnet when you're ready. Gas sponsorship is funded through a sustainable model: (1) Protocol sponsors pay for verified user acquisition — it's cheaper than airdrops, (2) Avalanche Foundation grants support ecosystem growth, (3) Corporate sponsors (tooling companies, cloud providers) sponsor gas in exchange for developer mindshare. We project sponsorship can sustain 100+ free actions per user for the first 2 years, after which users will have deployed enough to understand gas economics.
+- **Safety layer:** Actions come with sponsored gas so you never have to touch a faucet or risk real money while learning. Testnet first, mainnet when you're ready. Gas sponsorship is funded through a sustainable model: (1) Protocol sponsors pay for verified user acquisition — it's cheaper than airdrops, (2) Avalanche Foundation grants support ecosystem growth, (3) Corporate sponsors (tooling companies, cloud providers) sponsor gas in exchange for developer mindshare.
 - **Portfolio dashboard:** Every user gets a public/private dashboard showcasing their onchain journey — deployed contracts, badges earned, sponsor rewards received, and code samples. Shareable links let users present their portfolio to recruiters and protocols. The dashboard auto-generates a verifiable credential summary that's LinkedIn-ready and DAO-grant friendly.
 - **Community ecosystem:** Leaderboards rank users by deployments, badges, and peer reviews. Pair Mode lets users team up on challenges and review each other's code — earning Karma Points for helpful feedback that unlock cosmetic flair and priority support. Community-built quests via Forge Mode let advanced users create challenges, earning a cut of the rewards when others complete them. Discord integration connects learners with mentors and study groups.
 - **Error handling:** "Oops" button refunds your testnet gas and explains what went wrong — because mistakes are where the real learning happens
@@ -145,7 +146,7 @@ The whole point is simple: if you put in the work, you should have something to 
 
 | Feature | Vibe2Wizard | Galxe | Layer3 | CryptoZombies | Udemy Courses |
 |---------|-------------|-------|--------|---------------|---------------|
-| **Soulbound identity that travels with you** | Yes - ERC-5192 + ERC-4973 Passport with TBA | No - credential tokens can be transferred | No - achievements are just NFTs | No - local progress only | No - certificates stay on platform |
+| **Soulbound identity that travels with you** | Yes - ERC-1155 Soulbound Passport with Enumerable + TBA | No - credential tokens can be transferred | No - achievements are just NFTs | No - local progress only | No - certificates stay on platform |
 | **Real onchain deployments as proof** | Yes - every challenge deploys to testnet/mainnet | Limited - mostly social tasks | Some - but verification is shallow | No - all code runs locally | No - just video completion |
 | **Smart wallet that holds your portfolio** | Yes - ERC-7510 Token Bound Account | No | No | No | No |
 | **Deep Solidity curriculum** | Yes - from vibe coding to audit-level security | No - mostly social/gravity tasks | Some - but surface level | Basic - no advanced topics | Outdated - rarely maintained |
@@ -153,9 +154,8 @@ The whole point is simple: if you put in the work, you should have something to 
 | **Protocol-readable credentials for perks** | Yes - ERC-6239 semantic credentials | No | No | No | No |
 | **Cross-chain portability** | Yes - via Axelar to 7+ chains | Limited | Limited | No | No |
 | **Gamified evolution of visual NFT** | Yes - hoodie to Archmage with ERC-4906 dynamic metadata | Basic static badges | Basic static badges | Very basic pixel art | No |
-| **Multi-step composable achievements** | Yes - ERC-721 with custom metadata | No | No | No | No |
-| **Consent-based badge minting** | Yes - ERC-5484 requires both parties agree | No | No | No | No |
-| **Safe practice with gas sponsorship** | Yes - first 15 actions sponsored | No | Limited testnet at best | No - runs locally but no gas support | No |
+| **Multi-step composable achievements** | Yes - ERC-1155 with custom metadata + Enumerable | No | No | No | No |
+| **Safe practice with gas sponsorship** | Yes - sponsored transactions available | No | Limited testnet at best | No - runs locally but no gas support | No |
 | **"Oops" button for error recovery** | Yes - refunds testnet gas + explains fix | No | No | No | No |
 | **AI-guided explanations** | Yes - step-by-step with "why this matters" | No | No | No | No |
 | **Self-serve sponsor dashboard** | Yes - protocols create challenges + rewards | Yes - but limited | Yes - but limited | No | No |
@@ -197,15 +197,15 @@ That's why we built this onchain. Not because it's trendy — because it's the o
 | **Payment systems** | Require banks, middlemen, trust | Direct, trustless, instant payments |
 
 ### What's the on-chain primitive?
-Every user gets a **Soulbound Passport** (ERC-5192 + ERC-4973) — think of it as your permanent Web3 developer ID. It's non-transferable, meaning you can't sell it or give it away. What you earn is truly yours. We use both standards for maximum compatibility across wallets and marketplaces — ERC-5192 gives us the minimal soulbound interface while ERC-4973 adds account-bound flexibility for future features like temporary unlocks or recovery flows.
+Every user gets a **Soulbound Passport** (ERC-1155 with Enumerable + Supply extensions) — think of it as your permanent Web3 developer ID. It's non-transferable, meaning you can't sell it or give it away. What you earn is truly yours.
 
-Your Passport earns **Badges** (ERC-721 + ERC-5484) for every milestone you hit. Deployed your first contract? Badge. Passed a security audit on mainnet? Badge. Referred three friends who also deployed? Badge. These stack and evolve as you grow. Each badge tracks its own transferability state (ERC-6454) so the system knows exactly which badges can move and which are locked to your identity forever.
+Your Passport earns **Badges** (ERC-1155 Soulbound with Enumerable + Supply) for every milestone you hit. Deployed your first contract? Badge. Passed a security audit on mainnet? Badge. Referred three friends who also deployed? Badge. These stack and evolve as you grow.
 
 The Passport also owns a **Smart Wallet** using ERC-7510 (Token Bound Accounts) paired with ERC-1271. This is official TBA implementation — your Passport is also a wallet. Every contract you've ever deployed through the platform lives there. Every reward from every protocol lands there. It's your permanent onchain portfolio, and it travels with you across any chain.
 
 We also use **Scrolls** (ERC-1155) for consumables. Think hints when you're stuck, small gas credits so you don't have to hunt faucets, retry tokens when a deployment goes sideways. These are tradable if you want to buy them from someone else, but they're optional — the core learning is always free.
 
-Everything is connected through **Semantic Credentials** (ERC-6239) so your badges actually mean something machine-readable, and **Composable Achievements** (ERC-721 + custom metadata + ERC-4906) so you can show off complex multi-step accomplishments. The ERC-4906 metadata extension lets us update your badge visuals dynamically as you level up — your NFT actually changes appearance when you hit new milestones, not just the JSON behind it. And before any badge mints, both you and the platform have to agree it's valid (ERC-5484) — no silent airdrops, no surprises.
+Everything is connected through **Semantic Credentials** (ERC-6239) so your badges actually mean something machine-readable, and **Composable Achievements** (ERC-1155 + ERC-4906 + Custom Metadata + Enumerable) so you can show off complex multi-step accomplishments. The ERC-4906 metadata extension lets us update your badge visuals dynamically as you level up — your NFT actually changes appearance when you hit new milestones, not just the JSON behind it. All badges are soulbound by default using ERC-1155.
 
 Your passport tracks its own evolution state (ERC-5646) — whether you're an initiate, apprentice, journeyman, wizard, or archmage. This fingerprint lets any protocol instantly read your current tier without parsing complex metadata. And every badge follows ERC-5679 for standardized minting and burning across all our token contracts.
 
@@ -213,15 +213,14 @@ All of this settles on Avalanche and connects across Ethereum, Arbitrum, Optimis
 
 | Layer | Technology | What It Does |
 |-------|------------|--------------|
-| **Identity** | Soulbound Passport (ERC-5192 + ERC-4973) | Your permanent Web3 developer ID that can't be transferred or sold — dual standard for maximum compatibility |
-| **Achievements** | Badges (ERC-721 + ERC-5484 + ERC-6454) | Milestone markers that stack and evolve — includes transferability detection to lock credentials to your identity |
+| **Identity** | Soulbound Passport (ERC-1155 Soulbound + Enumerable + Supply) | Your permanent Web3 developer ID that can't be transferred or sold — using ERC-1155 soulbound standard |
+| **Achievements** | Badges (ERC-1155 Soulbound + Enumerable) | Milestone markers that stack and evolve — permanently locked to your identity |
 | **Wallet** | Smart Wallet (ERC-7510 + ERC-1271) | Official Token Bound Account: your Passport owns a wallet that holds every contract you've deployed and every reward you've earned |
 | **Consumables** | Scrolls (ERC-1155) | Hint tokens, gas credits, retry tokens — tradable but optional, core learning is always free |
 | **Machine Readable** | Semantic Credentials (ERC-6239) | Badges that systems can actually read and verify automatically |
-| **Complex Proofs** | Composable Achievements (ERC-721 + ERC-4906 + Custom Metadata) | Multi-step accomplishments with dynamic metadata that updates as you level up |
+| **Complex Proofs** | Composable Achievements (ERC-1155 + ERC-4906 + Enumerable + Custom Metadata) | Multi-step accomplishments with dynamic metadata that updates as you level up |
 | **State Tracking** | Token State Fingerprint (ERC-5646) | Instant tier verification — protocols can check if you're an initiate or archmage with one call |
 | **Minting** | Token Mint/Burn (ERC-5679) | Standardized badge creation and burning across all token contracts |
-| **Consent** | ERC-5484 | Both you and the platform must agree before any badge mints — no silent airdrops |
 | **Cross-Chain** | Axelar | Connects to Ethereum, Arbitrum, Optimism, Polygon, Base, BNB Chain, zkSync from Avalanche |
 | **The Problem** | Current tools | YouTube can't verify deployments, Udemy can't stop account sharing, GitHub can't prove you wrote the code, LinkedIn can't confirm mainnet experience |
 | **Why It Works** | Blockchain advantage | Contracts live onchain forever, badges can't be transferred, payments are public and verifiable — no middleman, no trust needed |
@@ -239,4 +238,4 @@ Every ambitious project faces challenges. We've thought through what could go wr
 | **Sponsor Quality** | Protocols create boring or spammy challenges just to check a box. Users get frustrated. The credential loses meaning. | Sponsor dashboard with quality guidelines. User ratings on challenge quality. We reserve the right to reject challenges that don't deliver real value. If a sponsor's challenges get consistently low ratings, they lose access. |
 | **Cross-Chain Complexity** | Axelar works, but bridging between 7+ chains adds latency, cost, and potential failure points. Users might get frustrated when their badge takes 10 minutes to appear on another chain. | Badge data lives primarily on Avalanche. Cross-chain display is a secondary feature that updates asynchronously. We won't promise instant cross-chain — we'll promise reliable cross-chain, and users can always view their full history on the primary chain. |
 | **Regulatory Uncertainty** | Credentialing platforms might face unexpected regulation, especially if tokens or rewards are involved. SEC, MiCA, or other bodies could classify our badges or sponsor payments as securities. | Our badges are clearly non-financial — they're skill credentials, not investment contracts. Sponsor rewards are payments for completed tasks (learning), not investment returns. We consult with crypto-native legal counsel and build with compliance in mind from the start. |
-| **Platform Dependency** | Users might worry: what if Vibe2Wizard shuts down? Their passport, badges, and credentials live onchain — but the UI to view them doesn't. | Everything is stored onchain. Users can always interact with their Passport directly through our custom wallet implementation (ERC-721 + ERC-1271). We open-source the frontend so the community can maintain it. Even if we disappear, the credentials remain readable and verifiable forever.
+| **Platform Dependency** | Users might worry: what if Vibe2Wizard shuts down? Their passport, badges, and credentials live onchain — but the UI to view them doesn't. | Everything is stored onchain. Users can always interact with their Passport directly through our custom wallet implementation (ERC-1155 + ERC-1271). We open-source the frontend so the community can maintain it. Even if we disappear, the credentials remain readable and verifiable forever.
