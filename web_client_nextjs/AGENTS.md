@@ -29,67 +29,6 @@ This project uses **Next.js 15** with **Tailwind CSS**, **shadcn/ui components**
 
 ---
 
-## Configuration Files
-
-### tailwind.config.js
-
-Located at project root. Contains shadcn/ui color tokens using CSS variables:
-
-```javascript
-// Key color tokens:
-- --background, --foreground
-- --primary, --primary-foreground
-- --secondary, --secondary-foreground
-- --muted, --muted-foreground
-- --accent, --accent-foreground
-- --destructive, --destructive-foreground
-- --border, --input, --ring
-- --card, --card-foreground
-- --popover, --popover-foreground
-- --chart-1 through --chart-5
-```
-
-Dark mode is enabled via `darkMode: ["class"]`.
-
-### postcss.config.js
-
-```javascript
-module.exports = {
-  plugins: {
-    tailwindcss: {},
-    autoprefixer: {},
-  },
-};
-```
-
-### tsconfig.json
-
-Added path alias:
-
-```json
-{
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"]
-    }
-  }
-}
-```
-
-### next.config.js
-
-Added webpack alias for `@` path:
-
-```javascript
-config.resolve.alias = {
-  ...config.resolve.alias,
-  '@': require('path').resolve(__dirname, 'src'),
-};
-```
-
----
-
 ## Project Structure
 
 ```
@@ -223,53 +162,71 @@ const item = {
 
 ---
 
-## Tailwind CSS Usage
+## Color Theme
+
+The project uses a dramatic red/black/silver color scheme inspired by a mystical wizard theme.
+
+### Color Tokens
+
+| Token | Color | Usage |
+|-------|-------|-------|
+| `background` | Pure black (#0a0a0a) | Page backgrounds |
+| `foreground` | Silver/light grey | Main text |
+| `primary` | Bright fiery red | CTAs, highlights, magical elements |
+| `primary-foreground` | White | Text on primary buttons |
+| `secondary` | Dark grey (#262626) | Cards, containers |
+| `secondary-foreground` | Silver | Text on secondary |
+| `accent` | Bright red | Accent highlights |
+| `muted` | Dark charcoal | Subtle backgrounds |
+| `muted-foreground` | Grey | Secondary text |
+| `border` | Dark grey | Borders |
+| `ring` | Bright red | Focus rings |
 
 ### Using Theme Colors
 
 ```html
 <!-- Background colors -->
-<div class="bg-background">Background</div>
-<div class="bg-card">Card</div>
-<div class="bg-popover">Popover</div>
+<div class="bg-background">Pure black background</div>
+<div class="bg-card">Dark card background</div>
+<div class="bg-secondary">Metallic grey</div>
 
-<!-- Foreground colors -->
-<p class="text-foreground">Text</p>
-<p class="text-muted-foreground">Muted text</p>
+<!-- Text colors -->
+<p class="text-foreground">Silver text</p>
+<p class="text-muted-foreground">Grey text</p>
 
-<!-- Brand colors -->
-<button class="bg-primary text-primary-foreground">Primary</button>
-<button class="bg-secondary text-secondary-foreground">Secondary</button>
-<button class="bg-accent text-accent-foreground">Accent</button>
+<!-- Brand colors (red/black theme) -->
+<button class="bg-primary text-primary-foreground">Fiery red button</button>
+<button class="bg-secondary text-secondary-foreground">Grey button</button>
 
-<!-- Semantic colors -->
-<button class="bg-destructive text-destructive-foreground">Destructive</button>
+<!-- Borders -->
+<div class="border border-border">Dark grey border</div>
 
-<!-- Border colors -->
-<div class="border border-border">Bordered</div>
-<input class="bg-input" />
-
-<!-- Ring -->
-<button class="focus-visible:ring-2 focus-visible:ring-ring">Focus</button>
+<!-- Focus ring -->
+<button class="focus-visible:ring-2 focus-visible:ring-ring">Red focus ring</button>
 ```
 
-### Using Radius
+### Direct Tailwind Colors
+
+For colors not in the theme tokens:
 
 ```html
-<div class="rounded-lg">Large radius</div>
-<div class="rounded-md">Medium radius</div>
-<div class="rounded-sm">Small radius</div>
+<!-- Reds -->
+<div class="bg-red-500">Bright red</div>
+<div class="bg-red-600">Medium red</div>
+<div class="bg-red-700">Dark red / crimson</div>
+<div class="bg-red-800">Deep maroon</div>
+
+<!-- Silvers/Greys -->
+<div class="text-slate-300">Light silver</div>
+<div class="text-slate-400">Medium grey</div>
+<div class="text-slate-500">Dark grey</div>
+<div class="bg-zinc-800">Charcoal</div>
+<div class="bg-zinc-900">Near black</div>
 ```
 
 ### Dark Mode
 
-Add `dark` class to `<html>` or `<body>` element to enable dark mode:
-
-```html
-<html class="dark">
-  <!-- Dark theme colors applied -->
-</html>
-```
+Dark mode is enabled by default via the `dark` class on `<html>` in `_document.tsx`. All theme colors are designed for the dark theme.
 
 ---
 
@@ -278,7 +235,7 @@ Add `dark` class to `<html>` or `<body>` element to enable dark mode:
 The `src/styles/globals.css` file contains:
 
 1. **Tailwind directives** - `@tailwind base`, `@tailwind components`, `@tailwind utilities`
-2. **CSS variables** - shadcn/ui design tokens for both light and dark modes
+2. **CSS variables** - shadcn/ui design tokens for the red/black/silver dark theme
 3. **Base layer** - Global body styles
 
 ---
