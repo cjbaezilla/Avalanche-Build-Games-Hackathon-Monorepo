@@ -6,7 +6,6 @@
 
 Vibe2Wizard is a gamified learning platform that turns anyone — from curious designers to seasoned engineers — into verifiable onchain developers. We solve three interconnected problems: the lack of safe, risk-free environments to learn Solidity; the impossibility of proving your skills without putting real money on the line; and protocols' inability to distinguish genuine users from airdrop hunters.
 
-Our core innovation is the Soulbound Passport — an ERC-5192 identity that lives forever onchain, owns its own smart wallet, and visually evolves from a hooded initiate to a glowing Archmage as you complete real onchain deployments. Every badge links to an actual transaction. Every skill is verifiable. Every credential travels with you across chains.
 Our core innovation is the Soulbound Passport — an ERC-1155 soulbound identity that lives forever onchain, owns its own smart wallet, and visually evolves from a hooded initiate to a glowing Archmage as you complete real onchain deployments. Every badge links to an actual transaction. Every skill is verifiable. Every credential travels with you across chains.
 
 We differ from existing platforms because we don't just track completion — we track real onchain actions. Galxe gives you transferable credential tokens. Layer3 offers shallow verification. CryptoZombies leaves you with local progress and nothing to show. We built what we wished existed when we were learning: a platform where your work actually belongs to you, forever, in a form anyone can verify.
