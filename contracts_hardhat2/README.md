@@ -7,11 +7,11 @@ This repository contains the smart contracts and deployment scripts for the **Wi
 ### `WizardPassport.sol`
 A specialized **ERC721** NFT contract built using the **OpenZeppelin 5.0** library, serving as the primary identity token for the ecosystem.
 
-- **Standard**: ERC721 with URI Storage.
+- **Standard**: ERC721 with Fully On-chain Metadata.
 - **Soulbound**: Non-transferable identity token (transfers are disabled).
 - **Public Minting**: Open access for everyone to mint their own passport.
 - **Wallet Restriction**: Strictly enforced limit of **1 NFT per wallet**.
-- **Metadata**: Support for individualized token URIs via `ERC721URIStorage`.
+- **Metadata**: Fully on-chain JSON and SVG generation using **Base64 encoding**. No external storage (IPFS/HTTPS) required.
 
 ## 🛠️ Getting Started
 
