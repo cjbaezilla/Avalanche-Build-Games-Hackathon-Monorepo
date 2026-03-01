@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Globe } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useI18n } from '@/i18n';
 import { Button } from '@/components/ui/button';
 
@@ -48,25 +48,6 @@ export function OnboardingLayout({
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <header className="p-4 flex justify-between items-center border-b border-border">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-sm">V2W</span>
-          </div>
-          <span className="font-semibold text-foreground">Vibe2Wizard</span>
-        </div>
-        
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={onLanguageToggle}
-          className="flex items-center gap-2"
-        >
-          <Globe className="w-4 h-4" />
-          {t.onboarding.languageToggle}
-        </Button>
-      </header>
-
       <div className="flex-1 flex flex-col items-center justify-center p-4 md:p-8">
         <div className="w-full max-w-2xl">
           <div className="mb-8">

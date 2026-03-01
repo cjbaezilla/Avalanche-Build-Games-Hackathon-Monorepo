@@ -27,6 +27,18 @@ This project uses **Next.js 15** with **Tailwind CSS**, **shadcn/ui components**
 | `postcss` | ^8.5.6 | CSS post-processing |
 | `autoprefixer` | ^10.4.27 | Vendor prefixer |
 
+### Additional Radix UI Components
+
+| Package | Purpose |
+|---------|---------|
+| `@radix-ui/react-accordion` | Accordion components |
+| `@radix-ui/react-dropdown-menu` | Dropdown menus |
+| `@radix-ui/react-separator` | Separator lines |
+| `@radix-ui/react-tooltip` | Tooltips |
+| `@radix-ui/react-progress` | Progress bars |
+| `@radix-ui/react-avatar` | Avatar images |
+| `@radix-ui/react-scroll-area` | Scrollable areas |
+
 ---
 
 ## Project Structure
@@ -34,14 +46,19 @@ This project uses **Next.js 15** with **Tailwind CSS**, **shadcn/ui components**
 ```
 src/
 ├── components/
-│   └── ui/              # shadcn/ui components
-│       └── button.tsx
+│   ├── ui/              # shadcn/ui components
+│   │   ├── button.tsx
+│   │   └── navbar.tsx   # Horizontal navigation bar
+│   └── onboarding/      # Onboarding components
 ├── lib/
 │   └── utils.ts         # Utility functions (cn())
 ├── styles/
 │   └── globals.css      # Tailwind + CSS variables
 ├── pages/               # Next.js pages (Pages Router)
+├── i18n/                # Internationalization
 └── wagmi.ts             # RainbowKit/Wagmi config
+public/
+└── logo.png             # Project logo
 ```
 
 ---
@@ -101,6 +118,155 @@ Manual installation:
 npm install @radix-ui/react-dialog @radix-ui/react-dropdown-menu ...
 
 # Copy component to src/components/ui/
+```
+
+---
+
+## Navbar Component
+
+### Overview
+
+The navbar provides a horizontal navigation bar with a top utility bar and main navigation. It includes social icons, language selector, user profile, and RainbowKit wallet connection.
+
+### File Structure
+
+```
+src/
+├── components/
+│   └── ui/
+│       └── navbar.tsx       # Main navbar component
+├── public/
+│   ├── logo.png            # Small logo (for mobile)
+│   └── logo_text.jpg       # Full logo with text (for desktop nav)
+```
+
+### Usage
+
+Wrap your pages with the Navbar component in `_app.tsx`:
+
+```tsx
+import { Navbar } from "@/components/ui/navbar";
+
+function MyApp({ Component, pageProps }) {
+  return (
+    <Navbar>
+      <Component {...pageProps} />
+    </Navbar>
+  );
+}
+```
+
+### Features
+
+- **Top bar (40px)** - Navigation items (left), social icons + language selector (right)
+- **Main nav bar (64px)** - Logo (left), user profile + RainbowKit ConnectButton (right)
+- **Mobile-first responsive** - Hamburger menu with slide-in drawer on mobile
+- **User profile section** - Avatar (DiceBear bottts), address, level badge, XP progress bar
+- **Demo user data** - Pre-configured with sample wallet address, level, experience, and badges
+- **Navigation items** - Home, Wallets, Magic, Leaderboard, Achievements, Settings, Help (in top bar)
+- **Language selector** - Dropdown with English (🇺🇸) and Spanish (🇪🇸) flags
+- **Social icons** - Twitter, Discord, GitHub
+- **RainbowKit integration** - Built-in wallet connection button
+
+### Demo User Data
+
+The navbar displays demo user data:
+
+```typescript
+const DEMO_USER = {
+  address: '0x742d35Cc6634C0532925a3b844Bc9e7595f8E7B1',
+  level: 7,
+  experience: 2450,
+  badges: ['Early Adopter', 'Wizard', 'Collector'],
+};
+```
+
+### User Avatar
+
+Avatars are generated using DiceBear's bottts-neutral style:
+
+```
+https://api.dicebear.com/9.x/bottts-neutral/svg?seed={WALLET_ADDRESS}
+```
+
+### Level Badge Colors
+
+| Level Range | Color Gradient |
+|-------------|----------------|
+| 1-9 | Red (from-red-500 to-red-700) |
+| 10-24 | Blue (from-blue-400 to-cyan-500) |
+| 25-49 | Purple (from-purple-400 to-pink-500) |
+| 50+ | Gold (from-yellow-400 to-orange-500) |
+
+### Badge Icons
+
+| Badge | Icon |
+|-------|------|
+| Early Adopter | Star |
+| Wizard | Sparkles |
+| Collector | Trophy |
+| VIP | Crown |
+| Pro | Zap |
+| Verified | Shield |
+
+### Navigation Items
+
+| Icon | Label | href |
+|------|-------|------|
+| Home | Home | / |
+| Wallet | Wallets | /wallets |
+| Sparkles | Magic | /magic |
+| Trophy | Leaderboard | /leaderboard |
+| Award | Achievements | /achievements |
+| Settings | Settings | /settings |
+| HelpCircle | Help | /help |
+
+### Hook: useNavbar
+
+Access navbar state in components:
+
+```tsx
+import { useNavbar } from "@/components/ui/navbar";
+
+function MyComponent() {
+  const { isMobileOpen, setIsMobileOpen } = useNavbar();
+  
+  return (
+    <button onClick={() => setIsMobileOpen(!isMobileOpen)}>
+      Toggle Mobile Menu
+    </button>
+  );
+}
+```
+
+### Component: UserAvatar
+
+Standalone avatar component using DiceBear:
+
+```tsx
+import { UserAvatar } from "@/components/ui/navbar";
+
+<UserAvatar address="0x742d35Cc6634C0532925a3b844Bc9e7595f8E7B1" />
+```
+
+### Component: ExperienceBar
+
+XP progress bar component:
+
+```tsx
+import { ExperienceBar } from "@/components/ui/navbar";
+
+<ExperienceBar experience={2450} level={7} />
+```
+
+### Component: UserBadges
+
+Display user achievement badges:
+
+```tsx
+import { UserBadges } from "@/components/ui/navbar";
+
+<UserBadges badges={['Early Adopter', 'Wizard', 'Collector']} />
 ```
 
 ---

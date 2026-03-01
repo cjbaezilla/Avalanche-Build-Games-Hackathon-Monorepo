@@ -153,9 +153,5 @@ function OnboardingContent() {
 }
 
 export default function OnboardingPage() {
-  return (
-    <I18nProvider>
-      <OnboardingContent />
-    </I18nProvider>
-  );
+  return <OnboardingContent />;
 }
