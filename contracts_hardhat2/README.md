@@ -9,7 +9,7 @@ A specialized **ERC721** NFT contract built using the **OpenZeppelin 5.0** libra
 
 - **Standard**: ERC721 with Fully On-chain Metadata.
 - **Soulbound**: Non-transferable identity token (transfers are disabled).
-- **Public Minting**: Open access for everyone to mint their own passport.
+- **Public Minting**: Open access for everyone to mint **their own** passport (restricted to `msg.sender`).
 - **Wallet Restriction**: Strictly enforced limit of **1 NFT per wallet**.
 - **Metadata**: Fully on-chain JSON and SVG generation using **Base64 encoding**. No external storage (IPFS/HTTPS) required.
 

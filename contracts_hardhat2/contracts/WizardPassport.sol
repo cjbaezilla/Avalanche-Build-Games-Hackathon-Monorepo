@@ -3,7 +3,6 @@
 pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Base64.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
@@ -13,11 +12,11 @@ import "@openzeppelin/contracts/utils/Strings.sol";
  * 
  * Key Features:
  * - On-chain Metadata: JSON and SVG are generated dynamically on the blockchain.
- * - Public Minting: Open access for any wizard to join the ecosystem.
+ * - Public Minting: Open access for any wizard to join. Restricted to self-minting only.
  * - Soulbound: The passport is tied to your identity and cannot be transferred.
  * - One per Wallet: Ensures a unique identity per user.
  */
-contract WizardPassport is ERC721, Ownable {
+contract WizardPassport is ERC721 {
     using Strings for uint256;
 
     uint256 private _nextTokenId;
@@ -25,19 +24,19 @@ contract WizardPassport is ERC721, Ownable {
     // Events
     event PassportMinted(address indexed wizard, uint256 indexed tokenId);
 
-    constructor(address initialOwner)
+    constructor()
         ERC721("WizardPassport", "WIZARD")
-        Ownable(initialOwner)
     {}
 
     /**
      * @dev Function to mint a new Wizard Passport. 
-     * @param to The address that will receive the passport.
+     * The passport is minted directly to the sender (msg.sender).
+     * Publicly accessible, but restricted to one per wallet.
      */
-    function safeMint(address to) public {
+    function safeMint() public {
         uint256 tokenId = _nextTokenId++;
-        _safeMint(to, tokenId);
-        emit PassportMinted(to, tokenId);
+        _safeMint(msg.sender, tokenId);
+        emit PassportMinted(msg.sender, tokenId);
     }
 
     /**
@@ -52,7 +51,6 @@ contract WizardPassport is ERC721, Ownable {
     {
         _requireOwned(tokenId);
 
-        // We construct the JSON in parts to avoid "Stack too deep" errors
         return string(
             abi.encodePacked(
                 "data:application/json;base64,",

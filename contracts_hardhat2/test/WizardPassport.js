@@ -12,13 +12,10 @@ describe("WizardPassport", function () {
 
         // Deploy contract
         const WizardPassport = await ethers.getContractFactory("WizardPassport");
-        wizardPassport = await WizardPassport.deploy(owner.address);
+        wizardPassport = await WizardPassport.deploy();
     });
 
     describe("Deployment", function () {
-        it("Should set the right owner", async function () {
-            expect(await wizardPassport.owner()).to.equal(owner.address);
-        });
 
         it("Should have the right name and symbol", async function () {
             expect(await wizardPassport.name()).to.equal("WizardPassport");
@@ -27,8 +24,8 @@ describe("WizardPassport", function () {
     });
 
     describe("Minting", function () {
-        it("Should allow anyone to mint and generate on-chain metadata", async function () {
-            await expect(wizardPassport.connect(otherAccount).safeMint(otherAccount.address))
+        it("Should allow anyone to mint for themselves and generate on-chain metadata", async function () {
+            await expect(wizardPassport.connect(otherAccount).safeMint())
                 .to.emit(wizardPassport, "Transfer")
                 .withArgs(ethers.ZeroAddress, otherAccount.address, 0);
 
@@ -46,17 +43,17 @@ describe("WizardPassport", function () {
 
         it("Should fail if an address already has a passport", async function () {
             // First mint for otherAccount
-            await wizardPassport.safeMint(otherAccount.address);
+            await wizardPassport.connect(otherAccount).safeMint();
 
             // Second mint for otherAccount - should fail
             await expect(
-                wizardPassport.safeMint(otherAccount.address)
+                wizardPassport.connect(otherAccount).safeMint()
             ).to.be.revertedWith("WizardPassport: Each wallet can only have one passport");
         });
 
         it("Should fail to transfer because it is soulbound", async function () {
             // Mint one for owner
-            await wizardPassport.safeMint(owner.address);
+            await wizardPassport.safeMint();
 
             // Attempt to transfer owner's passport to otherAccount - should fail with Soulbound error
             await expect(
