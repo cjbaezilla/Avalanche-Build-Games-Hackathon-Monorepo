@@ -48,7 +48,7 @@ export function OnboardingLayout({
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <div className="flex-1 flex flex-col items-center justify-center p-4 md:p-8">
+      <div className="flex-1 flex flex-col items-center justify-start p-4 md:p-8">
         <div className="w-full max-w-2xl">
           <div className="bg-black border border-border rounded-xl p-6 md:p-8">
             <div className="mb-8">
@@ -70,7 +70,7 @@ export function OnboardingLayout({
               </div>
             </div>
 
-            <div className="relative min-h-[400px]">
+            <div className="relative min-h-[450px]">
               <AnimatePresence mode="wait" custom={currentStep}>
                 <motion.div
                   key={currentStep}

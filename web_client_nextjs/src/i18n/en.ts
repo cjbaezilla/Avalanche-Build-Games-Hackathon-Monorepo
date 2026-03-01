@@ -69,8 +69,8 @@ export const en = {
         description: "We recommend these awesome browser extension wallets. They're all free, safe, and beginner-friendly!",
         
         wallets: {
-          avalanche: {
-            name: "Avalanche Core Wallet",
+          core: {
+            name: "Core Wallet",
             tagline: "The Official One",
             description: "Built by the Avalanche team. Perfect if you want to explore Avalanche apps and games. Fast and low fees!",
             features: ["Official Avalanche wallet", "Super fast transactions", "Easy to use"],
