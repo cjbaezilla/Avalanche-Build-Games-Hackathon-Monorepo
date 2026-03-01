@@ -5,10 +5,12 @@ This repository contains the smart contracts and deployment scripts for the **Wi
 ## 📜 Smart Contracts
 
 ### `WizardPassport.sol`
-A secure and simple **ERC721** NFT contract built using the **OpenZeppelin 5.0** library.
+A specialized **ERC721** NFT contract built using the **OpenZeppelin 5.0** library, serving as the primary identity token for the ecosystem.
 
 - **Standard**: ERC721 with URI Storage.
-- **Access Control**: Ownable (only the owner can mint).
+- **Soulbound**: Non-transferable identity token (transfers are disabled).
+- **Public Minting**: Open access for everyone to mint their own passport.
+- **Wallet Restriction**: Strictly enforced limit of **1 NFT per wallet**.
 - **Metadata**: Support for individualized token URIs via `ERC721URIStorage`.
 
 ## 🛠️ Getting Started
@@ -39,20 +41,25 @@ The project uses **Hardhat Ignition** for deployments. To deploy the WizardPassp
    npx hardhat ignition deploy ./ignition/modules/WizardPassport.js --network localhost
    ```
 
-2. **Testnet/Mainnet**:
-   Configure your network in `hardhat.config.js` and run:
+2. **Testnet (Avalanche Fuji)**:
+   Ensure you have a `.env` file with your `PRIVATE_KEY`.
    ```bash
-   npx hardhat ignition deploy ./ignition/modules/WizardPassport.js --network <network_name>
+   npx hardhat ignition deploy ./ignition/modules/WizardPassport.js --network fuji
    ```
 
+
 ## 🧪 Testing
-Run the test suite:
+Run the comprehensive test suite (including validation for soulbound transfers and wallet limits):
 ```bash
 npx hardhat test
 ```
 
 ## ⚙️ Configuration
-The project is configured with **Solidity 0.8.20** and the `paris` EVM version to ensure compatibility across all EVM-compatible chains.
+The project is configured for **Avalanche Fuji** testnet and local development.
+- **Solidity**: 0.8.20 (EVM: `paris`)
+- **Network**: `fuji` (Chain ID: 43113)
+- **Environment**: Uses `dotenv` for secrets. See `.env.example`.
+
 
 ---
 Built with ❤️ for the Vibe2Wizard community.
