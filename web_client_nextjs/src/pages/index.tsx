@@ -37,7 +37,9 @@ const Home: NextPage = () => {
         <link href="/favicon.ico" rel="icon" />
       </Head>
 
-      <div className="space-y-8">
+      <div className="page-background-decoration" />
+
+      <div className="relative z-10 space-y-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

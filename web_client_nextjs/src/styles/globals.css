@@ -81,3 +81,20 @@
     @apply bg-background text-foreground;
   }
 }
+
+.page-background-decoration {
+  position: fixed;
+  top: 130px;
+  left: 0;
+  width: 600px;
+  height: calc(100vh - 104px);
+  background-image: url('/portrait_full_mage.png');
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: contain;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.15;
+  mask-image: linear-gradient(to right, black 70%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, black 70%, transparent 100%);
+}

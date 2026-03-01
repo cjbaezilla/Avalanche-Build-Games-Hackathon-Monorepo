@@ -153,5 +153,10 @@ function OnboardingContent() {
 }
 
 export default function OnboardingPage() {
-  return <OnboardingContent />;
+  return (
+    <>
+      <div className="page-background-decoration" />
+      <OnboardingContent />
+    </>
+  );
 }
