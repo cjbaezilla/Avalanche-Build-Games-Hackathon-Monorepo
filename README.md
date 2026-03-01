@@ -16,10 +16,16 @@ This is a monorepo for the Avalanche Build Games Hackathon.
 - [Vibe2Wizard — The Gamified Web3 & Solidity Mastery Platform](./PROJECTS_VIBE2WIZARD_GAMIFIED_WEB3.md)
 - [Vibe2Wizard — La Plataforma Gamificada de Dominio Web3 y Solidity](./PROJECTS_VIBE2WIZARD_GAMIFIED_WEB3_ES.md)
 
-### Technical Implementations
+## Technical Implementations
 
 - [Vibe2Wizard Frontend](./web_client_nextjs): The official Next.js implementation that makes our onboarding and gamified experience truly shine.
 - [Vibe2Wizard Smart Contracts](./contracts_hardhat2): Our dedicated Hardhat 2 project where the core Solidity logic and smart contracts are carefully crafted.
+
+## Project Announcements
+
+- [Linkedin Post](https://www.linkedin.com/posts/carlos-baeza-negroni_web3-avalanche-buildgameshackathon-activity-7432039151312490497-MqSg)
+- [Twitter Thread](https://x.com/twitter/status/2026100769439600736)
+- [Video Pitch](https://www.youtube.com/watch?v=rZDsbkWI6hM)
 
 ## Contact
 
