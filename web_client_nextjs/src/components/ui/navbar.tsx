@@ -26,6 +26,7 @@ import {
   Github,
   Menu,
   X,
+  User,
 } from 'lucide-react';
 
 interface UserData {
@@ -56,6 +57,7 @@ const LANGUAGES = [
 
 const NAV_ITEMS = [
   { icon: Home, label: 'Home', href: '/' },
+  { icon: User, label: 'Profile', href: '/profile' },
   { icon: Wallet, label: 'Wallets', href: '/wallets' },
   { icon: Sparkles, label: 'Magic', href: '/magic' },
   { icon: Trophy, label: 'Leaderboard', href: '/leaderboard' },

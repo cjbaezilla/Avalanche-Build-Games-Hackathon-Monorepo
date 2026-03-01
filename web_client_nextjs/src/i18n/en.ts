@@ -298,6 +298,102 @@ export const en = {
       ctaDescription: "Let's explore how our verified developer passport system can support your growth.",
     },
   },
+  profile: {
+    title: "Your Profile",
+    editProfile: "Edit Profile",
+    member: "Member since",
+    level: "Level",
+    experience: "Experience",
+    xp: "XP",
+    rank: "Rank",
+    
+    stats: {
+      title: "Your Stats",
+      deployments: "Deployments",
+      badges: "Badges Earned",
+      tasksCompleted: "Tasks Completed",
+      streak: "Day Streak",
+      referrals: "Referrals",
+      karma: "Karma Points",
+    },
+    
+    badges: {
+      title: "Your Badges",
+      empty: "No badges yet. Start completing quests to earn badges!",
+      viewAll: "View All Badges",
+      earned: "Earned",
+    },
+    
+    skills: {
+      title: "Skill Progress",
+      solidity: "Solidity",
+      security: "Security",
+      defi: "DeFi",
+      nft: "NFTs",
+      frontend: "Frontend",
+    },
+    
+    activity: {
+      title: "Recent Activity",
+      empty: "No activity yet. Start your journey to see your progress!",
+      deployed: "deployed contract",
+      earned: "earned badge",
+      completed: "completed quest",
+      referred: "referred a friend",
+      connected: "connected wallet",
+      signed: "signed message",
+    },
+    
+    social: {
+      title: "Community",
+      followers: "Followers",
+      following: "Following",
+      connections: "Connections",
+      viewProfile: "View Profile",
+      addFriend: "Add Friend",
+      message: "Message",
+    },
+    
+    protocols: {
+      title: "Protocols & Opportunities",
+      interested: "Protocols Interested in You",
+      opportunities: "Available Opportunities",
+      apply: "Apply",
+      viewDetails: "View Details",
+      hired: "Hired!",
+      noInterest: "No protocols have reached out yet. Keep building to attract attention!",
+    },
+    
+    quests: {
+      title: "Completed Quests",
+      inProgress: "In Progress",
+      completed: "Completed",
+      available: "Available",
+      startQuest: "Start Quest",
+      continueQuest: "Continue",
+      viewQuest: "View Details",
+    },
+    
+    passport: {
+      title: "Your Soulbound Passport",
+      view: "View Passport",
+      tier: "Current Tier",
+      tiers: {
+        initiate: "Initiate",
+        apprentice: "Apprentice",
+        journeyman: "Journeyman",
+        wizard: "Wizard",
+        archmage: "Archmage",
+      },
+    },
+    
+    portfolio: {
+      title: "Your Portfolio",
+      contracts: "Deployed Contracts",
+      viewOnExplorer: "View on Explorer",
+      noContracts: "No contracts deployed yet.",
+    },
+  },
 };
 
 export type TranslationKeys = typeof en;

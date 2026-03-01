@@ -298,4 +298,100 @@ export const es = {
       ctaDescription: "Exploremos cómo nuestro sistema de pasaporte de desarrollador verificado puede apoyar tu crecimiento.",
     },
   },
+  profile: {
+    title: "Tu Perfil",
+    editProfile: "Editar Perfil",
+    member: "Miembro desde",
+    level: "Nivel",
+    experience: "Experiencia",
+    xp: "XP",
+    rank: "Rango",
+    
+    stats: {
+      title: "Tus Estadísticas",
+      deployments: "Despliegues",
+      badges: "Insignias Ganadas",
+      tasksCompleted: "Tareas Completadas",
+      streak: "Racha de Días",
+      referrals: "Referidos",
+      karma: "Puntos Karma",
+    },
+    
+    badges: {
+      title: "Tus Insignias",
+      empty: "Sin insignias aún. ¡Completa misiones para ganar insignias!",
+      viewAll: "Ver Todas las Insignias",
+      earned: "Ganadas",
+    },
+    
+    skills: {
+      title: "Progreso de Habilidades",
+      solidity: "Solidity",
+      security: "Seguridad",
+      defi: "DeFi",
+      nft: "NFTs",
+      frontend: "Frontend",
+    },
+    
+    activity: {
+      title: "Actividad Reciente",
+      empty: "Sin actividad aún. ¡Comienza tu viaje para ver tu progreso!",
+      deployed: "desplegó contrato",
+      earned: "ganó insignia",
+      completed: "completó misión",
+      referred: "refirió a un amigo",
+      connected: "conectó billetera",
+      signed: "firmó mensaje",
+    },
+    
+    social: {
+      title: "Comunidad",
+      followers: "Seguidores",
+      following: "Siguiendo",
+      connections: "Conexiones",
+      viewProfile: "Ver Perfil",
+      addFriend: "Agregar Amigo",
+      message: "Mensaje",
+    },
+    
+    protocols: {
+      title: "Protocolos y Oportunidades",
+      interested: "Protocolos Interesados en Ti",
+      opportunities: "Oportunidades Disponibles",
+      apply: "Aplicar",
+      viewDetails: "Ver Detalles",
+      hired: "¡Contratado!",
+      noInterest: "Ningún protocolo ha contactado aún. ¡Sigue construyendo para atraer atención!",
+    },
+    
+    quests: {
+      title: "Misiones Completadas",
+      inProgress: "En Progreso",
+      completed: "Completadas",
+      available: "Disponibles",
+      startQuest: "Iniciar Misión",
+      continueQuest: "Continuar",
+      viewQuest: "Ver Detalles",
+    },
+    
+    passport: {
+      title: "Tu Pasaporte Soulbound",
+      view: "Ver Pasaporte",
+      tier: "Nivel Actual",
+      tiers: {
+        initiate: "Iniciado",
+        apprentice: "Aprendiz",
+        journeyman: "Oficial",
+        wizard: "Mago",
+        archmage: "Archimago",
+      },
+    },
+    
+    portfolio: {
+      title: "Tu Portafolio",
+      contracts: "Contratos Desplegados",
+      viewOnExplorer: "Ver en Explorador",
+      noContracts: "No hay contratos desplegados aún.",
+    },
+  },
 };

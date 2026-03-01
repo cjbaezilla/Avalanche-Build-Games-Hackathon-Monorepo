@@ -2,7 +2,21 @@
 
 ## Overview
 
-This project uses **Next.js 15** with **Tailwind CSS**, **shadcn/ui components**, **Radix UI**, and **Framer Motion** for animations.
+**Vibe2Wizard** is a gamified Web3 & Solidity learning platform that helps users transition from "vibe coder" to "onchain wizard". The project uses **Next.js 15** with **Tailwind CSS v4**, **shadcn/ui components**, **Radix UI**, **Framer Motion** for animations, and **RainbowKit/Wagmi** for wallet integration.
+
+---
+
+## Tech Stack
+
+| Category | Technology |
+|----------|------------|
+| Framework | Next.js 15 (Pages Router) |
+| Styling | Tailwind CSS v4 |
+| Animation | Framer Motion ^12.34.3 |
+| Wallet | RainbowKit + Wagmi |
+| Icons | Lucide React |
+| i18n | Custom React Context |
+| State | TanStack Query |
 
 ---
 
@@ -10,34 +24,33 @@ This project uses **Next.js 15** with **Tailwind CSS**, **shadcn/ui components**
 
 ### Dependencies
 
-| Package | Version | Purpose |
-|---------|---------|---------|
-| `framer-motion` | ^12.34.3 | Animation library |
-| `@radix-ui/react-slot` | ^1.2.4 | Radix UI - Slot component for composition |
-| `class-variance-authority` | ^0.7.1 | CVA - variant props for components |
-| `clsx` | ^2.1.1 | Conditional classNames utility |
-| `tailwind-merge` | ^3.5.0 | Tailwind class merge utility |
-| `lucide-react` | ^0.575.0 | Icon library |
+```bash
+npm install framer-motion @radix-ui/react-slot class-variance-authority clsx tailwind-merge lucide-react @rainbow-me/rainbowkit viem wagmi @tanstack/react-query flag-icons
+```
 
 ### Dev Dependencies
 
+```bash
+npm install -D tailwindcss @tailwindcss/postcss postcss autoprefixer eslint-config-next typescript @types/react @types/node
+```
+
+### Full Package List
+
 | Package | Version | Purpose |
 |---------|---------|---------|
-| `tailwindcss` | ^4.2.1 | CSS framework |
-| `postcss` | ^8.5.6 | CSS post-processing |
-| `autoprefixer` | ^10.4.27 | Vendor prefixer |
-
-### Additional Radix UI Components
-
-| Package | Purpose |
-|---------|---------|
-| `@radix-ui/react-accordion` | Accordion components |
-| `@radix-ui/react-dropdown-menu` | Dropdown menus |
-| `@radix-ui/react-separator` | Separator lines |
-| `@radix-ui/react-tooltip` | Tooltips |
-| `@radix-ui/react-progress` | Progress bars |
-| `@radix-ui/react-avatar` | Avatar images |
-| `@radix-ui/react-scroll-area` | Scrollable areas |
+| `next` | ^15.3.7 | React framework |
+| `react` | ^19.1.3 | UI library |
+| `framer-motion` | ^12.34.3 | Animation library |
+| `@rainbow-me/rainbowkit` | ^2.2.10 | Wallet UI |
+| `wagmi` | ^2.19.3 | Ethereum interaction |
+| `viem` | 2.38.0 | Ethereum library |
+| `@tanstack/react-query` | ^5.55.3 | Data fetching |
+| `@radix-ui/*` | various | UI primitives |
+| `lucide-react` | ^0.575.0 | Icons |
+| `flag-icons` | ^7.5.0 | Country flags |
+| `class-variance-authority` | ^0.7.1 | Variant props |
+| `clsx` | ^2.1.1 | Conditional classes |
+| `tailwind-merge` | ^3.5.0 | Tailwind merge |
 
 ---
 
@@ -46,363 +59,184 @@ This project uses **Next.js 15** with **Tailwind CSS**, **shadcn/ui components**
 ```
 src/
 ├── components/
-│   ├── ui/              # shadcn/ui components
-│   │   ├── button.tsx
-│   │   └── navbar.tsx   # Horizontal navigation bar
-│   └── onboarding/      # Onboarding components
+│   ├── ui/
+│   │   ├── button.tsx       # Button component with variants
+│   │   └── navbar.tsx        # Navigation bar with wallet connection
+│   └── onboarding/
+│       ├── index.ts         # Exports
+│       ├── OnboardingLayout.tsx
+│       ├── StepContent.tsx
+│       └── steps/
+│           ├── IntroStep.tsx
+│           ├── BackgroundStep.tsx
+│           ├── WalletsStep.tsx
+│           ├── WalletTypesStep.tsx
+│           ├── RecommendedWalletsStep.tsx
+│           ├── InstallationStep.tsx
+│           ├── ConnectionStep.tsx
+│           ├── SignatureStep.tsx
+│           └── CelebrationStep.tsx
 ├── lib/
-│   └── utils.ts         # Utility functions (cn())
+│   └── utils.ts             # cn() utility
 ├── styles/
-│   └── globals.css      # Tailwind + CSS variables
-├── pages/               # Next.js pages (Pages Router)
-├── i18n/                # Internationalization
-└── wagmi.ts             # RainbowKit/Wagmi config
+│   ├── globals.css          # Tailwind + CSS variables
+│   └── Home.module.css
+├── i18n/
+│   ├── index.tsx            # i18n provider + hooks
+│   ├── en.ts                # English translations
+│   └── es.ts                # Spanish translations
+├── pages/
+│   ├── _app.tsx             # App wrapper with providers
+│   ├── _document.tsx        # HTML document
+│   ├── index.tsx            # Landing page
+│   └── onboarding.tsx       # Onboarding wizard
+├── wagmi.ts                 # RainbowKit/Wagmi config
 public/
-└── logo.png             # Project logo
+├── logo.png
+├── logo_text.jpg
+└── portrait_full_mage.png
 ```
 
 ---
 
-## Utility Functions
+## Configuration
 
-### cn() - Class Name Merger
+### Wagmi/RainbowKit Config
 
-Located at `src/lib/utils.ts`
+Located at `src/wagmi.ts`:
 
-```typescript
-import { cn } from "@/lib/utils";
+- **Network**: Avalanche Fuji (testnet)
+- **App Name**: Vibe2Wizard
+- **Project ID**: From `NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID` env var
 
-// Usage:
-cn("px-2 py-1", condition && "bg-red-500", className)
-```
+### Theme
 
-Merges clsx and tailwind-merge for proper Tailwind class handling.
+Red/black/silver wizard theme with dark mode default.
 
 ---
 
-## UI Components
+## Key Components
 
 ### Button
 
-Located at `src/components/ui/button.tsx`
-
-```typescript
+```tsx
 import { Button } from "@/components/ui/button";
 
-// Variants
-<Button>Default</Button>
-<Button variant="destructive">Destructive</Button>
-<Button variant="outline">Outline</Button>
-<Button variant="secondary">Secondary</Button>
-<Button variant="ghost">Ghost</Button>
-<Button variant="link">Link</Button>
+// Variants: default, destructive, outline, secondary, ghost, link
+// Sizes: default, sm, lg, icon
 
-// Sizes
-<Button size="default">Default</Button>
-<Button size="sm">Small</Button>
-<Button size="lg">Large</Button>
-<Button size="icon">Icon</Button>
-
-// As Child (polymorphic)
-<Button asChild>
-  <Link href="/page">Link as Button</Link>
-</Button>
+<Button variant="outline" size="sm">Click me</Button>
 ```
 
-### Adding More Components
+### cn() Utility
 
-Manual installation:
+```tsx
+import { cn } from "@/lib/utils";
 
-```bash
-# Install component dependencies
-npm install @radix-ui/react-dialog @radix-ui/react-dropdown-menu ...
-
-# Copy component to src/components/ui/
+cn("px-2 py-1", condition && "bg-red-500", className)
 ```
 
 ---
 
 ## Navbar Component
 
-### Overview
+### Features
 
-The navbar provides a horizontal navigation bar with a top utility bar and main navigation. It includes social icons, language selector, user profile, and RainbowKit wallet connection.
+- Top utility bar (40px): Nav items, social icons, language selector
+- Main nav bar (64px): Logo, user profile, RainbowKit ConnectButton
+- Mobile hamburger menu with slide-in drawer
+- Demo user data with level, XP, badges
+- DiceBear avatar generation
 
-### File Structure
+### Exports
 
+```tsx
+import { Navbar, useNavbar, UserAvatar, ExperienceBar, UserBadges } from "@/components/ui/navbar";
+
+// Hook for mobile menu state
+const { isMobileOpen, setIsMobileOpen } = useNavbar();
 ```
-src/
-├── components/
-│   └── ui/
-│       └── navbar.tsx       # Main navbar component
-├── public/
-│   ├── logo.png            # Small logo (for mobile)
-│   └── logo_text.jpg       # Full logo with text (for desktop nav)
-```
+
+---
+
+## Internationalization (i18n)
 
 ### Usage
 
-Wrap your pages with the Navbar component in `_app.tsx`:
-
 ```tsx
-import { Navbar } from "@/components/ui/navbar";
+import { I18nProvider, useI18n } from "@/i18n";
 
-function MyApp({ Component, pageProps }) {
-  return (
-    <Navbar>
-      <Component {...pageProps} />
-    </Navbar>
-  );
-}
+// Wrap app in _app.tsx
+<I18nProvider>
+  <App />
+</I18nProvider>
+
+// Use in components
+const { t, toggleLanguage, language } = useI18n();
 ```
 
-### Features
-
-- **Top bar (40px)** - Navigation items (left), social icons + language selector (right)
-- **Main nav bar (64px)** - Logo (left), user profile + RainbowKit ConnectButton (right)
-- **Mobile-first responsive** - Hamburger menu with slide-in drawer on mobile
-- **User profile section** - Avatar (DiceBear bottts), address, level badge, XP progress bar
-- **Demo user data** - Pre-configured with sample wallet address, level, experience, and badges
-- **Navigation items** - Home, Wallets, Magic, Leaderboard, Achievements, Settings, Help (in top bar)
-- **Language selector** - Dropdown with English (🇺🇸) and Spanish (🇪🇸) flags
-- **Social icons** - Twitter, Discord, GitHub
-- **RainbowKit integration** - Built-in wallet connection button
-
-### Demo User Data
-
-The navbar displays demo user data:
+### Translation Keys
 
 ```typescript
-const DEMO_USER = {
-  address: '0x742d35Cc6634C0532925a3b844Bc9e7595f8E7B1',
-  level: 7,
-  experience: 2450,
-  badges: ['Early Adopter', 'Wizard', 'Collector'],
-};
-```
-
-### User Avatar
-
-Avatars are generated using DiceBear's bottts-neutral style:
-
-```
-https://api.dicebear.com/9.x/bottts-neutral/svg?seed={WALLET_ADDRESS}
-```
-
-### Level Badge Colors
-
-| Level Range | Color Gradient |
-|-------------|----------------|
-| 1-9 | Red (from-red-500 to-red-700) |
-| 10-24 | Blue (from-blue-400 to-cyan-500) |
-| 25-49 | Purple (from-purple-400 to-pink-500) |
-| 50+ | Gold (from-yellow-400 to-orange-500) |
-
-### Badge Icons
-
-| Badge | Icon |
-|-------|------|
-| Early Adopter | Star |
-| Wizard | Sparkles |
-| Collector | Trophy |
-| VIP | Crown |
-| Pro | Zap |
-| Verified | Shield |
-
-### Navigation Items
-
-| Icon | Label | href |
-|------|-------|------|
-| Home | Home | / |
-| Wallet | Wallets | /wallets |
-| Sparkles | Magic | /magic |
-| Trophy | Leaderboard | /leaderboard |
-| Award | Achievements | /achievements |
-| Settings | Settings | /settings |
-| HelpCircle | Help | /help |
-
-### Hook: useNavbar
-
-Access navbar state in components:
-
-```tsx
-import { useNavbar } from "@/components/ui/navbar";
-
-function MyComponent() {
-  const { isMobileOpen, setIsMobileOpen } = useNavbar();
-  
-  return (
-    <button onClick={() => setIsMobileOpen(!isMobileOpen)}>
-      Toggle Mobile Menu
-    </button>
-  );
-}
-```
-
-### Component: UserAvatar
-
-Standalone avatar component using DiceBear:
-
-```tsx
-import { UserAvatar } from "@/components/ui/navbar";
-
-<UserAvatar address="0x742d35Cc6634C0532925a3b844Bc9e7595f8E7B1" />
-```
-
-### Component: ExperienceBar
-
-XP progress bar component:
-
-```tsx
-import { ExperienceBar } from "@/components/ui/navbar";
-
-<ExperienceBar experience={2450} level={7} />
-```
-
-### Component: UserBadges
-
-Display user achievement badges:
-
-```tsx
-import { UserBadges } from "@/components/ui/navbar";
-
-<UserBadges badges={['Early Adopter', 'Wizard', 'Collector']} />
+// t.onboarding - Onboarding flow
+// t.common - Shared strings
+// t.home - Landing page content
+//   t.home.hero - Hero section
+//   t.home.features - Feature cards
+//   t.home.benefits - Benefits section
+//   t.home.forStakeholders - Organizations section
 ```
 
 ---
 
-## Framer Motion Usage
+## Onboarding System
 
-### Basic Animation
+### 9-Step Wizard
 
-```typescript
-import { motion } from "framer-motion";
+| Step | Component | Purpose |
+|------|-----------|---------|
+| 1 | IntroStep | Welcome screen |
+| 2 | BackgroundStep | Web2 vs Web3 |
+| 3 | WalletsStep | Wallet explanation |
+| 4 | WalletTypesStep | Wallet types comparison |
+| 5 | RecommendedWalletsStep | Core, MetaMask, Rabby |
+| 6 | InstallationStep | Installation guide |
+| 7 | ConnectionStep | Connect wallet |
+| 8 | SignatureStep | Sign message |
+| 9 | CelebrationStep | Completion + confetti |
 
-<motion.div
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.3 }}
+### Usage
+
+```tsx
+import {
+  OnboardingLayout,
+  IntroStep,
+  ConnectionStep,
+  // ... other steps
+} from "@/components/onboarding";
+
+<OnboardingLayout
+  currentStep={1}
+  totalSteps={9}
+  onNext={() => {}}
+  onBack={() => {}}
+  onLanguageToggle={() => {}}
 >
-  Content
-</motion.div>
-```
-
-### Variants
-
-```typescript
-const variants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1 },
-};
-
-<motion.div
-  initial="hidden"
-  animate="visible"
-  variants={variants}
->
-  Content
-</motion.div>
-```
-
-### Stagger Children
-
-```typescript
-const container = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 }
-  }
-};
-
-const item = {
-  hidden: { y: 20 },
-  visible: { y: 0 }
-};
-
-<motion.div variants={container} initial="hidden" animate="visible">
-  <motion.div variants={item}>Child 1</motion.div>
-  <motion.div variants={item}>Child 2</motion.div>
-</motion.div>
+  <IntroStep />
+</OnboardingLayout>
 ```
 
 ---
 
-## Color Theme
+## Landing Page (index.tsx)
 
-The project uses a dramatic red/black/silver color scheme inspired by a mystical wizard theme.
-
-### Color Tokens
-
-| Token | Color | Usage |
-|-------|-------|-------|
-| `background` | Pure black (#0a0a0a) | Page backgrounds |
-| `foreground` | Silver/light grey | Main text |
-| `primary` | Bright fiery red | CTAs, highlights, magical elements |
-| `primary-foreground` | White | Text on primary buttons |
-| `secondary` | Dark grey (#262626) | Cards, containers |
-| `secondary-foreground` | Silver | Text on secondary |
-| `accent` | Bright red | Accent highlights |
-| `muted` | Dark charcoal | Subtle backgrounds |
-| `muted-foreground` | Grey | Secondary text |
-| `border` | Dark grey | Borders |
-| `ring` | Bright red | Focus rings |
-
-### Using Theme Colors
-
-```html
-<!-- Background colors -->
-<div class="bg-background">Pure black background</div>
-<div class="bg-card">Dark card background</div>
-<div class="bg-secondary">Metallic grey</div>
-
-<!-- Text colors -->
-<p class="text-foreground">Silver text</p>
-<p class="text-muted-foreground">Grey text</p>
-
-<!-- Brand colors (red/black theme) -->
-<button class="bg-primary text-primary-foreground">Fiery red button</button>
-<button class="bg-secondary text-secondary-foreground">Grey button</button>
-
-<!-- Borders -->
-<div class="border border-border">Dark grey border</div>
-
-<!-- Focus ring -->
-<button class="focus-visible:ring-2 focus-visible:ring-ring">Red focus ring</button>
-```
-
-### Direct Tailwind Colors
-
-For colors not in the theme tokens:
-
-```html
-<!-- Reds -->
-<div class="bg-red-500">Bright red</div>
-<div class="bg-red-600">Medium red</div>
-<div class="bg-red-700">Dark red / crimson</div>
-<div class="bg-red-800">Deep maroon</div>
-
-<!-- Silvers/Greys -->
-<div class="text-slate-300">Light silver</div>
-<div class="text-slate-400">Medium grey</div>
-<div class="text-slate-500">Dark grey</div>
-<div class="bg-zinc-800">Charcoal</div>
-<div class="bg-zinc-900">Near black</div>
-```
-
-### Dark Mode
-
-Dark mode is enabled by default via the `dark` class on `<html>` in `_document.tsx`. All theme colors are designed for the dark theme.
-
----
-
-## Global Styles
-
-The `src/styles/globals.css` file contains:
-
-1. **Tailwind directives** - `@tailwind base`, `@tailwind components`, `@tailwind utilities`
-2. **CSS variables** - shadcn/ui design tokens for the red/black/silver dark theme
-3. **Base layer** - Global body styles
+Sections:
+1. **Hero**: Title, description, CTA button
+2. **Features Grid**: 4 cards (Learn Solidity, Soulbound Credentials, Gamified Progress, Onchain Wizard)
+3. **CTA Banner**: Start onboarding prompt
+4. **Benefits**: 6 benefit cards with icons
+5. **For Stakeholders**: Protocols, DAOs, Employers sections
+6. **Contact CTA**: Partner with us button
 
 ---
 
@@ -415,304 +249,57 @@ npm run dev
 # Build
 npm run build
 
-# Start production
-npm run start
+# Production
+npm start
 ```
+
+---
+
+## Environment Variables
+
+```env
+NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID=your-project-id
+```
+
+---
+
+## Routes
+
+| Path | Page |
+|------|------|
+| `/` | Landing page |
+| `/onboarding` | 9-step onboarding wizard |
+| `/profile` | User profile page |
+
+---
+
+## Design Guidelines
+
+### Page Container Margins
+
+- All page sections should use consistent horizontal margins
+- **Do NOT** use `max-w` on section containers - let content flow naturally to full width
+- Use `space-y-X` for vertical spacing between sections
+- Example: `<div className="space-y-8">` (no `max-w-X mx-auto`)
+
+### Profile Components
+
+All profile components are located in `src/components/profile/`:
+- `ProfileHeader.tsx` - User info, avatar, skills
+- `StatsGrid.tsx` - User statistics
+- `BadgesSection.tsx` - Earned badges
+- `ActivityFeed.tsx` - Recent activity
+- `SocialConnections.tsx` - Followers/following
+- `ProtocolInterest.tsx` - Protocol interests
+- `SkillProgress.tsx` - Skill progress bars
 
 ---
 
 ## Notes
 
-- This project uses **Pages Router** (not App Router), so file structure is in `src/pages/`
-- RainbowKit and Wagmi are already configured in `src/wagmi.ts`
-- The `cn()` utility handles Tailwind class merging conflicts automatically
-
----
-
-## Internationalization (i18n)
-
-### Overview
-
-The project uses a custom i18n system with React Context. All user-facing text is stored in language files and accessed via hooks.
-
-### File Structure
-
-```
-src/i18n/
-├── en.ts          # English translations
-├── es.ts          # Spanish translations
-└── index.tsx      # i18n provider and hooks
-```
-
-### Usage
-
-Wrap your app with the provider:
-
-```tsx
-import { I18nProvider } from "@/i18n";
-
-function MyApp() {
-  return (
-    <I18nProvider>
-      <YourApp />
-    </I18nProvider>
-  );
-}
-```
-
-Use translations in components:
-
-```tsx
-import { useI18n } from "@/i18n";
-
-function MyComponent() {
-  const { t, toggleLanguage, language } = useI18n();
-  
-  return (
-    <div>
-      <h1>{t.onboarding.title}</h1>
-      <button onClick={toggleLanguage}>
-        {t.onboarding.languageToggle}
-      </button>
-    </div>
-  );
-}
-```
-
-### Translation Keys Structure
-
-Translations are organized by feature:
-
-```typescript
-{
-  onboarding: {
-    title: string;
-    subtitle: string;
-    startButton: string;
-    backButton: string;
-    nextButton: string;
-    skipButton: string;
-    stepIndicator: string;  // Use {{current}} and {{total}} as placeholders
-    languageToggle: string;
-    
-    steps: {
-      intro: { title, description, highlight };
-      background: { title, description, funFact, highlight };
-      wallets: { title, description, metaphor, highlight };
-      walletTypes: { title, description, types: {...}, highlight };
-      recommended: { title, description, wallets: {...}, highlight };
-      installation: { title, description, steps: {...}, tip, highlight };
-      connection: { title, description, instruction, connectButton, ... };
-      signature: { title, description, instruction, signButton, ... };
-      celebration: { title, description, reward: {...}, message, continueButton };
-    };
-    
-    errors: { noWallet, connectionFailed, signatureFailed };
-  };
-  
-  common: { loading, error, retry, cancel, confirm, close };
-}
-```
-
-### Adding New Translations
-
-1. Add keys to `src/i18n/en.ts` (English is the source)
-2. Add same keys to `src/i18n/es.ts` with Spanish translations
-3. Use the keys in components via `useI18n()` hook
-
----
-
-## Onboarding System
-
-### Overview
-
-The onboarding is a 9-step wizard designed to help users without wallets get set up. It includes educational content about Web3, wallet types, and culminates in connecting a wallet and signing a message.
-
-### File Structure
-
-```
-src/components/onboarding/
-├── index.ts                      # Exports all components
-├── OnboardingLayout.tsx          # Main layout with progress bar
-├── StepContent.tsx               # Reusable step UI components
-└── steps/
-    ├── IntroStep.tsx             # Welcome screen
-    ├── BackgroundStep.tsx        # Web2 vs Web3 explanation
-    ├── WalletsStep.tsx           # What are wallets
-    ├── WalletTypesStep.tsx       # Different wallet types
-    ├── RecommendedWalletsStep.tsx # Avalanche, MetaMask, Rabby
-    ├── InstallationStep.tsx      # How to install
-    ├── ConnectionStep.tsx        # Connect wallet
-    ├── SignatureStep.tsx        # Sign message
-    └── CelebrationStep.tsx       # Completion + confetti
-
-src/pages/
-└── onboarding.tsx                # Main onboarding page
-```
-
-### Onboarding Steps
-
-| Step | Component | Description |
-|------|-----------|-------------|
-| 1 | IntroStep | Welcome message |
-| 2 | BackgroundStep | Web2 vs Web3 story |
-| 3 | WalletsStep | What are crypto wallets |
-| 4 | WalletTypesStep | Paper, mobile, extension, hardware |
-| 5 | RecommendedWalletsStep | Avalanche Core, MetaMask, Rabby |
-| 6 | InstallationStep | Installation guide |
-| 7 | ConnectionStep | Connect wallet (requires wallet) |
-| 8 | SignatureStep | Sign message verification |
-| 9 | CelebrationStep | Confetti + NFT reward |
-
-### Using Onboarding Components
-
-```tsx
-import {
-  OnboardingLayout,
-  IntroStep,
-  ConnectionStep,
-  // ... other steps
-} from "@/components/onboarding";
-
-function OnboardingPage() {
-  const [currentStep, setCurrentStep] = useState(1);
-  const TOTAL_STEPS = 9;
-  
-  return (
-    <OnboardingLayout
-      currentStep={currentStep}
-      totalSteps={TOTAL_STEPS}
-      onNext={() => setCurrentStep(s => s + 1)}
-      onBack={() => setCurrentStep(s => s - 1)}
-      onLanguageToggle={toggleLanguage}
-    >
-      {currentStep === 1 && <IntroStep />}
-      {currentStep === 7 && (
-        <ConnectionStep
-          isConnecting={isConnecting}
-          error={connectionError}
-          onConnect={handleConnect}
-        />
-      )}
-      {/* ... other steps */}
-    </OnboardingLayout>
-  );
-}
-```
-
-### Step Props
-
-**OnboardingLayout Props:**
-```typescript
-{
-  children: ReactNode;
-  currentStep: number;
-  totalSteps: number;
-  onNext: () => void;
-  onBack?: () => void;
-  onLanguageToggle: () => void;
-  showBack?: boolean;
-  showNext?: boolean;
-  nextLabel?: string;
-  isLoading?: boolean;
-}
-```
-
-**ConnectionStep Props:**
-```typescript
-{
-  isConnecting: boolean;
-  error: string | null;
-  onConnect: () => void;
-}
-```
-
-**SignatureStep Props:**
-```typescript
-{
-  isSigning: boolean;
-  success: boolean;
-  error: string | null;
-  onSign: () => void;
-}
-```
-
-**CelebrationStep Props:**
-```typescript
-{
-  onComplete: () => void;
-}
-```
-
-### Reusable Step Components
-
-**StepContent** - Base component for step content:
-```tsx
-<StepContent
-  title="Step Title"
-  description="Optional description"
-  highlight="Important highlight text"
-  icon={<SomeIcon className="w-16 h-16" />}
->
-  {/* Additional content */}
-</StepContent>
-```
-
-**CardGrid** - Grid layout for cards:
-```tsx
-<CardGrid>
-  <InfoCard title="..." description="..." />
-  <InfoCard title="..." description="..." />
-</CardGrid>
-```
-
-**InfoCard** - Styled card with optional pros/cons:
-```tsx
-<InfoCard
-  title="Card Title"
-  description="Card description"
-  pros="Good thing"
-  cons="Bad thing"
-  icon={<SomeIcon />}
-  featured={true}  // Highlights the card
-/>
-```
-
-### Animations
-
-The onboarding uses Framer Motion for step transitions:
-
-- **Slide transitions** between steps (left/right)
-- **Staggered animations** for lists and cards
-- **Progress bar** animation
-- **Confetti** animation on celebration step
-
-### Routes
-
-- `/onboarding` - Full onboarding wizard
-- `/` - Main landing page
-
----
-
-## Testing Commands
-
-```bash
-# Run development server
-npm run dev
-
-# Build for production
-npm run build
-
-# Start production server
-npm run start
-```
-
----
-
-## Adding New Onboarding Steps
-
-1. Create new component in `src/components/onboarding/steps/`
-2. Export it from `src/components/onboarding/index.ts`
-3. Add translation keys to `en.ts` and `es.ts`
-4. Import and add to the switch statement in `src/pages/onboarding.tsx`
-5. Update `TOTAL_STEPS` constant
+- Uses **Pages Router** (not App Router)
+- RainbowKit uses `darkTheme` with red accent (`#ef4444`)
+- Wallet detection checks for MetaMask or Rabby
+- Onboarding connection/signature uses mock delay (2s)
+- Confetti on celebration step
+- Language toggle between English and Spanish
