@@ -161,6 +161,38 @@ export const en = {
     confirm: "Confirm",
     close: "Close",
   },
+
+  home: {
+    hero: {
+      title: "From Vibe Coder",
+      titleHighlight: "to Onchain Wizard",
+      description: "The gamified Web3 & Solidity mastery platform. Complete tasks, earn onchain soulbound credentials, and transform your skills into verifiable blockchain achievements.",
+      cta: "Start Learning",
+    },
+    features: {
+      title: "Ready to Begin Your Journey?",
+      description: "Complete challenges, earn soulbound credentials, and become a certified Onchain Wizard.",
+      cta: "Start Onboarding",
+      cards: [
+        {
+          title: "Learn Solidity",
+          description: "Master smart contract development with interactive lessons",
+        },
+        {
+          title: "Soulbound Credentials",
+          description: "Earn onchain badges that prove your skills",
+        },
+        {
+          title: "Gamified Progress",
+          description: "Level up and unlock achievements as you learn",
+        },
+        {
+          title: "Onchain Wizard",
+          description: "Transform from vibe coder to certified developer",
+        },
+      ],
+    },
+  },
 };
 
 export type TranslationKeys = typeof en;

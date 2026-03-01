@@ -161,4 +161,36 @@ export const es = {
     confirm: "Confirmar",
     close: "Cerrar",
   },
+
+  home: {
+    hero: {
+      title: "De Vibe Coder",
+      titleHighlight: "a Mago Onchain",
+      description: "La plataforma de dominio gamificado de Web3 y Solidity. Completa tareas, gana credenciales soulbound onchain y transforma tus habilidades en logros verificables en blockchain.",
+      cta: "Empezar a Aprender",
+    },
+    features: {
+      title: "¿Listo para Comenzar Tu Viaje?",
+      description: "Completa desafíos, gana credenciales soulbound y conviértete en un Mago Onchain certificado.",
+      cta: "Empezar Incorporación",
+      cards: [
+        {
+          title: "Aprende Solidity",
+          description: "Domina el desarrollo de smart contracts con lecciones interactivas",
+        },
+        {
+          title: "Credenciales Soulbound",
+          description: "Gana badges onchain que prueban tus habilidades",
+        },
+        {
+          title: "Progreso Gamificado",
+          description: "Sube de nivel y desbloquea logros mientras aprendes",
+        },
+        {
+          title: "Mago Onchain",
+          description: "Transforma de vibe coder a desarrollador certificado",
+        },
+      ],
+    },
+  },
 };
