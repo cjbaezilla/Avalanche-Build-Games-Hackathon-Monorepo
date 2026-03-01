@@ -96,9 +96,9 @@ export function SkillProgressComponent({ skills }: SkillProgressProps) {
                   <span className="font-medium">{translatedName}</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm">
-                  <span className="text-muted-foreground">Lvl {skill.level}</span>
+                  <span className="text-muted-foreground">{t.profile.skills.lvl} {skill.level}</span>
                   <span className="text-muted-foreground">•</span>
-                  <span className="text-muted-foreground">{skill.xp} XP</span>
+                  <span className="text-muted-foreground">{skill.xp} {t.profile.xp}</span>
                 </div>
               </div>
               

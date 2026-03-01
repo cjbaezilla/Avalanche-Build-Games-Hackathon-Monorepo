@@ -82,9 +82,9 @@ export default function ProfilePage() {
       </Head>
       
       <div className="space-y-6">
-        <ProfileHeader user={DEMO_USER} skills={DEMO_SKILLS} />
-        
         <StatsGrid stats={DEMO_STATS} />
+        
+        <ProfileHeader user={DEMO_USER} skills={DEMO_SKILLS} />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="space-y-6">

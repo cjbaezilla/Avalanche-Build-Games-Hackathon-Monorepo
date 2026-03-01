@@ -51,6 +51,32 @@ const RARITY_CONFIG = {
 export function BadgesSection({ badges }: BadgesSectionProps) {
   const { t } = useI18n();
 
+  const badgeNameKeys: Record<string, keyof typeof t.profile.badges.names> = {
+    'First Deploy': 'firstDeploy',
+    'Bug Hunter': 'bugHunter',
+    'Early Adopter': 'earlyAdopter',
+    'Top Contributor': 'topContributor',
+    'Security Expert': 'securityExpert',
+    'DeFi Master': 'defiMaster',
+    'NFT Creator': 'nftCreator',
+    'Community Hero': 'communityHero',
+    'Quest Complete': 'questComplete',
+    'Wizard': 'wizard',
+  };
+
+  const badgeDescKeys: Record<string, keyof typeof t.profile.badges.descriptions> = {
+    'First Deploy': 'firstDeploy',
+    'Bug Hunter': 'bugHunter',
+    'Early Adopter': 'earlyAdopter',
+    'Top Contributor': 'topContributor',
+    'Security Expert': 'securityExpert',
+    'DeFi Master': 'defiMaster',
+    'NFT Creator': 'nftCreator',
+    'Community Hero': 'communityHero',
+    'Quest Complete': 'questComplete',
+    'Wizard': 'wizard',
+  };
+
   if (badges.length === 0) {
     return (
       <motion.div
@@ -107,16 +133,18 @@ export function BadgesSection({ badges }: BadgesSectionProps) {
                 'absolute inset-0 rounded-xl bg-gradient-to-br opacity-0 group-hover:opacity-20 transition-opacity',
                 rarity.color
               )} />
-              <div className="relative">
+                <div className="relative">
                 <div className={cn(
                   'w-14 h-14 rounded-xl bg-gradient-to-br flex items-center justify-center mb-3 mx-auto',
                   rarity.color
                 )}>
                   <Icon className="h-7 w-7 text-white" />
                 </div>
-                <p className="text-sm font-bold text-center">{badge.name}</p>
+                <p className="text-sm font-bold text-center">
+                  {t.profile.badges.names[badgeNameKeys[badge.name]] || badge.name}
+                </p>
                 <p className="text-xs text-muted-foreground text-center mt-1 line-clamp-2">
-                  {badge.description}
+                  {t.profile.badges.descriptions[badgeDescKeys[badge.name]] || badge.description}
                 </p>
                 <p className="text-[10px] text-muted-foreground text-center mt-2">
                   {badge.earnedAt}

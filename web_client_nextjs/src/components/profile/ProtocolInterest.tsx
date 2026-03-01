@@ -55,6 +55,18 @@ const MOCK_PROTOCOLS: Protocol[] = [
 export function ProtocolInterest({ protocols = MOCK_PROTOCOLS }: ProtocolInterestProps) {
   const { t } = useI18n();
 
+  const protocolNameKeys: Record<string, keyof typeof t.profile.protocols.names> = {
+    'Avalanche': 'avalanche',
+    'LayerZero': 'layerzero',
+    'Uniswap': 'uniswap',
+  };
+
+  const protocolDescKeys: Record<string, keyof typeof t.profile.protocols.descriptions> = {
+    'Avalanche': 'avalanche',
+    'LayerZero': 'layerzero',
+    'Uniswap': 'uniswap',
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -88,7 +100,9 @@ export function ProtocolInterest({ protocols = MOCK_PROTOCOLS }: ProtocolInteres
                 
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <p className="font-bold">{protocol.name}</p>
+                    <p className="font-bold">
+                      {t.profile.protocols.names[protocolNameKeys[protocol.name]] || protocol.name}
+                    </p>
                     {protocol.hired && (
                       <span className="px-2 py-0.5 rounded-full bg-green-500/20 text-green-500 text-xs font-medium flex items-center gap-1">
                         <CheckCircle2 className="h-3 w-3" />
@@ -97,10 +111,10 @@ export function ProtocolInterest({ protocols = MOCK_PROTOCOLS }: ProtocolInteres
                     )}
                   </div>
                   <p className="text-sm text-muted-foreground">
-                    {protocol.description}
+                    {t.profile.protocols.descriptions[protocolDescKeys[protocol.name]] || protocol.description}
                   </p>
                   <div className="flex items-center gap-3 mt-1 text-xs text-muted-foreground">
-                    <span>Interested {protocol.interestedSince}</span>
+                    <span>{t.profile.protocols.interestedSince} {protocol.interestedSince}</span>
                     <span className="flex items-center gap-1">
                       <Gift className="h-3 w-3 text-primary" />
                       {protocol.opportunities} {t.profile.protocols.opportunities.toLowerCase()}
@@ -124,9 +138,9 @@ export function ProtocolInterest({ protocols = MOCK_PROTOCOLS }: ProtocolInteres
             <Zap className="h-5 w-5 text-primary" />
           </div>
           <div>
-            <p className="font-medium">Want more opportunities?</p>
+            <p className="font-medium">{t.profile.protocols.wantMore}</p>
             <p className="text-sm text-muted-foreground">
-              Complete more quests and earn badges to attract protocol attention!
+              {t.profile.protocols.completeQuests}
             </p>
           </div>
         </div>

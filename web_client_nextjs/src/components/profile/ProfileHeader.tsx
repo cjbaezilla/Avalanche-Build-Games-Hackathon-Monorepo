@@ -9,14 +9,12 @@ import {
   MapPin,
   Calendar,
   Zap,
-  Shield,
-  Crown,
   Star,
-  Sparkles,
   Code2,
   Coins,
   Image,
   Palette,
+  Trophy,
 } from 'lucide-react';
 
 interface UserProfile {
@@ -43,12 +41,12 @@ interface ProfileHeaderProps {
   skills?: SkillData[];
 }
 
-const TIER_CONFIG = {
-  initiate: { icon: Star, color: 'from-gray-400 to-gray-600', label: 'Initiate' },
-  apprentice: { icon: Sparkles, color: 'from-green-400 to-emerald-600', label: 'Apprentice' },
-  journeyman: { icon: Zap, color: 'from-blue-400 to-cyan-600', label: 'Journeyman' },
-  wizard: { icon: Shield, color: 'from-purple-400 to-pink-600', label: 'Wizard' },
-  archmage: { icon: Crown, color: 'from-yellow-400 to-orange-500', label: 'Archmage' },
+const TIER_CONFIG: Record<string, string> = {
+  initiate: 'from-gray-400 to-gray-600',
+  apprentice: 'from-green-400 to-emerald-600',
+  journeyman: 'from-blue-400 to-cyan-600',
+  wizard: 'from-purple-400 to-pink-600',
+  archmage: 'from-yellow-400 to-orange-500',
 };
 
 const SKILL_ICONS: Record<string, typeof Code2> = {
@@ -71,7 +69,6 @@ export function ProfileHeader({ user, skills = [] }: ProfileHeaderProps) {
   const maxExp = (user.level + 1) * 500;
   const expProgress = (user.experience / maxExp) * 100;
   const tierConfig = TIER_CONFIG[user.tier];
-  const TierIcon = tierConfig.icon;
 
   const defaultSkills: SkillData[] = [
     { name: 'Solidity', progress: 65 },
@@ -90,43 +87,34 @@ export function ProfileHeader({ user, skills = [] }: ProfileHeaderProps) {
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
       
       <div className="relative flex flex-col lg:flex-row gap-6 lg:gap-8">
-        <div className="flex flex-col items-center lg:items-start">
-          <div className="relative">
-            <Avatar.Root className="h-28 w-28 lg:h-32 lg:w-32 rounded-full overflow-hidden bg-secondary ring-4 ring-primary/30">
-              <Avatar.Image src={avatarUrl} alt={user.username} className="h-full w-full" />
-              <Avatar.Fallback className="h-full w-full flex items-center justify-center bg-secondary">
-                <Star className="h-10 w-10 text-muted-foreground" />
-              </Avatar.Fallback>
-            </Avatar.Root>
-            <div className={cn(
-              'absolute -bottom-2 -right-2 px-3 py-1 rounded-full text-xs font-bold bg-gradient-to-r flex items-center gap-1',
-              tierConfig.color
-            )}>
-              <TierIcon className="h-3 w-3" />
-              {t.profile.passport.tiers[user.tier]}
-            </div>
-          </div>
+        <div className="flex flex-col items-center">
+          <Avatar.Root className="h-28 w-28 lg:h-32 lg:w-32 rounded-2xl overflow-hidden bg-secondary ring-4 ring-primary/30">
+            <Avatar.Image src={avatarUrl} alt={user.username} className="h-full w-full" />
+            <Avatar.Fallback className="h-full w-full flex items-center justify-center bg-secondary">
+              <Star className="h-10 w-10 text-muted-foreground" />
+            </Avatar.Fallback>
+          </Avatar.Root>
           
-          <Button variant="outline" size="sm" className="mt-4">
-            <Edit2 className="h-4 w-4 mr-2" />
-            {t.profile.editProfile}
-          </Button>
+          <span className={cn(
+            'mt-3 px-3 py-1 rounded-full text-sm font-bold bg-gradient-to-r text-center',
+            tierConfig
+          )}>
+            {t.profile.level} {user.level}
+          </span>
+          
+          <span className="mt-1 flex items-center justify-center gap-1 text-sm text-muted-foreground">
+            <Trophy className="h-4 w-4 text-yellow-500" />
+            #{user.rank.toLocaleString()} {t.profile.rank}
+          </span>
         </div>
 
         <div className="flex-1 text-center lg:text-left">
           <div className="flex flex-col lg:flex-row lg:items-center gap-2 lg:gap-4">
             <h1 className="text-2xl lg:text-3xl font-bold">{user.username}</h1>
-            <div className="flex items-center justify-center lg:justify-start gap-2">
-              <span className={cn(
-                'px-3 py-1 rounded-full text-sm font-bold bg-gradient-to-r',
-                tierConfig.color
-              )}>
-                {t.profile.level} {user.level}
-              </span>
-              <span className="text-sm text-muted-foreground">
-                #{user.rank.toLocaleString()} {t.profile.rank}
-              </span>
-            </div>
+            <Button variant="outline" size="sm">
+              <Edit2 className="h-4 w-4 mr-2" />
+              {t.profile.editProfile}
+            </Button>
           </div>
 
           {user.bio && (

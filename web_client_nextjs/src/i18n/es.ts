@@ -312,7 +312,6 @@ export const es = {
       deployments: "Despliegues",
       badges: "Insignias Ganadas",
       tasksCompleted: "Tareas Completadas",
-      streak: "Racha de Días",
       referrals: "Referidos",
       karma: "Puntos Karma",
     },
@@ -322,6 +321,30 @@ export const es = {
       empty: "Sin insignias aún. ¡Completa misiones para ganar insignias!",
       viewAll: "Ver Todas las Insignias",
       earned: "Ganadas",
+      names: {
+        firstDeploy: "Primer Despliegue",
+        bugHunter: "Cazador de Bugs",
+        earlyAdopter: "Adoptante Temprano",
+        topContributor: "Top Colaborador",
+        securityExpert: "Experto en Seguridad",
+        defiMaster: "Maestro DeFi",
+        nftCreator: "Creador de NFTs",
+        communityHero: "Héroe de la Comunidad",
+        questComplete: "Misión Completa",
+        wizard: "Mago",
+      },
+      descriptions: {
+        firstDeploy: "Desplegaste tu primer smart contract",
+        bugHunter: "Encontraste y reportaste una vulnerabilidad",
+        earlyAdopter: "Te uniste durante la fase beta",
+        topContributor: "Contribuiste significativamente a la comunidad",
+        securityExpert: "Demostraste conocimientos avanzados de seguridad",
+        defiMaster: "Dominaste protocolos y estrategias DeFi",
+        nftCreator: "Creaste y desplegaste una colección de NFTs",
+        communityHero: "Ayudaste a otros en la comunidad",
+        questComplete: "Completaste tu primera misión",
+        wizard: "Alcanzaste el estado máximo de mago",
+      },
     },
     
     skills: {
@@ -331,6 +354,7 @@ export const es = {
       defi: "DeFi",
       nft: "NFTs",
       frontend: "Frontend",
+      lvl: "Niv",
     },
     
     activity: {
@@ -342,6 +366,22 @@ export const es = {
       referred: "refirió a un amigo",
       connected: "conectó billetera",
       signed: "firmó mensaje",
+      types: {
+        deployed: "Contrato Desplegado",
+        earned: "Insignia Ganada",
+        completed: "Misión Completada",
+        referred: "Referido",
+        connected: "Billetera Conectada",
+        signed: "Mensaje Firmado",
+      },
+      descriptions: {
+        deployed: "Desplegaste exitosamente un smart contract",
+        earned: "Ganaste una nueva insignia",
+        completed: "Completaste una misión",
+        referred: "Referiste a un nuevo usuario",
+        connected: "Conectaste tu billetera a la plataforma",
+        signed: "Firmaste un mensaje de verificación",
+      },
     },
     
     social: {
@@ -352,6 +392,8 @@ export const es = {
       viewProfile: "Ver Perfil",
       addFriend: "Agregar Amigo",
       message: "Mensaje",
+      lvl: "Niv",
+      noConnections: "¡Sin conexiones aún. Comienza a construir para conectar con otros magos!",
     },
     
     protocols: {
@@ -362,6 +404,24 @@ export const es = {
       viewDetails: "Ver Detalles",
       hired: "¡Contratado!",
       noInterest: "Ningún protocolo ha contactado aún. ¡Sigue construyendo para atraer atención!",
+      interestedSince: "Interesado",
+      wantMore: "¿Quieres más oportunidades?",
+      completeQuests: "¡Completa más misiones y gana insignias para atraer la atención de los protocolos!",
+      names: {
+        avalanche: "Avalanche",
+        layerzero: "LayerZero",
+        uniswap: "Uniswap",
+      },
+      descriptions: {
+        avalanche: "Interesado en tus habilidades DeFi",
+        layerzero: "Buscando desarrolladores cross-chain",
+        uniswap: "Contratando para desarrollo de protocolo",
+      },
+      timeAgo: {
+        days: "días atrás",
+        week: "semana atrás",
+        weeks: "semanas atrás",
+      },
     },
     
     quests: {
@@ -378,13 +438,6 @@ export const es = {
       title: "Tu Pasaporte Soulbound",
       view: "Ver Pasaporte",
       tier: "Nivel Actual",
-      tiers: {
-        initiate: "Iniciado",
-        apprentice: "Aprendiz",
-        journeyman: "Oficial",
-        wizard: "Mago",
-        archmage: "Archimago",
-      },
     },
     
     portfolio: {

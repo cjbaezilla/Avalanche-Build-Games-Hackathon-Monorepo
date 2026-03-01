@@ -51,6 +51,24 @@ const ACTIVITY_COLORS = {
 export function ActivityFeed({ activities }: ActivityFeedProps) {
   const { t } = useI18n();
 
+  const activityTypeKeys: Record<string, keyof typeof t.profile.activity.types> = {
+    deployed: 'deployed',
+    earned: 'earned',
+    completed: 'completed',
+    referred: 'referred',
+    connected: 'connected',
+    signed: 'signed',
+  };
+
+  const activityDescKeys: Record<string, keyof typeof t.profile.activity.descriptions> = {
+    deployed: 'deployed',
+    earned: 'earned',
+    completed: 'completed',
+    referred: 'referred',
+    connected: 'connected',
+    signed: 'signed',
+  };
+
   if (activities.length === 0) {
     return (
       <motion.div
@@ -114,11 +132,11 @@ export function ActivityFeed({ activities }: ActivityFeedProps) {
                     </Avatar.Root>
                   )}
                   <p className="text-sm font-medium">
-                    {activity.title}
+                    {t.profile.activity.types[activityTypeKeys[activity.type]] || activity.title}
                   </p>
                 </div>
                 <p className="text-sm text-muted-foreground truncate">
-                  {activity.description}
+                  {t.profile.activity.descriptions[activityDescKeys[activity.type]] || activity.description}
                 </p>
                 <p className="text-xs text-muted-foreground mt-1">
                   {activity.timestamp}

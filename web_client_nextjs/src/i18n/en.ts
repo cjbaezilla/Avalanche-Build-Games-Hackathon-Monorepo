@@ -312,7 +312,6 @@ export const en = {
       deployments: "Deployments",
       badges: "Badges Earned",
       tasksCompleted: "Tasks Completed",
-      streak: "Day Streak",
       referrals: "Referrals",
       karma: "Karma Points",
     },
@@ -322,6 +321,30 @@ export const en = {
       empty: "No badges yet. Start completing quests to earn badges!",
       viewAll: "View All Badges",
       earned: "Earned",
+      names: {
+        firstDeploy: "First Deploy",
+        bugHunter: "Bug Hunter",
+        earlyAdopter: "Early Adopter",
+        topContributor: "Top Contributor",
+        securityExpert: "Security Expert",
+        defiMaster: "DeFi Master",
+        nftCreator: "NFT Creator",
+        communityHero: "Community Hero",
+        questComplete: "Quest Complete",
+        wizard: "Wizard",
+      },
+      descriptions: {
+        firstDeploy: "Deployed your first smart contract",
+        bugHunter: "Found and reported a vulnerability",
+        earlyAdopter: "Joined during the beta phase",
+        topContributor: "Contributed significantly to the community",
+        securityExpert: "Demonstrated advanced security knowledge",
+        defiMaster: "Mastered DeFi protocols and strategies",
+        nftCreator: "Created and deployed an NFT collection",
+        communityHero: "Helped others in the community",
+        questComplete: "Completed your first quest",
+        wizard: "Reached maximum wizard status",
+      },
     },
     
     skills: {
@@ -331,6 +354,7 @@ export const en = {
       defi: "DeFi",
       nft: "NFTs",
       frontend: "Frontend",
+      lvl: "Lvl",
     },
     
     activity: {
@@ -342,6 +366,22 @@ export const en = {
       referred: "referred a friend",
       connected: "connected wallet",
       signed: "signed message",
+      types: {
+        deployed: "Deployed Contract",
+        earned: "Earned Badge",
+        completed: "Completed Quest",
+        referred: "Referral",
+        connected: "Wallet Connected",
+        signed: "Message Signed",
+      },
+      descriptions: {
+        deployed: "Successfully deployed a smart contract",
+        earned: "Earned a new badge",
+        completed: "Completed a quest",
+        referred: "Referred a new user",
+        connected: "Connected wallet to platform",
+        signed: "Signed a verification message",
+      },
     },
     
     social: {
@@ -352,6 +392,8 @@ export const en = {
       viewProfile: "View Profile",
       addFriend: "Add Friend",
       message: "Message",
+      lvl: "Lvl",
+      noConnections: "No connections yet. Start building to connect with other wizards!",
     },
     
     protocols: {
@@ -362,6 +404,24 @@ export const en = {
       viewDetails: "View Details",
       hired: "Hired!",
       noInterest: "No protocols have reached out yet. Keep building to attract attention!",
+      interestedSince: "Interested",
+      wantMore: "Want more opportunities?",
+      completeQuests: "Complete more quests and earn badges to attract protocol attention!",
+      names: {
+        avalanche: "Avalanche",
+        layerzero: "LayerZero",
+        uniswap: "Uniswap",
+      },
+      descriptions: {
+        avalanche: "Interested in your DeFi skills",
+        layerzero: "Looking for cross-chain developers",
+        uniswap: "Hiring for protocol development",
+      },
+      timeAgo: {
+        days: "days ago",
+        week: "week ago",
+        weeks: "weeks ago",
+      },
     },
     
     quests: {
@@ -378,13 +438,6 @@ export const en = {
       title: "Your Soulbound Passport",
       view: "View Passport",
       tier: "Current Tier",
-      tiers: {
-        initiate: "Initiate",
-        apprentice: "Apprentice",
-        journeyman: "Journeyman",
-        wizard: "Wizard",
-        archmage: "Archmage",
-      },
     },
     
     portfolio: {

@@ -94,7 +94,7 @@ export function SocialConnections({ followers, following }: SocialConnectionsPro
                 {connection.username}
               </p>
               <p className="text-xs text-muted-foreground text-center">
-                Lvl {connection.level}
+                {t.profile.social.lvl} {connection.level}
               </p>
               <div className="flex justify-center gap-1 mt-2">
                 <button className="p-1.5 rounded-md hover:bg-secondary transition-colors text-muted-foreground hover:text-foreground">
@@ -118,7 +118,7 @@ export function SocialConnections({ followers, following }: SocialConnectionsPro
 
       {displayConnections.length === 0 && (
         <p className="text-muted-foreground text-center py-4">
-          No connections yet. Start building to connect with other wizards!
+          {t.profile.social.noConnections}
         </p>
       )}
     </motion.div>
