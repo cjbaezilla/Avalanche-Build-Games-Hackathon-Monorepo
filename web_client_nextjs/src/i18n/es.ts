@@ -192,5 +192,110 @@ export const es = {
         },
       ],
     },
+    benefits: {
+      title: "Por Qué Aprender Web3 Lo Cambia Todo",
+      description: "Ya sea que estés cambiando de carrera, mejorando tus habilidades, o simplemente tengas curiosidad sobre el futuro del internet, esto es lo que te espera en este viaje.",
+      imageAlt: "Ilustración del viaje de aprendizaje Web3",
+      cards: [
+        {
+          title: "Sin Riesgo, Habilidades Reales",
+          description: "Practica desplegando smart contracts sin tocar dinero real. Nosotros patrocinamos tu gas para que aprendas haciendo, no perdiendo.",
+          icon: "Shield",
+        },
+        {
+          title: "Credenciales Que Realmente Importan",
+          description: "Gana badges soulbound que viven onchain para siempre. A diferencia de un certificado de algún curso, cualquiera puede verificar exactamente lo que has construido.",
+          icon: "Badge",
+        },
+        {
+          title: "Tu Portafolio, Verificado",
+          description: "Cada contrato que despliegues se convierte en parte de tu registro permanente. Muestra pruebas, no promesas, cuando postules a trabajos o grants.",
+          icon: "Briefcase",
+        },
+        {
+          title: "Puertas Laborales Que Se Abren",
+          description: "Las DAOs y protocolos necesitan desesperadamente desarrolladores que realmente puedan entregar. Tu passport onchain les dice que eres la opción real.",
+          icon: "Door",
+        },
+        {
+          title: "Habilidades Que Viajan",
+          description: "Tus credenciales funcionan entre cadenas. Construye en Avalanche, Ethereum o Arbitrum — tu reputación te sigue a todas partes.",
+          icon: "Globe",
+        },
+        {
+          title: "Aprendizaje Que Se Siente Como Un Juego",
+          description: "Sube de nivel tu passport de iniciado a archimago. Desbloquea badges, escala leaderboards y gana recompensas mientras aprendes.",
+          icon: "Gamepad",
+        },
+      ],
+      placeholder: {
+        title: "Tu Viaje Comienza Aquí",
+        description: "Transforma tus habilidades en logros onchain verificables que duran para siempre",
+      },
+    },
+    forStakeholders: {
+      title: "Cómo las Organizaciones se Benefician de Vibe2Wizard",
+      description: "Vibe2Wizard no es solo para aprendices — es una solución completa para organizaciones que necesitan verificar talento, construir comunidades y conectar con desarrolladores capacitados.",
+      imageAlt: "Organizaciones beneficiándose de talento Web3 verificado",
+      sections: [
+        {
+          title: "Para Protocolos e Instituciones",
+          description: "Deja de gastar presupuesto en cazadores de airdrops que desaparecen Overnight. Obtén usuarios genuinamente comprometidos que entienden tu protocolo.",
+          benefits: [
+            {
+              title: "Usuarios Reales, No Farmers",
+              description: "La actividad onchain prueba interés genuino. No más direcciones de wallet que se conectan una vez y desaparecen.",
+            },
+            {
+              title: "Campañas de Habilidades Verificadas",
+              description: "Crea desafíos que realmente enseñan a los usuarios sobre tu protocolo mientras recompensas el engagement real.",
+            },
+            {
+              title: "Crecimiento Rentable",
+              description: "Cada dólar gastado llega a personas que importan. Patrocina gas para aprendices que se convierten en usuarios leales.",
+            },
+          ],
+        },
+        {
+          title: "Para DAOs y Comités de Grants",
+          description: "Toma decisiones de financiamiento informadas con prueba verificable de capacidad.",
+          benefits: [
+            {
+              title: "Verificación de Recipientes de Grants",
+              description: "Verifica que los solicitantes hayan construido lo que reclaman. No más portafolios inflados.",
+            },
+            {
+              title: "Pipeline de Talento",
+              description: "Accede a un grupo de desarrolladores verificados listos para contribuir a tu ecosistema.",
+            },
+            {
+              title: "La Reputación Viaja",
+              description: "Las credenciales funcionan entre cadenas. Construye un sistema de reputación que sigue a los desarrolladores a todas partes.",
+            },
+          ],
+        },
+        {
+          title: "Para Empleadores y Reclutadores",
+          description: "Finalmente, una forma de saber si los candidatos realmente saben de lo que hablan.",
+          benefits: [
+            {
+              title: "Prueba de Trabajo",
+              description: "Cada badge se enlaza a transacciones onchain. Ve exactamente qué han desplegado los candidatos.",
+            },
+            {
+              title: "Habilidades Que No Se Pueden Falsificar",
+              description: "Las credenciales soulbound no se pueden comprar ni transferir. Lo que ganan es verdaderamente suyo.",
+            },
+            {
+              title: "Contratación Más Rápida",
+              description: "Olvídate de las adivinanzas en entrevistas técnicas. Las credenciales hablan por sí solas.",
+            },
+          ],
+        },
+      ],
+      cta: "Asociate Con Nosotros",
+      ctaTitle: "¿Necesitas Talento Web3 Verificado?",
+      ctaDescription: "Exploremos cómo nuestro sistema de pasaporte de desarrollador verificado puede apoyar tu crecimiento.",
+    },
   },
 };

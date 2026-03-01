@@ -192,6 +192,111 @@ export const en = {
         },
       ],
     },
+    benefits: {
+      title: "Why Learning Web3 Changes Everything",
+      description: "Whether you're switching careers, leveling up your skills, or just curious about the future of the internet, here's what awaits you on this journey.",
+      imageAlt: "Web3 learning journey illustration",
+      cards: [
+        {
+          title: "Zero Risk, Real Skills",
+          description: "Practice deploying smart contracts without touching real money. We sponsor your gas so you can learn by doing, not by losing.",
+          icon: "Shield",
+        },
+        {
+          title: "Credentials That Actually Matter",
+          description: "Earn soulbound badges that live onchain forever. Unlike a certificate from some course, anyone can verify exactly what you've built.",
+          icon: "Badge",
+        },
+        {
+          title: "Your Portfolio, Verified",
+          description: "Every contract you deploy becomes part of your permanent record. Show proof, not promises, when you apply for jobs or grants.",
+          icon: "Briefcase",
+        },
+        {
+          title: "Career Doors That Open",
+          description: "DAOs and protocols are desperate for developers who can actually ship. Your onchain passport tells them you're the real deal.",
+          icon: "Door",
+        },
+        {
+          title: "Skills That Travel",
+          description: "Your credentials work across chains. Build on Avalanche, Ethereum, or Arbitrum — your reputation follows you everywhere.",
+          icon: "Globe",
+        },
+        {
+          title: "Learning That Feels Like a Game",
+          description: "Level up your passport from initiate to archmage. Unlock badges, climb leaderboards, and earn rewards while you learn.",
+          icon: "Gamepad",
+        },
+      ],
+      placeholder: {
+        title: "Your Journey Starts Here",
+        description: "Transform your skills into verifiable onchain achievements that last forever",
+      },
+    },
+    forStakeholders: {
+      title: "How Organizations Benefit from Vibe2Wizard",
+      description: "Vibe2Wizard isn't just for learners — it's a complete solution for organizations that need to verify talent, build communities, and connect with skilled developers.",
+      imageAlt: "Organizations benefiting from verified Web3 talent",
+      sections: [
+        {
+          title: "For Protocols & Institutions",
+          description: "Stop burning budget on airdrop hunters who vanish overnight. Get genuinely engaged users who understand your protocol.",
+          benefits: [
+            {
+              title: "Real Users, Not Farmers",
+              description: "Onchain activity proves genuine interest. No more wallet addresses that connect once and disappear.",
+            },
+            {
+              title: "Verified Skill Campaigns",
+              description: "Create challenges that actually teach users about your protocol while rewarding real engagement.",
+            },
+            {
+              title: "Cost-Effective Growth",
+              description: "Every dollar spent reaches people who care. Sponsor gas for learners who become loyal users.",
+            },
+          ],
+        },
+        {
+          title: "For DAOs & Grant Committees",
+          description: "Make informed funding decisions with verifiable proof of capability.",
+          benefits: [
+            {
+              title: "Grant Recipient Verification",
+              description: "Verify that applicants have actually built what they claim. No more inflated portfolios.",
+            },
+            {
+              title: "Talent Pipeline",
+              description: "Access a pool of verified developers ready to contribute to your ecosystem.",
+            },
+            {
+              title: "Reputation Travels",
+              description: "Credentials work across chains. Build a reputation system that follows developers everywhere.",
+            },
+          ],
+        },
+        {
+          title: "For Employers & Recruiters",
+          description: "Finally, a way to know if candidates actually know what they're talking about.",
+          benefits: [
+            {
+              title: "Proof of Work",
+              description: "Every badge links to onchain transactions. See exactly what candidates have deployed.",
+            },
+            {
+              title: "Skills That Can't Be Faked",
+              description: "Soulbound credentials can't be bought or transferred. What they earn is truly theirs.",
+            },
+            {
+              title: "Faster Hiring",
+              description: "Skip the technical interview guesswork. Credentials speak for themselves.",
+            },
+          ],
+        },
+      ],
+      cta: "Partner With Us",
+      ctaTitle: "Need Verified Web3 Talent?",
+      ctaDescription: "Let's explore how our verified developer passport system can support your growth.",
+    },
   },
 };
 
