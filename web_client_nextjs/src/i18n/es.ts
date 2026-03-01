@@ -154,6 +154,17 @@ export const es = {
           badge: "Tu Insignia",
         },
 
+        mint: {
+          title: "Reclama tu Pasaporte de Mago",
+          description: "Tu misión final es acuñar (mint) tu identidad onchain. Este NFT Soulbound será tu llave al ecosistema de Vibe2Wizard.",
+          button: "Mintear Mi Pasaporte",
+          minting: "Lanzando el Hechizo de Minteo...",
+          success: "¡Pasaporte Minteado!",
+          error: "El hechizo de minteo falló. ¡Intenta de nuevo!",
+          alreadyMinted: "¡El pasaporte ya está en tu morral!",
+          viewOnExplorer: "Ver en el Explorador",
+        },
+
         message: "Bienvenido al futuro descentralizado. ¡La aventura apenas comienza!",
         continueButton: "Empezar a Explorar",
       },

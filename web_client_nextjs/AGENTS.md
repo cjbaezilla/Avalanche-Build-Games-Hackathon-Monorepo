@@ -76,6 +76,10 @@ src/
 │           ├── ConnectionStep.tsx
 │           ├── SignatureStep.tsx
 │           └── CelebrationStep.tsx
+├── hooks/
+│   └── useWizardPassport.ts  # Contract interaction (mint/balance)
+├── contracts/
+│   └── WizardPassport.ts    # Contract ABI (as const)
 ├── lib/
 │   └── utils.ts             # cn() utility
 ├── styles/
@@ -203,7 +207,7 @@ const { t, toggleLanguage, language } = useI18n();
 | 6 | InstallationStep | Installation guide |
 | 7 | ConnectionStep | Connect wallet |
 | 8 | SignatureStep | Sign message |
-| 9 | CelebrationStep | Completion + confetti |
+| 9 | CelebrationStep | Mint Passport NFT + Completion ceremony |
 
 ### Usage
 
@@ -259,6 +263,7 @@ npm start
 
 ```env
 NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID=your-project-id
+NEXT_PUBLIC_CONTRACT_WIZARD_PASSPORT_ADDRESS=your-contract-address
 ```
 
 ---
@@ -301,5 +306,7 @@ All profile components are located in `src/components/profile/`:
 - RainbowKit uses `darkTheme` with red accent (`#ef4444`)
 - Wallet detection checks for MetaMask or Rabby
 - Onboarding connection/signature uses mock delay (2s)
-- Confetti on celebration step
+- **Soulbound NFT**: Final onboarding step requires minting a `WizardPassport` NFT on Avalanche Fuji
+- **useWizardPassport Hook**: Handles all logic for NFT ownership and minting across the app
+- Confetti on celebration step (triggers after successful mint)
 - Language toggle between English and Spanish

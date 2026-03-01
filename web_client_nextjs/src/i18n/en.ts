@@ -154,6 +154,17 @@ export const en = {
           badge: "Your Badge",
         },
 
+        mint: {
+          title: "Claim Your Wizard Passport",
+          description: "Your final mission is to mint your onchain identity. This Soulbound NFT will be your key to the Vibe2Wizard ecosystem.",
+          button: "Mint My Passport",
+          minting: "Casting the Minting Spell...",
+          success: "Passport Minted!",
+          error: "Minting spell failed. Try again!",
+          alreadyMinted: "Passport already in your pouch!",
+          viewOnExplorer: "View on Explorer",
+        },
+
         message: "Welcome to the decentralized future. The adventure is just beginning!",
         continueButton: "Start Exploring",
       },

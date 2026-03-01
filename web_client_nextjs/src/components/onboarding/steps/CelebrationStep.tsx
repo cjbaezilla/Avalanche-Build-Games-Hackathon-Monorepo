@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Trophy, Sparkles, Award } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Trophy, Sparkles, Award, Loader2, CheckCircle2, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { StepContent } from '../StepContent';
 import { useI18n } from '@/i18n';
+import { useWizardPassport } from '@/hooks/useWizardPassport';
 
 interface CelebrationStepProps {
   onComplete: () => void;
@@ -13,8 +14,30 @@ export function CelebrationStep({ onComplete }: CelebrationStepProps) {
   const { t } = useI18n();
   const steps = t.onboarding.steps.celebration;
   const reward = steps.reward;
+  const mintStrings = steps.mint;
+
+  const {
+    hasPassport,
+    mintPassport,
+    isMinting,
+    isMintedSuccess,
+    hash,
+    writeError,
+    refetchBalance,
+  } = useWizardPassport();
+
+  const explorerUrl = process.env.NEXT_PUBLIC_BLOCK_EXPLORER_URL;
+
+  const canProceed = hasPassport || isMintedSuccess;
+
+  const handleMint = () => {
+    mintPassport();
+  };
 
   useEffect(() => {
+    // Only run confetti when we either already have the passport OR we just successfully minted it
+    if (!canProceed) return;
+
     const canvas = document.createElement('canvas');
     canvas.style.position = 'fixed';
     canvas.style.top = '0';
@@ -76,10 +99,11 @@ export function CelebrationStep({ onComplete }: CelebrationStepProps) {
         context.restore();
       });
 
-      confetti.length = confetti.filter(c => c.y < canvas.height).length;
-
-      if (confetti.length > 0) {
+      const activeConfetti = confetti.filter(c => c.y < canvas.height);
+      if (activeConfetti.length > 0) {
         animationId = requestAnimationFrame(animate);
+      } else {
+        document.body.removeChild(canvas);
       }
     }
 
@@ -87,20 +111,26 @@ export function CelebrationStep({ onComplete }: CelebrationStepProps) {
 
     return () => {
       cancelAnimationFrame(animationId);
-      document.body.removeChild(canvas);
+      if (document.body.contains(canvas)) {
+        document.body.removeChild(canvas);
+      }
     };
-  }, []);
+  }, [canProceed]);
 
   return (
     <StepContent
-      title={steps.title}
-      description={steps.description}
+      title={canProceed ? steps.title : mintStrings.title}
+      description={canProceed ? steps.description : mintStrings.description}
       icon={
         <motion.div
-          animate={{ rotate: [0, 10, -10, 0] }}
+          animate={canProceed ? { rotate: [0, 10, -10, 0] } : {}}
           transition={{ duration: 0.5, repeat: Infinity }}
         >
-          <Trophy className="w-16 h-16 text-yellow-500" />
+          {canProceed ? (
+            <Trophy className="w-16 h-16 text-yellow-500" />
+          ) : (
+            <Award className="w-16 h-16 text-primary animate-pulse" />
+          )}
         </motion.div>
       }
     >
@@ -118,12 +148,14 @@ export function CelebrationStep({ onComplete }: CelebrationStepProps) {
         >
           <div className="flex items-center justify-center gap-3 mb-4">
             <Sparkles className="w-6 h-6 text-primary" />
-            <h3 className="text-xl font-bold text-foreground">{reward.title}</h3>
+            <h3 className="text-xl font-bold text-foreground">
+              {canProceed ? reward.title : mintStrings.title}
+            </h3>
             <Sparkles className="w-6 h-6 text-primary" />
           </div>
 
           <p className="text-center text-muted-foreground mb-4">
-            {reward.explanation}
+            {canProceed ? reward.explanation : mintStrings.description}
           </p>
 
           <motion.div
@@ -132,30 +164,89 @@ export function CelebrationStep({ onComplete }: CelebrationStepProps) {
             transition={{ delay: 0.7 }}
             className="flex justify-center"
           >
-            <div className="w-24 h-24 rounded-xl bg-gradient-to-br from-primary to-rose-800 flex items-center justify-center shadow-lg shadow-primary/20">
-              <Award className="w-12 h-12 text-white" />
+            <div className={`w-24 h-24 rounded-xl bg-gradient-to-br from-primary to-rose-800 flex items-center justify-center shadow-lg shadow-primary/20 ${!canProceed ? 'animate-pulse' : ''}`}>
+              {canProceed ? (
+                <CheckCircle2 className="w-12 h-12 text-white" />
+              ) : (
+                <Award className="w-12 h-12 text-white" />
+              )}
             </div>
           </motion.div>
 
-          <p className="mt-4 text-center text-sm text-muted-foreground">
-            {reward.meaning}
-          </p>
+          {canProceed && (
+            <p className="mt-4 text-center text-sm text-muted-foreground">
+              {hasPassport ? mintStrings.alreadyMinted : reward.meaning}
+            </p>
+          )}
+
+          {hash && explorerUrl && (
+            <div className="mt-2 flex justify-center">
+              <a
+                href={`${explorerUrl}${explorerUrl.endsWith('/') ? '' : '/'}tx/${hash}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs text-primary hover:underline hover:text-primary/80 transition-colors flex items-center gap-1.5 opacity-80 hover:opacity-100"
+              >
+                {mintStrings.viewOnExplorer}
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+            </div>
+          )}
+
+          {writeError && (
+            <p className="mt-4 text-center text-sm text-red-500">
+              {mintStrings.error}: {writeError.message.split('\n')[0]}
+            </p>
+          )}
         </motion.div>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-          className="mt-6 text-center text-foreground font-medium"
-        >
-          {steps.message}
-        </motion.p>
-
-        <div className="mt-6 flex justify-center">
-          <Button onClick={onComplete} size="lg">
-            {steps.continueButton}
-          </Button>
-        </div>
+        <AnimatePresence mode="wait">
+          {canProceed ? (
+            <motion.div
+              key="proceed"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="mt-6"
+            >
+              <p className="text-center text-foreground font-medium mb-6">
+                {steps.message}
+              </p>
+              <div className="flex justify-center">
+                <Button onClick={onComplete} size="lg" className="px-8 py-6 text-lg font-bold">
+                  {steps.continueButton}
+                </Button>
+              </div>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="mint"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="mt-6 flex flex-col items-center"
+            >
+              <Button
+                onClick={handleMint}
+                disabled={isMinting}
+                size="lg"
+                className="px-12 py-8 text-xl font-black bg-primary hover:bg-primary/90 shadow-[0_0_30px_rgba(239,68,68,0.4)] transition-all hover:scale-105 active:scale-95"
+              >
+                {isMinting ? (
+                  <>
+                    <Loader2 className="mr-2 h-6 w-6 animate-spin" />
+                    {mintStrings.minting}
+                  </>
+                ) : (
+                  mintStrings.button
+                )}
+              </Button>
+              <p className="mt-4 text-xs text-muted-foreground">
+                Avalanche Fuji Testnet
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.div>
     </StepContent>
   );
