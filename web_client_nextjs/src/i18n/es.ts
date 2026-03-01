@@ -8,32 +8,32 @@ export const es = {
     skipButton: "Más Tarde",
     stepIndicator: "Paso {{current}} de {{total}}",
     languageToggle: "English",
-    
+
     steps: {
       intro: {
         title: "¡Bienvenido, Futuro Explorador Web3!",
         description: "Estás a punto de descubrir un mundo nuevo y emocionante de posibilidades. Piensa en esto como obtener tu primera cuenta bancaria, pero mucho más genial.",
         highlight: "¡En solo unos minutos tendrás todo lo que necesitas para sumergirte en la web descentralizada!",
       },
-      
+
       background: {
         title: "La Historia Detrás de Todo Esto",
         description: "¿Sabes cómo usas aplicaciones como Instagram, Gmail o tu banco? Esas empresas controlan tus datos y pueden decidir qué pasa con tu cuenta.",
         funFact: "En el internet antiguo (Web2), las empresas sonDueñas de tus cuentas. ¡En el nuevo internet (Web3), TÚ eres dueño de tus cuentas!",
         highlight: "Tu identidad digital te pertenece solo a ti.",
       },
-      
+
       wallets: {
         title: "¿Qué es Exactamente una Billetera?",
         description: "¡No te preocupes, no hablamos de billeteras de cuero! Una billetera加密 es como un llavero mágico que guarda tus claves digitales.",
         metaphor: "Piensa en esto: Tu billetera = Tu identidad digital + Tu cuenta bancaria combinados",
         highlight: "¡Con una billetera puedes probar quién eres y manejar tus activos digitales sin pedir permiso a nadie!",
       },
-      
+
       walletTypes: {
         title: "Tipos de Billeteras",
         description: "¡Al igual que hay diferentes tipos de billeteras reales, las billeteras criptográficas también vienen en varias formas!",
-        
+
         types: {
           paper: {
             title: "Billetera de Papel",
@@ -60,54 +60,44 @@ export const es = {
             cons: "Cuesta dinero, menos conveniente",
           },
         },
-        
+
         highlight: "¡Para comenzar con dapps y sitios web, las extensiones de navegador son el camino a seguir!",
       },
-      
-      recommended: {
-        title: "Nuestras Mejores Opciones para Ti",
-        description: "Recomendamos estas extensiones de navegador gratuitas, seguras y perfectas para principiantes.",
-        
+
+      walletInstallation: {
+        title: "¡Obtén tu Billetera Oficial de Mago!",
+        description: "Para interactuar con la magia de la blockchain, necesitarás una billetera digital. ¡Piensa en ella como tu morral de mago donde guardas tus llaves y objetos mágicos!",
         wallets: {
           core: {
             name: "Core Wallet",
-            tagline: "La Oficial",
-            description: "Creada por el equipo de Avalanche. Perfecto si quieres explorar aplicaciones y juegos de Avalanche. ¡Rápido y con bajas comisiones!",
-            features: ["Billetera oficial de Avalanche", "Transacciones súper rápidas", "Fácil de usar"],
+            tagline: "La Opción Oficial",
+            description: "Creada específicamente para Avalanche. ¡Es rápida, segura y tiene todo lo que un mago en crecimiento necesita!",
+            features: ["Soporte oficial de Avalanche", "Velocidad increíble", "Amigable para desarrolladores"],
           },
           metamask: {
             name: "MetaMask",
-            tagline: "La Más Popular",
-            description: "La billetera más ampliamente usada. ¡Piensa en ella como el 'Google Chrome' de las billeteras criptográficas - todos la conocen!",
-            features: ["Funciona con la mayoría de los sitios web", "Gran comunidad", "Muchos tutoriales disponibles"],
+            tagline: "El Grimorio Clásico",
+            description: "La billetera más famosa del reino. ¡Ideal para viajar entre diferentes mundos de blockchain!",
+            features: ["Compatibilidad universal", "Enorme comunidad", "Probada en mil batallas"],
           },
           rabby: {
             name: "Rabby Wallet",
             tagline: "La Opción Inteligente",
             description: "Una billetera más nueva que está ganando popularidad por sus funciones inteligentes y hermoso diseño.",
             features: ["Interfaz hermosa", "Mejores funciones de seguridad", "Desarrollo activo"],
-          },
+          }
         },
-        
-        highlight: "¡Cualquiera de estas funciona muy bien! Elige la que te parezca mejor.",
-      },
-      
-      installation: {
-        title: "¡Hora de Instalar Tu Billetera!",
-        description: "¿Listo para dar el paso? Esto es lo que debes hacer:",
-        
-        steps: {
-          1: "Elige una de las billeteras de arriba",
-          2: "Haz clic en el enlace de descarga (generalmente desde su sitio web oficial)",
-          3: "Agrégala a tu navegador como extensión",
-          4: "Sigue el asistente de configuración - te guiará para crear tu cuenta",
-          5: "¡Escribe tu frase secreta y mantenla SEGURA!",
+        installSteps: {
+          title: "Guía de Inicio Rápido",
+          1: "Elige tu billetera favorita y haz clic en su enlace",
+          2: "Agrega la extensión a tu navegador",
+          3: "Crea una nueva billetera y sigue los pasos de seguridad",
+          4: "⚠️ CRÍTICO: ¡Guarda tus 12 palabras de 'Frase Secreta' en un lugar seguro y privado!",
         },
-        
-        tip: "Consejo: Tu frase secreta es como la llave maestra de tu billetera. ¡Nunca la compartas con nadie, ni siquiera con nosotros!",
-        highlight: "Tómate tu tiempo - ¡te esperaremos aquí!",
+        tip: "Tu Frase Secreta es tu llave maestra. ¡Nunca se la muestres a nadie, ni siquiera al Gran Archimago!",
+        highlight: "¡Elige una billetera a continuación para comenzar tu viaje!",
       },
-      
+
       connection: {
         title: "Conecta Tu Billetera",
         description: "¡Excelente! Ahora conectemos tu billetera para verificar que todo funcione.",
@@ -118,41 +108,64 @@ export const es = {
         retryButton: "Intentar de Nuevo",
         hint: "¡Asegúrate de que tu extensión de billetera esté instalada y desbloqueada!",
       },
-      
+
       signature: {
-        title: "Firmar un Mensaje",
-        description: "¡Casi llegas! Solo necesitamos que firmes un mensaje simple para verificar que tu billetera funcione correctamente.",
-        instruction: "Haz clic en el botón de abajo y aprueba la solicitud de firma en la ventana emergente de tu billetera.",
-        signButton: "Firmar Mensaje",
-        signing: "Esperando firma...",
-        success: "¡Perfecto! Tu billetera está conectada!",
-        error: "La firma fue denegada.",
+        title: "Verifica tu Identidad",
+        description: "Ahora que estás conectado, firmemos un mensaje seguro para demostrar que eres el verdadero dueño de esta billetera. ¡Usamos el estándar 'Sign-In with Ethereum' para máxima seguridad!",
+        instruction: "Haz clic en el botón de abajo y aprueba la solicitud de firma en tu billetera. ¡Es completamente gratis!",
+        signButton: "Firmar Mensaje de Verificación",
+        signing: "Lanzando el hechizo de verificación...",
+        success: "¡Identidad verificada! Eres de verdad.",
+        error: "La magia de la firma se disipó. ¡Por favor intenta de nuevo!",
         tryAgainButton: "Intentar de Nuevo",
+        eipExplanation: "Sign-In with Ethereum (EIP-4361) es una forma segura de usar tu billetera para demostrar que eres dueño de tu identidad digital sin contraseñas ni terceros.",
+        eipLink: "Leer sobre EIP-4361",
       },
-      
+
+      faucet: {
+        title: "¡Recarga con el Faucet de Fuji!",
+        description: "Cada acción en la blockchain requiere un poco de energía mágica llamada 'Comisiones de Gas'. Para ayudarte a comenzar sin gastar un solo centavo, usaremos un 'Faucet'!",
+        gasFees: {
+          title: "¿Qué son las Comisiones de Gas?",
+          description: "Piensa en las comisiones de gas como el combustible necesario para hacer funcionar la computadora descentralizada. ¡Paga a los validadores que mantienen la red segura y procesan tus hechizos!",
+        },
+        faucetInfo: {
+          title: "¿Qué es un Faucet?",
+          description: "Un faucet (grifo) es una herramienta generosa que entrega tokens de 'prueba' gratuitos. ¡Estos tokens no tienen valor de mercado real, pero son perfectos para aprender y construir de forma segura!",
+        },
+        instruction: "1. Conecta tu billetera a la red 'Avalanche Fuji Testnet'.\n2. Elige uno de los grifos (faucets) abajo y proporciona tu dirección.\n3. ¡Solicita un poco de AVAX de prueba para potenciar tus primeros pasos!",
+        faucetButton: "Faucet oficial Fuji",
+        faucetConsoleButton: "Consola de Builder",
+        verifyButton: "Verificar mi saldo manualmente",
+        success: "¡Tokens mágicos detectados!",
+        congratulations: "¡Felicidades! Tu morral de mago se está llenando de poder.",
+        noTokens: "Aún no se detectan tokens. ¡Lanzar el hechizo del faucet de nuevo podría ayudar!",
+        highlight: "¡Una vez que tu saldo refleje tu nuevo poder, estarás listo para el paso final!",
+      },
+
       celebration: {
         title: "¡Lo Lograste!",
         description: "¡Felicidades, explorador web3! ¡Has completado tu viaje de incorporación!",
-        
+
         reward: {
           title: "Tu Recompensa: NFT Soulbound",
           explanation: "Has ganado un NFT Soulbound especial - ¡piensa en él como tu insignia oficial de explorador!",
           meaning: "Esta credencial digital única prueba que eres un miembro verificado de nuestra comunidad. Está vinculada a tu billetera y no se puede transferir - ¡ahora es parte de tu identidad digital!",
           badge: "Tu Insignia",
         },
-        
+
         message: "Bienvenido al futuro descentralizado. ¡La aventura apenas comienza!",
         continueButton: "Empezar a Explorar",
       },
     },
-    
+
     errors: {
       noWallet: "No se detectó billetera. Por favor instala una billetera primero.",
       connectionFailed: "Error al conectar. Por favor intenta de nuevo.",
       signatureFailed: "Error en la firma. Por favor intenta de nuevo.",
     },
   },
-  
+
   common: {
     loading: "Cargando...",
     error: "¡Ups! Algo salió mal",
@@ -306,7 +319,7 @@ export const es = {
     experience: "Experiencia",
     xp: "XP",
     rank: "Rango",
-    
+
     stats: {
       title: "Tus Estadísticas",
       deployments: "Despliegues",
@@ -315,7 +328,7 @@ export const es = {
       referrals: "Referidos",
       karma: "Puntos Karma",
     },
-    
+
     badges: {
       title: "Tus Insignias",
       empty: "Sin insignias aún. ¡Completa misiones para ganar insignias!",
@@ -346,7 +359,7 @@ export const es = {
         wizard: "Alcanzaste el estado máximo de mago",
       },
     },
-    
+
     skills: {
       title: "Progreso de Habilidades",
       solidity: "Solidity",
@@ -356,7 +369,7 @@ export const es = {
       frontend: "Frontend",
       lvl: "Niv",
     },
-    
+
     activity: {
       title: "Actividad Reciente",
       empty: "Sin actividad aún. ¡Comienza tu viaje para ver tu progreso!",
@@ -383,7 +396,7 @@ export const es = {
         signed: "Firmaste un mensaje de verificación",
       },
     },
-    
+
     social: {
       title: "Comunidad",
       followers: "Seguidores",
@@ -395,7 +408,7 @@ export const es = {
       lvl: "Niv",
       noConnections: "¡Sin conexiones aún. Comienza a construir para conectar con otros magos!",
     },
-    
+
     protocols: {
       title: "Protocolos y Oportunidades",
       interested: "Protocolos Interesados en Ti",
@@ -423,7 +436,7 @@ export const es = {
         weeks: "semanas atrás",
       },
     },
-    
+
     quests: {
       title: "Misiones Completadas",
       inProgress: "En Progreso",
@@ -433,13 +446,13 @@ export const es = {
       continueQuest: "Continuar",
       viewQuest: "Ver Detalles",
     },
-    
+
     passport: {
       title: "Tu Pasaporte Soulbound",
       view: "Ver Pasaporte",
       tier: "Nivel Actual",
     },
-    
+
     portfolio: {
       title: "Tu Portafolio",
       contracts: "Contratos Desplegados",

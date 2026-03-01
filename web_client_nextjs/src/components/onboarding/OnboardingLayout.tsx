@@ -15,6 +15,7 @@ interface OnboardingLayoutProps {
   showNext?: boolean;
   nextLabel?: string;
   isLoading?: boolean;
+  isNextDisabled?: boolean;
 }
 
 const stepVariants = {
@@ -43,6 +44,7 @@ export function OnboardingLayout({
   showNext = true,
   nextLabel,
   isLoading = false,
+  isNextDisabled = false,
 }: OnboardingLayoutProps) {
   const { t } = useI18n();
 
@@ -99,11 +101,11 @@ export function OnboardingLayout({
               ) : (
                 <div />
               )}
-              
+
               {showNext && (
                 <Button
                   onClick={onNext}
-                  disabled={isLoading}
+                  disabled={isLoading || isNextDisabled}
                 >
                   {nextLabel || t.onboarding.nextButton}
                   {!isLoading && <ChevronRight className="w-4 h-4 ml-2" />}

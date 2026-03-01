@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import {
   OnboardingLayout,
@@ -6,25 +6,28 @@ import {
   BackgroundStep,
   WalletsStep,
   WalletTypesStep,
-  RecommendedWalletsStep,
-  InstallationStep,
+  WalletInstallationStep,
   ConnectionStep,
   SignatureStep,
+  FaucetStep,
   CelebrationStep,
 } from '@/components/onboarding';
-import { I18nProvider, useI18n } from '@/i18n';
+import { useAccount, useBalance } from 'wagmi';
+import { useI18n } from '@/i18n';
 
 const TOTAL_STEPS = 9;
 
 function OnboardingContent() {
   const router = useRouter();
-  const { t, toggleLanguage } = useI18n();
+  const { toggleLanguage } = useI18n();
+  const { isConnected, address } = useAccount();
+  const { data: balanceData } = useBalance({ address });
   const [currentStep, setCurrentStep] = useState(1);
-  const [isConnecting, setIsConnecting] = useState(false);
-  const [isSigning, setIsSigning] = useState(false);
-  const [connectionError, setConnectionError] = useState<string | null>(null);
-  const [signatureError, setSignatureError] = useState<string | null>(null);
-  const [signatureSuccess, setSignatureSuccess] = useState(false);
+  const [hasSigned, setHasSigned] = useState(false);
+
+  useEffect(() => {
+    setHasSigned(false);
+  }, [address]);
 
   const handleNext = useCallback(() => {
     if (currentStep < TOTAL_STEPS) {
@@ -37,45 +40,6 @@ function OnboardingContent() {
       setCurrentStep(prev => prev - 1);
     }
   }, [currentStep]);
-
-  const handleConnect = useCallback(async () => {
-    setIsConnecting(true);
-    setConnectionError(null);
-    
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    const win = typeof window !== 'undefined' ? window : null;
-    const ethereum = win && (win as unknown as { ethereum?: { isMetaMask?: boolean; isRabby?: boolean } }).ethereum;
-    const hasWallet = ethereum && (ethereum.isMetaMask || ethereum.isRabby);
-    
-    if (hasWallet) {
-      setIsConnecting(false);
-      handleNext();
-    } else {
-      setIsConnecting(false);
-      setConnectionError(t.onboarding.steps.connection.notFound);
-    }
-  }, [handleNext, t]);
-
-  const handleSign = useCallback(async () => {
-    setIsSigning(true);
-    setSignatureError(null);
-    
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    const shouldSucceed = Math.random() > 0.3;
-    
-    if (shouldSucceed) {
-      setIsSigning(false);
-      setSignatureSuccess(true);
-      setTimeout(() => {
-        handleNext();
-      }, 1500);
-    } else {
-      setIsSigning(false);
-      setSignatureError(t.onboarding.steps.signature.error);
-    }
-  }, [handleNext, t]);
 
   const handleComplete = useCallback(() => {
     router.push('/');
@@ -92,26 +56,13 @@ function OnboardingContent() {
       case 4:
         return <WalletTypesStep />;
       case 5:
-        return <RecommendedWalletsStep />;
+        return <WalletInstallationStep />;
       case 6:
-        return <InstallationStep />;
+        return <ConnectionStep onNext={handleNext} />;
       case 7:
-        return (
-          <ConnectionStep
-            isConnecting={isConnecting}
-            error={connectionError}
-            onConnect={handleConnect}
-          />
-        );
+        return <SignatureStep onNext={handleNext} onSuccess={() => setHasSigned(true)} />;
       case 8:
-        return (
-          <SignatureStep
-            isSigning={isSigning}
-            success={signatureSuccess}
-            error={signatureError}
-            onSign={handleSign}
-          />
-        );
+        return <FaucetStep onNext={handleNext} />;
       case 9:
         return <CelebrationStep onComplete={handleComplete} />;
       default:
@@ -120,20 +71,22 @@ function OnboardingContent() {
   };
 
   const getStepProps = () => {
+    // Custom disable logic for connection/signature/faucet steps
+    if (currentStep === 6) {
+      return { showNext: true, isNextDisabled: !isConnected };
+    }
     if (currentStep === 7) {
-      return { showNext: false, isLoading: isConnecting };
+      return { showNext: true, isNextDisabled: !isConnected || !hasSigned };
     }
     if (currentStep === 8) {
-      return { 
-        showNext: false, 
-        isLoading: isSigning || signatureSuccess,
-        nextLabel: signatureSuccess ? t.onboarding.steps.signature.success : undefined
-      };
+      const balance = balanceData ? parseFloat(balanceData.formatted) : 0;
+      return { showNext: true, isNextDisabled: balance <= 0 };
     }
     if (currentStep === 9) {
       return { showBack: false, showNext: false };
     }
-    return {};
+
+    return { showNext: true };
   };
 
   return (
@@ -143,8 +96,6 @@ function OnboardingContent() {
       onNext={handleNext}
       onBack={currentStep > 1 && currentStep < 9 ? handleBack : undefined}
       onLanguageToggle={toggleLanguage}
-      showBack={currentStep > 1 && currentStep < 9}
-      showNext={currentStep < 7}
       {...getStepProps()}
     >
       {renderStep()}

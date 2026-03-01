@@ -8,32 +8,32 @@ export const en = {
     skipButton: "Skip for Now",
     stepIndicator: "Step {{current}} of {{total}}",
     languageToggle: "Español",
-    
+
     steps: {
       intro: {
         title: "Welcome, Future Web3 Explorer!",
         description: "You're about to discover an exciting new world of possibilities. Think of this as getting your first bank account, but way cooler.",
         highlight: "In just a few minutes, you'll have everything you need to dive into the decentralized web!",
       },
-      
+
       background: {
         title: "The Story Behind It All",
         description: "You know how you use apps like Instagram, Gmail, or your banking app? Those companies control your data and can decide what happens to your account.",
         funFact: "In the old internet (Web2), companies own your accounts. In the new internet (Web3), YOU own your accounts!",
         highlight: "Your digital identity belongs to you and only you.",
       },
-      
+
       wallets: {
         title: "What Exactly is a Wallet?",
         description: "Don't worry, we're not talking about leather wallets here! A crypto wallet is more like a magical keyring that holds your digital keys.",
         metaphor: "Think of it as: Your wallet = Your digital identity + Your bank account combined",
         highlight: "With a wallet, you can prove who you are and manage your digital assets without asking permission from anyone!",
       },
-      
+
       walletTypes: {
         title: "Types of Wallets",
         description: "Just like there are different types of real wallets, crypto wallets come in various forms too!",
-        
+
         types: {
           paper: {
             title: "Paper Wallet",
@@ -60,54 +60,44 @@ export const en = {
             cons: "Costs money, less convenient",
           },
         },
-        
+
         highlight: "For getting started with dapps and websites, browser extensions are the way to go!",
       },
-      
-      recommended: {
-        title: "Our Top Picks for You",
-        description: "We recommend these awesome browser extension wallets. They're all free, safe, and beginner-friendly!",
-        
+
+      walletInstallation: {
+        title: "Get Your Official Wizard Wallet!",
+        description: "To interact with the magic of the blockchain, you'll need a digital wallet. Think of it as your wizard's pouch where you keep your keys and magical items!",
         wallets: {
           core: {
             name: "Core Wallet",
-            tagline: "The Official One",
-            description: "Built by the Avalanche team. Perfect if you want to explore Avalanche apps and games. Fast and low fees!",
-            features: ["Official Avalanche wallet", "Super fast transactions", "Easy to use"],
+            tagline: "The Official Choice",
+            description: "Built specifically for Avalanche. It's fast, secure, and has everything a growing wizard needs!",
+            features: ["Official Avalanche support", "Lightning fast", "Developer friendly"],
           },
           metamask: {
             name: "MetaMask",
-            tagline: "The Most Popular",
-            description: "The most widely used wallet. Think of it as the 'Google Chrome' of crypto wallets - everyone knows it!",
-            features: ["Works with most websites", "Huge community", "Many tutorials available"],
+            tagline: "The Classic Grimoire",
+            description: "The most famous wallet in the realm. Great for traveling between different blockchain worlds!",
+            features: ["Universal compatibility", "Huge community", "Battle-tested"],
           },
           rabby: {
             name: "Rabby Wallet",
             tagline: "The Smart Choice",
             description: "A newer wallet that's gaining popularity for its smart features and beautiful design.",
             features: ["Beautiful interface", "Better security features", "Active development"],
-          },
+          }
         },
-        
-        highlight: "Any of these will work great! Choose the one that feels right for you.",
-      },
-      
-      installation: {
-        title: "Time to Install Your Wallet!",
-        description: "Ready to take the plunge? Here's what to do:",
-        
-        steps: {
-          1: "Choose one of the wallets above",
-          2: "Click the download link (usually from their official website)",
-          3: "Add it to your browser as an extension",
-          4: "Follow the setup wizard - it'll guide you through creating your account",
-          5: "Write down your secret phrase and keep it SAFE!",
+        installSteps: {
+          title: "Quick Start Guide",
+          1: "Choose your favorite wallet and click its link",
+          2: "Add the extension to your browser",
+          3: "Create a new wallet and follow the security setup",
+          4: "⚠️ CRITICAL: Save your 12-word 'Secret Phrase' somewhere safe and private!",
         },
-        
-        tip: "Pro tip: Your secret phrase is like the master key to your wallet. Never share it with anyone, not even us!",
-        highlight: "Take your time - we'll wait here for you!",
+        tip: "Your Secret Phrase is your master key. Never show it to anyone — not even the Great Archmage!",
+        highlight: "Choose a wallet below to begin your journey!",
       },
-      
+
       connection: {
         title: "Connect Your Wallet",
         description: "Awesome! Now let's connect your wallet so we can verify everything is working.",
@@ -118,41 +108,64 @@ export const en = {
         retryButton: "Try Again",
         hint: "Make sure your wallet extension is installed and unlocked!",
       },
-      
+
       signature: {
-        title: "Sign a Message",
-        description: "Almost there! We just need you to sign a simple message to verify your wallet is working properly.",
-        instruction: "Click the button below and approve the signature request in your wallet popup.",
-        signButton: "Sign Message",
-        signing: "Waiting for signature...",
-        success: "Perfect! Your wallet is connected!",
-        error: "The signature was denied.",
+        title: "Verify Your Identity",
+        description: "Now that you're connected, let's sign a secure message to prove you're the true owner of this wallet. We use the 'Sign-In with Ethereum' standard for maximum security!",
+        instruction: "Click the button below and approve the signature request in your wallet. It's completely free!",
+        signButton: "Sign Verification Message",
+        signing: "Casting the verification spell...",
+        success: "Identity verified! You're the real deal.",
+        error: "The signature magic dissipated. Please try again!",
         tryAgainButton: "Try Again",
+        eipExplanation: "Sign-In with Ethereum (EIP-4361) is a secure way to use your wallet to prove you own your digital identity without passwords or third parties.",
+        eipLink: "Read about EIP-4361",
       },
-      
+
+      faucet: {
+        title: "Power Up with Fuji Faucet!",
+        description: "Every action on the blockchain requires a tiny bit of magical energy called 'Gas Fees'. To help you get started without spending a single cent, we'll use a 'Faucet'!",
+        gasFees: {
+          title: "What are Gas Fees?",
+          description: "Think of gas fees as the fuel needed to run the decentralized computer. It pays the validators who keep the network secure and process your spells!",
+        },
+        faucetInfo: {
+          title: "What is a Faucet?",
+          description: "A faucet is a generous tool that gives out free 'test' tokens. These tokens have no real-market value but are perfect for learning and building safely!",
+        },
+        instruction: "1. Connect your wallet to the 'Avalanche Fuji Testnet' network.\n2. Choose one of the faucets below and provide your address.\n3. Request some test AVAX to power your first steps!",
+        faucetButton: "Fuji Faucet",
+        faucetConsoleButton: "Builder Console Faucet",
+        verifyButton: "Check My Balance Manually",
+        success: "Magic tokens detected!",
+        congratulations: "Congratulations! Your wizard pouch is filling up with power.",
+        noTokens: "No tokens detected yet. Casting the faucet spell again might help!",
+        highlight: "Once your balance reflects your new power, you're ready for the final step!",
+      },
+
       celebration: {
         title: "You Did It!",
         description: "Congratulations, Web3 explorer! You've completed your onboarding journey!",
-        
+
         reward: {
           title: "Your Reward: Soulbound NFT",
           explanation: "You've earned a special Soulbound NFT - think of it as your official explorer badge!",
           meaning: "This unique digital credential proves you're a verified member of our community. It's tied to your wallet and can't be transferred - it's part of your digital identity now!",
           badge: "Your Badge",
         },
-        
+
         message: "Welcome to the decentralized future. The adventure is just beginning!",
         continueButton: "Start Exploring",
       },
     },
-    
+
     errors: {
       noWallet: "No wallet detected. Please install a wallet first.",
       connectionFailed: "Failed to connect. Please try again.",
       signatureFailed: "Signature failed. Please try again.",
     },
   },
-  
+
   common: {
     loading: "Loading...",
     error: "Oops! Something went wrong",
@@ -306,7 +319,7 @@ export const en = {
     experience: "Experience",
     xp: "XP",
     rank: "Rank",
-    
+
     stats: {
       title: "Your Stats",
       deployments: "Deployments",
@@ -315,7 +328,7 @@ export const en = {
       referrals: "Referrals",
       karma: "Karma Points",
     },
-    
+
     badges: {
       title: "Your Badges",
       empty: "No badges yet. Start completing quests to earn badges!",
@@ -346,7 +359,7 @@ export const en = {
         wizard: "Reached maximum wizard status",
       },
     },
-    
+
     skills: {
       title: "Skill Progress",
       solidity: "Solidity",
@@ -356,7 +369,7 @@ export const en = {
       frontend: "Frontend",
       lvl: "Lvl",
     },
-    
+
     activity: {
       title: "Recent Activity",
       empty: "No activity yet. Start your journey to see your progress!",
@@ -383,7 +396,7 @@ export const en = {
         signed: "Signed a verification message",
       },
     },
-    
+
     social: {
       title: "Community",
       followers: "Followers",
@@ -395,7 +408,7 @@ export const en = {
       lvl: "Lvl",
       noConnections: "No connections yet. Start building to connect with other wizards!",
     },
-    
+
     protocols: {
       title: "Protocols & Opportunities",
       interested: "Protocols Interested in You",
@@ -423,7 +436,7 @@ export const en = {
         weeks: "weeks ago",
       },
     },
-    
+
     quests: {
       title: "Completed Quests",
       inProgress: "In Progress",
@@ -433,13 +446,13 @@ export const en = {
       continueQuest: "Continue",
       viewQuest: "View Details",
     },
-    
+
     passport: {
       title: "Your Soulbound Passport",
       view: "View Passport",
       tier: "Current Tier",
     },
-    
+
     portfolio: {
       title: "Your Portfolio",
       contracts: "Deployed Contracts",

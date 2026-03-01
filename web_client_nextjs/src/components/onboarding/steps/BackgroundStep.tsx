@@ -6,7 +6,7 @@ import { useI18n } from '@/i18n';
 export function BackgroundStep() {
   const { t } = useI18n();
   const steps = t.onboarding.steps.background;
-  
+
   return (
     <StepContent
       title={steps.title}
@@ -29,7 +29,7 @@ export function BackgroundStep() {
             <p className="text-sm text-muted-foreground">Companies own your data</p>
           </div>
         </div>
-        
+
         <div className="flex justify-center my-3">
           <motion.div
             animate={{ x: [0, 5, 0] }}
@@ -38,7 +38,7 @@ export function BackgroundStep() {
             ↓
           </motion.div>
         </div>
-        
+
         <div className="flex items-start gap-3">
           <div className="flex-shrink-0 w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
             <Lock className="w-5 h-5 text-green-500" />
@@ -49,12 +49,12 @@ export function BackgroundStep() {
           </div>
         </div>
       </motion.div>
-      
+
       <motion.p
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.7 }}
-        className="mt-4 text-sm text-muted-foreground italic"
+        className="mt-4 text-sm text-muted-foreground"
       >
         💡 {steps.funFact}
       </motion.p>

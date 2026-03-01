@@ -14,11 +14,8 @@ import {
   Star,
   Zap,
   Home,
-  Wallet,
-  Settings,
   HelpCircle,
   Award,
-  Flame,
   Shield,
   Crown,
   Twitter,
@@ -58,12 +55,8 @@ const LANGUAGES = [
 const NAV_ITEMS = [
   { icon: Home, label: 'Home', href: '/' },
   { icon: User, label: 'Profile', href: '/profile' },
-  { icon: Wallet, label: 'Wallets', href: '/wallets' },
-  { icon: Sparkles, label: 'Magic', href: '/magic' },
   { icon: Trophy, label: 'Leaderboard', href: '/leaderboard' },
-  { icon: Award, label: 'Achievements', href: '/achievements' },
-  { icon: Settings, label: 'Settings', href: '/settings' },
-  { icon: HelpCircle, label: 'Help', href: '/help' },
+  { icon: HelpCircle, label: 'Wiki', href: '/help' },
 ];
 
 const SOCIAL_ICONS = [

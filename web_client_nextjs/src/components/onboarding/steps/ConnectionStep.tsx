@@ -1,19 +1,27 @@
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Link, Unlink, AlertCircle } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Link, Wallet } from 'lucide-react';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { useAccount, useBalance } from 'wagmi';
 import { StepContent } from '../StepContent';
 import { useI18n } from '@/i18n';
 
 interface ConnectionStepProps {
-  isConnecting: boolean;
-  error: string | null;
-  onConnect: () => void;
+  onNext: () => void;
 }
 
-export function ConnectionStep({ isConnecting, error, onConnect }: ConnectionStepProps) {
+export function ConnectionStep({ onNext }: ConnectionStepProps) {
   const { t } = useI18n();
+  const { isConnected, address } = useAccount();
+  const { data: balanceData } = useBalance({
+    address,
+    query: {
+      enabled: !!address,
+    },
+  });
   const steps = t.onboarding.steps.connection;
-  
+
+
   return (
     <StepContent
       title={steps.title}
@@ -24,53 +32,36 @@ export function ConnectionStep({ isConnecting, error, onConnect }: ConnectionSte
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="mt-6"
+        className="mt-8 flex flex-col items-center gap-6"
       >
-        <div className="flex flex-col items-center gap-4">
+        <div className="relative group">
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-orange-500 rounded-full blur opacity-30 group-hover:opacity-60 transition duration-1000 group-hover:duration-200" />
           <motion.div
-            animate={isConnecting ? { rotate: 360 } : {}}
-            transition={isConnecting ? { duration: 1, repeat: Infinity, ease: 'linear' } : {}}
-            className="w-20 h-20 rounded-full bg-primary/20 flex items-center justify-center"
+            animate={isConnected ? { scale: [1, 1.1, 1] } : {}}
+            transition={{ duration: 0.5 }}
+            className="relative w-24 h-24 rounded-full bg-card border-2 border-primary/20 flex items-center justify-center shadow-xl"
           >
-            <Link className={`w-10 h-10 text-primary ${isConnecting ? 'opacity-50' : ''}`} />
-          </motion.div>
-          
-          <p className="text-center text-muted-foreground">
-            {isConnecting ? steps.checking : steps.instruction}
-          </p>
-          
-          {error && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="p-3 bg-red-500/10 border border-red-500/30 rounded-lg flex items-center gap-2"
-            >
-              <AlertCircle className="w-4 h-4 text-red-500" />
-              <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
-            </motion.div>
-          )}
-          
-          <Button
-            onClick={onConnect}
-            disabled={isConnecting}
-            size="lg"
-          >
-            {isConnecting ? (
-              <motion.div
-                className="w-5 h-5 border-2 border-primary-foreground border-t-transparent rounded-full mr-2"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-              />
+            {isConnected ? (
+              <Wallet className="w-10 h-10 text-green-500" />
             ) : (
-              <Unlink className="w-5 h-5 mr-2" />
+              <Link className="w-10 h-10 text-primary" />
             )}
-            {isConnecting ? steps.checking : steps.connectButton}
-          </Button>
-          
-          {!isConnecting && !error && (
-            <p className="text-xs text-muted-foreground">{steps.hint}</p>
-          )}
+          </motion.div>
         </div>
+
+        <p className="text-center text-muted-foreground max-w-sm">
+          {isConnected
+            ? "Your wallet is successfully connected! Get ready for your first spell..."
+            : steps.instruction}
+        </p>
+
+        <div className="transform transition-transform hover:scale-105 active:scale-95">
+          <ConnectButton />
+        </div>
+
+        {!isConnected && (
+          <p className="text-xs text-muted-foreground/60">{steps.hint}</p>
+        )}
       </motion.div>
     </StepContent>
   );
