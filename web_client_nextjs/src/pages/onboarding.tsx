@@ -11,8 +11,10 @@ import {
   SignatureStep,
   FaucetStep,
   CelebrationStep,
+  AlreadyOnboardedStep,
 } from '@/components/onboarding';
 import { useAccount, useBalance } from 'wagmi';
+import { useWizardPassport } from '@/hooks/useWizardPassport';
 import { useI18n } from '@/i18n';
 
 const TOTAL_STEPS = 9;
@@ -22,6 +24,7 @@ function OnboardingContent() {
   const { toggleLanguage } = useI18n();
   const { isConnected, address } = useAccount();
   const { data: balanceData } = useBalance({ address });
+  const { hasPassport } = useWizardPassport();
   const [currentStep, setCurrentStep] = useState(1);
   const [hasSigned, setHasSigned] = useState(false);
 
@@ -86,6 +89,10 @@ function OnboardingContent() {
       return { showBack: false, showNext: false };
     }
 
+    if (hasPassport && currentStep < 9) {
+      return { showBack: false, showNext: false };
+    }
+
     return { showNext: true };
   };
 
@@ -98,7 +105,11 @@ function OnboardingContent() {
       onLanguageToggle={toggleLanguage}
       {...getStepProps()}
     >
-      {renderStep()}
+      {hasPassport && currentStep < 9 ? (
+        <AlreadyOnboardedStep />
+      ) : (
+        renderStep()
+      )}
     </OnboardingLayout>
   );
 }

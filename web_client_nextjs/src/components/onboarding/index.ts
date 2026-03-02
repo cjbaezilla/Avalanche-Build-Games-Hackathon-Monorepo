@@ -9,3 +9,4 @@ export { ConnectionStep } from './steps/ConnectionStep';
 export { SignatureStep } from './steps/SignatureStep';
 export { FaucetStep } from './steps/FaucetStep';
 export { CelebrationStep } from './steps/CelebrationStep';
+export { AlreadyOnboardedStep } from './steps/AlreadyOnboardedStep';

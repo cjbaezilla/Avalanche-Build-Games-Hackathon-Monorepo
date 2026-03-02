@@ -8,6 +8,14 @@ export const en = {
     skipButton: "Skip for Now",
     stepIndicator: "Step {{current}} of {{total}}",
     languageToggle: "Español",
+    alreadyOnboarded: {
+      title: "Already Onboarded!",
+      description: "It looks like you already have your Wizard Passport! You've already completed the onboarding process and are ready to explore.",
+      button: "Go to My Profile",
+      badgeTitle: "Verified Wizard",
+      badgeSubtitle: "Passport detected in wallet",
+      quote: "Your journey as an onchain wizard has already begun. Visit your profile to view your credentials and explore new quests.",
+    },
 
     steps: {
       intro: {

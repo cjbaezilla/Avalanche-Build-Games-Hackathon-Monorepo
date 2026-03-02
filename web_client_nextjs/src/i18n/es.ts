@@ -8,6 +8,14 @@ export const es = {
     skipButton: "Más Tarde",
     stepIndicator: "Paso {{current}} de {{total}}",
     languageToggle: "English",
+    alreadyOnboarded: {
+      title: "¡Ya estás incorporado!",
+      description: "¡Parece que ya tienes tu Pasaporte de Mago! Ya has completado el proceso de incorporación y estás listo para explorar.",
+      button: "Ir a Mi Perfil",
+      badgeTitle: "Mago Verificado",
+      badgeSubtitle: "Pasaporte detectado en tu billetera",
+      quote: "Tu viaje como mago onchain ya ha comenzado. Visita tu perfil para ver tus credenciales y explorar nuevas misiones.",
+    },
 
     steps: {
       intro: {
