@@ -70,16 +70,16 @@ The Wizard Passport visually evolves as you reach specific level milestones. The
 
 | Level Range | Tier Name | Preview |
 | :--- | :--- | :--- |
-| **1 - 19** | Novice | ![Level 1-19](https://ipfs.io/ipfs/bafybeicd5pabcwgppnekgimxur4n3jjagc2n3b6pmu5blp5td3kvuz2osu) |
-| **20 - 29** | Apprentice | ![Level 20-29](https://ipfs.io/ipfs/bafybeie4ufdq7kqm6gk24kpekcpwkfijmxsxc33ogtxgeixxxnjtl5gzny) |
-| **30 - 39** | Acolyte | ![Level 30-39](https://ipfs.io/ipfs/bafybeidzduxp2rytrx2eqxg6skx6huffju6uvmdrnde4oashbw6lcticsq) |
-| **40 - 49** | Adept | ![Level 40-49](https://ipfs.io/ipfs/bafybeidfmztwlyiw223mubieumegpvhb5fdfcvpmuc3sgj323iw5mkqule) |
-| **50 - 59** | Mage | ![Level 50-59](https://ipfs.io/ipfs/bafybeigmnycqbpico4lqznj6xagdwjaocaqzzssjrumyffyt2duzd76u6m) |
-| **60 - 69** | Sorcerer | ![Level 60-69](https://ipfs.io/ipfs/bafybeifgwdnylz6jjyruuqasmlwakeijz3pzs4kkly3bg6ci6puurm5lwm) |
-| **70 - 79** | High Mage | ![Level 70-79](https://ipfs.io/ipfs/bafybeic7oozlteewjzxf243smhvat6jcmrewhryb367u5ohqzq5zu7znlu) |
-| **80 - 89** | Archmage | ![Level 80-89](https://ipfs.io/ipfs/bafybeicvihyvmo3d7euimen3bcbuftbho3hfapaenfh6j2stiomsrrc57u) |
-| **90 - 99** | Master Wizard | ![Level 90-99](https://ipfs.io/ipfs/bafybeih62jvinvvccfmsdhylev2eigyorgxpy4igmxvcoes5p7ftokaeie) |
-| **100** | Grandmaster | ![Level 100](https://ipfs.io/ipfs/bafybeiaq4ned3zzjaxeyrpomwemqa4a7e323bdemql3bjaz2yha6342i5q) |
+| **1 - 19** | Novice | <img src="https://ipfs.io/ipfs/bafybeicd5pabcwgppnekgimxur4n3jjagc2n3b6pmu5blp5td3kvuz2osu" width="200" /> |
+| **20 - 29** | Apprentice | <img src="https://ipfs.io/ipfs/bafybeie4ufdq7kqm6gk24kpekcpwkfijmxsxc33ogtxgeixxxnjtl5gzny" width="200" /> |
+| **30 - 39** | Acolyte | <img src="https://ipfs.io/ipfs/bafybeidzduxp2rytrx2eqxg6skx6huffju6uvmdrnde4oashbw6lcticsq" width="200" /> |
+| **40 - 49** | Adept | <img src="https://ipfs.io/ipfs/bafybeidfmztwlyiw223mubieumegpvhb5fdfcvpmuc3sgj323iw5mkqule" width="200" /> |
+| **50 - 59** | Mage | <img src="https://ipfs.io/ipfs/bafybeigmnycqbpico4lqznj6xagdwjaocaqzzssjrumyffyt2duzd76u6m" width="200" /> |
+| **60 - 69** | Sorcerer | <img src="https://ipfs.io/ipfs/bafybeifgwdnylz6jjyruuqasmlwakeijz3pzs4kkly3bg6ci6puurm5lwm" width="200" /> |
+| **70 - 79** | High Mage | <img src="https://ipfs.io/ipfs/bafybeic7oozlteewjzxf243smhvat6jcmrewhryb367u5ohqzq5zu7znlu" width="200" /> |
+| **80 - 89** | Archmage | <img src="https://ipfs.io/ipfs/bafybeicvihyvmo3d7euimen3bcbuftbho3hfapaenfh6j2stiomsrrc57u" width="200" /> |
+| **90 - 99** | Master Wizard | <img src="https://ipfs.io/ipfs/bafybeih62jvinvvccfmsdhylev2eigyorgxpy4igmxvcoes5p7ftokaeie" width="200" /> |
+| **100** | Grandmaster | <img src="https://ipfs.io/ipfs/bafybeiaq4ned3zzjaxeyrpomwemqa4a7e323bdemql3bjaz2yha6342i5q" width="200" /> |
 
 ## 🛠️ Getting Started
 
