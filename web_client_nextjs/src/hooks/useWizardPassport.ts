@@ -39,7 +39,20 @@ export function useWizardPassport() {
 
     const hasPassport = balance ? Number(balance) > 0 : false;
     const xp = userStats ? Number((userStats as any).xp) : 0;
-    const level = userStats ? Number((userStats as any).level) : 0;
+    const level = userStats ? Number((userStats as any).level) : 1;
+
+    // Read level image
+    const {
+        data: levelImage,
+    } = useReadContract({
+        address: contractAddress,
+        abi: WizardPassportABI,
+        functionName: 'getLevelImage',
+        args: [BigInt(level)],
+        query: {
+            enabled: hasPassport,
+        }
+    });
 
     // Minting logic
     const {
@@ -79,6 +92,7 @@ export function useWizardPassport() {
         balance,
         xp,
         level,
+        levelImage: levelImage as string,
         isBalanceLoading,
         isBalanceError,
         isStatsLoading,

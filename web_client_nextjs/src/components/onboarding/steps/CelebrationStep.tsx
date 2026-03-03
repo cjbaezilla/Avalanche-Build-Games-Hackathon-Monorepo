@@ -169,7 +169,7 @@ export function CelebrationStep({ onComplete }: CelebrationStepProps) {
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/30 via-transparent to-transparent opacity-50 group-hover:opacity-80 transition-opacity" />
               <Image
                 src="https://ipfs.io/ipfs/bafybeicd5pabcwgppnekgimxur4n3jjagc2n3b6pmu5blp5td3kvuz2osu"
-                alt="Wizard Badge"
+                alt={steps.badgeAlt}
                 width={240}
                 height={240}
                 className="relative z-10 drop-shadow-[0_0_20px_rgba(239,68,68,0.7)]"
@@ -246,7 +246,7 @@ export function CelebrationStep({ onComplete }: CelebrationStepProps) {
                 )}
               </Button>
               <p className="mt-4 text-xs text-muted-foreground">
-                Avalanche Fuji Testnet
+                {steps.networkName}
               </p>
             </motion.div>
           )}

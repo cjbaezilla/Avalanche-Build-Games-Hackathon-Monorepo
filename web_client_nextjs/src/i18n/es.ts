@@ -15,6 +15,9 @@ export const es = {
       badgeTitle: "Mago Verificado",
       badgeSubtitle: "Pasaporte detectado en tu billetera",
       quote: "Tu viaje como mago onchain ya ha comenzado. Visita tu perfil para ver tus credenciales y explorar nuevas misiones.",
+      verifiedLabel: "Mago Verificado",
+      levelLabel: "Nivel",
+      xpLabel: "XP",
     },
 
     steps: {
@@ -175,6 +178,8 @@ export const es = {
 
         message: "Bienvenido al futuro descentralizado. ¡La aventura apenas comienza!",
         continueButton: "Empezar a Explorar",
+        networkName: "Red de prueba Avalanche Fuji",
+        badgeAlt: "Insignia de Mago",
       },
     },
 

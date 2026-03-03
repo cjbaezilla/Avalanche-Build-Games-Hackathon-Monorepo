@@ -15,6 +15,9 @@ export const en = {
       badgeTitle: "Verified Wizard",
       badgeSubtitle: "Passport detected in wallet",
       quote: "Your journey as an onchain wizard has already begun. Visit your profile to view your credentials and explore new quests.",
+      verifiedLabel: "Verified Wizard",
+      levelLabel: "Level",
+      xpLabel: "XP",
     },
 
     steps: {
@@ -175,6 +178,8 @@ export const en = {
 
         message: "Welcome to the decentralized future. The adventure is just beginning!",
         continueButton: "Start Exploring",
+        networkName: "Avalanche Fuji Testnet",
+        badgeAlt: "Wizard Badge",
       },
     },
 
