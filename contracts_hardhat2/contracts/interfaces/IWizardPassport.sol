@@ -23,6 +23,12 @@ interface IWizardPassport {
     function getXPThreshold(uint256 level) external pure returns (uint256);
 
     /**
+     * @dev Returns the image URL for a specific level.
+     * @param level The level to query (1-100).
+     */
+    function getLevelImage(uint256 level) external pure returns (string memory);
+
+    /**
      * @dev Emitted when a user's level increases.
      */
     event LevelUp(address indexed user, uint256 newLevel);

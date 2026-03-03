@@ -80,6 +80,22 @@ contract WizardPassport is ERC721, IWizardPassport {
     }
 
     /**
+     * @dev Returns the image URL for a specific level.
+     */
+    function getLevelImage(uint256 level) public pure override returns (string memory) {
+        if (level >= 100) return "https://ipfs.io/ipfs/bafybeiaq4ned3zzjaxeyrpomwemqa4a7e323bdemql3bjaz2yha6342i5q";
+        if (level >= 90) return "https://ipfs.io/ipfs/bafybeih62jvinvvccfmsdhylev2eigyorgxpy4igmxvcoes5p7ftokaeie";
+        if (level >= 80) return "https://ipfs.io/ipfs/bafybeicvihyvmo3d7euimen3bcbuftbho3hfapaenfh6j2stiomsrrc57u";
+        if (level >= 70) return "https://ipfs.io/ipfs/bafybeic7oozlteewjzxf243smhvat6jcmrewhryb367u5ohqzq5zu7znlu";
+        if (level >= 60) return "https://ipfs.io/ipfs/bafybeifgwdnylz6jjyruuqasmlwakeijz3pzs4kkly3bg6ci6puurm5lwm";
+        if (level >= 50) return "https://ipfs.io/ipfs/bafybeigmnycqbpico4lqznj6xagdwjaocaqzzssjrumyffyt2duzd76u6m";
+        if (level >= 40) return "https://ipfs.io/ipfs/bafybeidfmztwlyiw223mubieumegpvhb5fdfcvpmuc3sgj323iw5mkqule";
+        if (level >= 30) return "https://ipfs.io/ipfs/bafybeidzduxp2rytrx2eqxg6skx6huffju6uvmdrnde4oashbw6lcticsq";
+        if (level >= 20) return "https://ipfs.io/ipfs/bafybeie4ufdq7kqm6gk24kpekcpwkfijmxsxc33ogtxgeixxxnjtl5gzny";
+        return "https://ipfs.io/ipfs/bafybeicd5pabcwgppnekgimxur4n3jjagc2n3b6pmu5blp5td3kvuz2osu";
+    }
+
+    /**
      * @dev Generates the on-chain metadata as a Base64 encoded JSON.
      * @param tokenId The ID of the token to query.
      */
@@ -100,13 +116,12 @@ contract WizardPassport is ERC721, IWizardPassport {
                     bytes(
                         abi.encodePacked(
                             '{"name": "Wizard Passport #', tokenId.toString(), 
-                            '", "description": "An official identity passport for the Vibe2Wizard ecosystem. Fully on-chain.", ',
-                            '"image": "data:image/svg+xml;base64,', 
-                            Base64.encode(bytes(_generateSVG(tokenId, stats))), 
+                            '", "description": "An official identity passport for the Vibe2Wizard ecosystem.", ',
+                            '"image": "', getLevelImage(stats.level), 
                             '", "attributes": [',
                             '{"trait_type": "Level", "value": ', stats.level.toString(), '}, ',
                             '{"trait_type": "XP", "value": ', stats.xp.toString(), '}, ',
-                            '{"trait_type": "Type", "value": "Onboarding Passport"}]}'
+                            '{"trait_type": "Type", "value": "Wizard Onboarding Passport"}]}'
                         )
                     )
                 )
@@ -114,23 +129,6 @@ contract WizardPassport is ERC721, IWizardPassport {
         );
     }
 
-    /**
-     * @dev Internal function to generate a dynamic SVG for the passport.
-     */
-    function _generateSVG(uint256 tokenId, UserStats memory stats) internal pure returns (string memory) {
-        return string(abi.encodePacked(
-            '<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 350 350">',
-            '<defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">',
-            '<stop offset="0%" style="stop-color:#4a00e0" /><stop offset="100%" style="stop-color:#8e2de2" />',
-            '</linearGradient></defs><rect width="100%" height="100%" fill="url(#g)" />',
-            '<rect x="20" y="20" width="310" height="310" fill="none" stroke="white" stroke-width="2" rx="15" />',
-            '<text x="50%" y="30%" fill="white" font-family="Arial" font-size="28" font-weight="bold" text-anchor="middle">WIZARD</text>',
-            '<text x="50%" y="40%" fill="white" font-family="Arial" font-size="18" text-anchor="middle">PASSPORT</text>',
-            '<text x="50%" y="60%" fill="white" font-family="monospace" font-size="24" text-anchor="middle">LEVEL ', stats.level.toString(), '</text>',
-            '<text x="50%" y="70%" fill="white" font-family="monospace" font-size="14" text-anchor="middle">XP: ', stats.xp.toString(), '</text>',
-            '<text x="50%" y="85%" fill="white" font-family="monospace" font-size="32" text-anchor="middle">#', tokenId.toString(), '</text></svg>'
-        ));
-    }
 
     /**
      * @dev Override the internal _update function to enforce soulbound and limit rules.
