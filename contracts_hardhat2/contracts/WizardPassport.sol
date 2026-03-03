@@ -121,7 +121,7 @@ contract WizardPassport is ERC721, IWizardPassport {
                             '", "attributes": [',
                             '{"trait_type": "Level", "value": ', stats.level.toString(), '}, ',
                             '{"trait_type": "XP", "value": ', stats.xp.toString(), '}, ',
-                            '{"trait_type": "Type", "value": "Wizard Onboarding Passport"}]}'
+                            '{"trait_type": "Type", "value": "Wizard Passport"}]}'
                         )
                     )
                 )

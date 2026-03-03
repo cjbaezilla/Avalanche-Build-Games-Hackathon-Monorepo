@@ -31,6 +31,30 @@ An efficient library managing the XP threshold data.
     - `getXPThreshold(level)`: Returns requirements for a specific level.
     - `calculateLevel(xp)`: Derives level from total XP.
 
+### `UserRegistration.sol`
+A contract for managing user profile information within the ecosystem.
+
+- **Gatekeeping**: Registration is only allowed for users who own a **Wizard Passport NFT**.
+- **Username Immutability**: A username is chosen during the first registration and **cannot be changed** afterwards.
+- **Uniqueness**: Usernames are validated for uniqueness across the entire ecosystem.
+- **Profile Fields**: Stores comprehensive user data including:
+    - Username (Immutable)
+    - First & Last Name
+    - Email
+    - Social Links (Twitter, Instagram, LinkedIn, Telegram)
+    - Avatar URL
+- **Functionality**:
+    - `registerUser(...)`: Allows a passport holder to set their initial profile or update non-username fields.
+    - `getUser(address)`: Retrieves the profile for a registered user.
+    - `getUserByUsername(string)`: Retrieves a profile using the unique username.
+    - `isRegistered(address)`: Checks if a user has an active profile.
+    - `getUserCount()`: Returns the total number of registered wizards.
+
+#### 🚀 Deployment
+The contract is live and verified on **Avalanche Fuji (Testnet)**:
+- **Address**: [`0x7DCDc8FFDA78400f5a32158f2D60122173E2e58A`](https://testnet.snowtrace.io/address/0x7DCDc8FFDA78400f5a32158f2D60122173E2e58A)
+- **Status**: Verified
+
 ## 🎮 Level & XP System
 
 The Wizard Passport tracks your journey through the Vibe2Wizard ecosystem with a 100-level progression system.
@@ -107,19 +131,24 @@ npx hardhat compile
 ```
 
 ### Deployment
-The project uses **Hardhat Ignition** for deployments. To deploy the WizardPassport contract:
+The project uses **Hardhat Ignition** for deployments.
 
 1. **Local Node (Dev)**:
    ```bash
    npx hardhat node
    # Then in another terminal:
    npx hardhat ignition deploy ./ignition/modules/WizardPassport.js --network localhost
+   npx hardhat ignition deploy ./ignition/modules/UserRegistration.js --network localhost
    ```
 
 2. **Testnet (Avalanche Fuji)**:
    Ensure you have a `.env` file with your `PRIVATE_KEY`.
    ```bash
-   npx hardhat ignition deploy ./ignition/modules/WizardPassport.js --network fuji
+   # Deploy Wizard Passport
+   npx hardhat ignition deploy ./ignition/modules/WizardPassport.js --network fuji --verify
+
+   # Deploy User Registration
+   npx hardhat ignition deploy ./ignition/modules/UserRegistration.js --network fuji --verify
    ```
 
 
