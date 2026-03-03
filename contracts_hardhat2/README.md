@@ -66,6 +66,8 @@ Calculating a Level from 100 possibilities can be expensive. A typical `for` loo
 
 The Wizard Passport visually evolves as you reach specific level milestones. The contract automatically updates the `image` field in the metadata to point to the corresponding IPFS asset.
 
+![Level Evolution](./evolution.png)
+
 ### Level Tiers & Artwork
 
 | Level Range | Tier Name | Preview |
