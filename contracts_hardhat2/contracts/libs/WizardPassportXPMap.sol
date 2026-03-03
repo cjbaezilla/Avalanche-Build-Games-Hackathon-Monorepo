@@ -5,7 +5,7 @@ library WizardPassportXPMap {
     /**
      * @dev Returns the entire array of XP thresholds.
      */
-    function getXPThresholds() public pure returns (uint256[100] memory) {
+    function getXPThresholds() internal pure returns (uint256[100] memory) {
         return [
             uint256(0), 2000, 4620, 8040, 12489, 18258, 25712, 35309, 47471, 62769,
             81931, 105793, 135427, 172083, 217361, 273061, 341428, 425110, 527223, 651530,
@@ -23,7 +23,7 @@ library WizardPassportXPMap {
     /**
      * @dev Returns the total XP required for a given level (1-100).
      */
-    function getXPThreshold(uint256 level) public pure returns (uint256) {
+    function getXPThreshold(uint256 level) internal pure returns (uint256) {
         if (level <= 1) return 0;
         if (level > 100) level = 100;
 
@@ -33,7 +33,7 @@ library WizardPassportXPMap {
     /**
      * @dev Calculates the level based on total XP using binary search.
      */
-    function calculateLevel(uint256 xp) public pure returns (uint256) {
+    function calculateLevel(uint256 xp) internal pure returns (uint256) {
         if (xp >= 449406276829) return 100;
         
         uint256 low = 1;
