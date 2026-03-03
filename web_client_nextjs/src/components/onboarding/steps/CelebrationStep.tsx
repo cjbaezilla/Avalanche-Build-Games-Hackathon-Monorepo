@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { StepContent } from '../StepContent';
 import { useI18n } from '@/i18n';
 import { useWizardPassport } from '@/hooks/useWizardPassport';
+import Image from 'next/image';
 
 interface CelebrationStepProps {
   onComplete: () => void;
@@ -164,12 +165,15 @@ export function CelebrationStep({ onComplete }: CelebrationStepProps) {
             transition={{ delay: 0.7 }}
             className="flex justify-center"
           >
-            <div className={`w-24 h-24 rounded-xl bg-gradient-to-br from-primary to-rose-800 flex items-center justify-center shadow-lg shadow-primary/20 ${!canProceed ? 'animate-pulse' : ''}`}>
-              {canProceed ? (
-                <CheckCircle2 className="w-12 h-12 text-white" />
-              ) : (
-                <Award className="w-12 h-12 text-white" />
-              )}
+            <div className={`w-64 h-64 rounded-3xl bg-gradient-to-br from-primary/10 to-rose-900/40 p-1 flex items-center justify-center shadow-[0_0_50px_rgba(239,68,68,0.2)] border border-primary/20 relative overflow-hidden group ${!canProceed ? 'animate-pulse grayscale opacity-70' : ''}`}>
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/30 via-transparent to-transparent opacity-50 group-hover:opacity-80 transition-opacity" />
+              <Image
+                src="https://ipfs.io/ipfs/bafybeicd5pabcwgppnekgimxur4n3jjagc2n3b6pmu5blp5td3kvuz2osu"
+                alt="Wizard Badge"
+                width={240}
+                height={240}
+                className="relative z-10 drop-shadow-[0_0_20px_rgba(239,68,68,0.7)]"
+              />
             </div>
           </motion.div>
 

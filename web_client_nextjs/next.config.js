@@ -11,6 +11,11 @@ const nextConfig = {
         hostname: 'api.dicebear.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'ipfs.io',
+        pathname: '/**',
+      },
     ],
   },
   webpack: (config) => {

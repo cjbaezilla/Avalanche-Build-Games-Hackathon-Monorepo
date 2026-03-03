@@ -45,7 +45,7 @@ function OnboardingContent() {
   }, [currentStep]);
 
   const handleComplete = useCallback(() => {
-    router.push('/');
+    router.push('/profile');
   }, [router]);
 
   const renderStep = () => {

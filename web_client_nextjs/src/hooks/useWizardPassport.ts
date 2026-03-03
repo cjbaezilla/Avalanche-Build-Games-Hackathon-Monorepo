@@ -22,7 +22,24 @@ export function useWizardPassport() {
         }
     });
 
+    // Read user stats (XP and Level)
+    const {
+        data: userStats,
+        refetch: refetchStats,
+        isLoading: isStatsLoading,
+    } = useReadContract({
+        address: contractAddress,
+        abi: WizardPassportABI,
+        functionName: 'getUserStats',
+        args: address ? [address] : undefined,
+        query: {
+            enabled: !!address,
+        }
+    });
+
     const hasPassport = balance ? Number(balance) > 0 : false;
+    const xp = userStats ? Number((userStats as any).xp) : 0;
+    const level = userStats ? Number((userStats as any).level) : 0;
 
     // Minting logic
     const {
@@ -45,8 +62,9 @@ export function useWizardPassport() {
     useEffect(() => {
         if (isMintedSuccess) {
             refetchBalance();
+            refetchStats();
         }
-    }, [isMintedSuccess, refetchBalance]);
+    }, [isMintedSuccess, refetchBalance, refetchStats]);
 
     const mintPassport = () => {
         writeContract({
@@ -59,8 +77,11 @@ export function useWizardPassport() {
     return {
         hasPassport,
         balance,
+        xp,
+        level,
         isBalanceLoading,
         isBalanceError,
+        isStatsLoading,
         mintPassport,
         isMinting,
         isMintedSuccess,
@@ -68,6 +89,7 @@ export function useWizardPassport() {
         writeError,
         waitError,
         refetchBalance,
+        refetchStats,
         address,
         contractAddress,
     };
