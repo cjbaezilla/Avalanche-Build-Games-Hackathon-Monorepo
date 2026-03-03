@@ -12,6 +12,11 @@ A specialized **ERC721** NFT contract built using the **OpenZeppelin 5.0** libra
 - **Level & XP**: Integrated progress tracking system (Levels 1-100).
 - **Security**: Progress management is kept internal (`private`) to ensure integrity and prevent arbitrary manipulation by external parties or admins.
 
+### 🚀 Deployment
+The contract is live and verified on **Avalanche Fuji (Testnet)**:
+- **Address**: [`0x2341452ba859F19fF6D93054cb9759E118DdA50C`](https://testnet.snowtrace.io/address/0x2341452ba859F19fF6D93054cb9759E118DdA50C)
+- **Status**: Verified
+
 ### `interfaces/IWizardPassport.sol`
 The official interface for the Wizard Passport, enabling other contracts to interact with player identities.
 - `getUserStats(address user)`: Returns `xp` and `level`.
