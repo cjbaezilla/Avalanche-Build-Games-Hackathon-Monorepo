@@ -433,33 +433,7 @@ export const es = {
       noConnections: "¡Sin conexiones aún. Comienza a construir para conectar con otros magos!",
     },
 
-    protocols: {
-      title: "Protocolos y Oportunidades",
-      interested: "Protocolos Interesados en Ti",
-      opportunities: "Oportunidades Disponibles",
-      apply: "Aplicar",
-      viewDetails: "Ver Detalles",
-      hired: "¡Contratado!",
-      noInterest: "Ningún protocolo ha contactado aún. ¡Sigue construyendo para atraer atención!",
-      interestedSince: "Interesado",
-      wantMore: "¿Quieres más oportunidades?",
-      completeQuests: "¡Completa más misiones y gana insignias para atraer la atención de los protocolos!",
-      names: {
-        avalanche: "Avalanche",
-        layerzero: "LayerZero",
-        uniswap: "Uniswap",
-      },
-      descriptions: {
-        avalanche: "Interesado en tus habilidades DeFi",
-        layerzero: "Buscando desarrolladores cross-chain",
-        uniswap: "Contratando para desarrollo de protocolo",
-      },
-      timeAgo: {
-        days: "días atrás",
-        week: "semana atrás",
-        weeks: "semanas atrás",
-      },
-    },
+
 
     quests: {
       title: "Misiones Completadas",
@@ -482,6 +456,28 @@ export const es = {
       contracts: "Contratos Desplegados",
       viewOnExplorer: "Ver en Explorador",
       noContracts: "No hay contratos desplegados aún.",
+    },
+    registration: {
+      title: "Registro de Usuario",
+      editTitle: "Editar Perfil",
+      description: "Registra tu identidad onchain para desbloquear todas las funciones.",
+      username: "Nombre de usuario",
+      firstName: "Nombre",
+      lastName: "Apellido",
+      email: "Correo electrónico",
+      avatarUrl: "URL del Avatar (opcional)",
+      twitterUrl: "URL de Twitter",
+      instagramUrl: "URL de Instagram",
+      linkedinUrl: "URL de LinkedIn",
+      telegramUrl: "URL de Telegram",
+      gasWarning: "Esta es una transacción onchain. Deberás pagar comisiones de gas de la red.",
+      onboardingRequired: "Para registrarte, primero debes tener el NFT Wizard Passport. Puedes adquirirlo gratis completando el proceso de incorporación.",
+      goToOnboarding: "Completar Incorporación",
+      submitRegister: "Registrarse Ahora",
+      submitUpdate: "Actualizar Perfil",
+      success: "¡Perfil actualizado con éxito!",
+      error: "Error al actualizar el perfil. Por favor, inténtalo de nuevo.",
+      wizardNftMissing: "¡Completa el proceso de incorporación para obtener tu NFT Wizard Passport gratis!",
     },
   },
 };

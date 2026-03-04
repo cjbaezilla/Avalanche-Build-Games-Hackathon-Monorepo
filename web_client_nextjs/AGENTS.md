@@ -77,9 +77,11 @@ src/
 │           ├── SignatureStep.tsx
 │           └── CelebrationStep.tsx
 ├── hooks/
-│   └── useWizardPassport.ts  # Contract interaction (mint/balance)
+│   ├── useWizardPassport.ts   # Contract interaction (mint/stats/levels)
+│   └── useUserRegistration.ts # Profile registration and lookup
 ├── contracts/
-│   └── WizardPassport.ts    # Contract ABI (as const)
+│   ├── WizardPassport.ts     # ABI for the Passport NFT
+│   └── UserRegistration.ts   # ABI for User Profiles
 ├── lib/
 │   └── utils.ts             # cn() utility
 ├── styles/
@@ -259,12 +261,53 @@ npm start
 
 ---
 
-## Environment Variables
-
 ```env
 NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID=your-project-id
-NEXT_PUBLIC_CONTRACT_WIZARD_PASSPORT_ADDRESS=your-contract-address
+NEXT_PUBLIC_CONTRACT_WIZARD_PASSPORT_ADDRESS=0x...
+NEXT_PUBLIC_CONTRACT_USER_REGISTRATION_ADDRESS=0x...
 ```
+
+---
+
+## Smart Contracts & ABIs
+
+### WizardPassport (ERC721)
+
+The core NFT contract representing the user's progress.
+
+**Key Functions:**
+- `safeMint()`: Mints a new Passport (one per address).
+- `getUserStats(address user)`: Returns `(xp, level)`.
+- `getLevelImage(uint256 level)`: returns the IPFS URI for a specific level.
+- `getXPThreshold(uint256 level)`: returns the XP needed for a certain level.
+- `balanceOf(address owner)`: standard ERC721 balance check.
+- `ownerOf(uint256 tokenId)`: standard ERC721 owner check.
+- `tokenURI(uint256 tokenId)`: returns metadata URI (level-based images).
+
+**Hook: `useWizardPassport(targetAddress?)`**
+- Parameters: `targetAddress` (optional `0x` address, defaults to connected user).
+- Properties: `hasPassport`, `xp`, `level`, `levelImage`, `isMinting`, `isMintedSuccess`.
+- Methods: `mintPassport()`, `refetchStats()`.
+- External Hooks: `useXPThreshold(level)`.
+
+### UserRegistration
+
+Handles extended user profile data. Requires ownership of a Wizard Passport.
+
+**Key Functions:**
+- `registerUser(username, firstName, lastName, email, twitter, instagram, linkedin, telegram, avatar)`: Create/update profile.
+- `isRegistered(address user)`: Check if user has a profile.
+- `getUser(address user)`: Returns full profile tuple.
+- `getUserByUsername(string username)`: Lookup profile by username.
+- `getUserCount()`: Total registered users.
+- `getAllUsers()`: List of all registered addresses.
+- `wizardPassport()`: Returns the address of the Passport contract.
+
+**Hook: `useUserRegistration(targetAddress?)`**
+- Parameters: `targetAddress` (optional `0x` address, defaults to connected user).
+- Properties: `isRegistered`, `userProfile`, `userCount`, `allUsers`, `isProcessing`.
+- Methods: `registerUser(...)`.
+- External Hooks: `useUserLookup(username)`.
 
 ---
 
@@ -300,13 +343,13 @@ All profile components are located in `src/components/profile/`:
 
 ---
 
-## Notes
-
 - Uses **Pages Router** (not App Router)
 - RainbowKit uses `darkTheme` with red accent (`#ef4444`)
 - Wallet detection checks for MetaMask or Rabby
 - Onboarding connection/signature uses mock delay (2s)
-- **Soulbound NFT**: Final onboarding step requires minting a `WizardPassport` NFT on Avalanche Fuji
-- **useWizardPassport Hook**: Handles all logic for NFT ownership and minting across the app
+- **Soulbound NFT**: Final onboarding step requires minting a `WizardPassport` NFT on Avalanche Fuji.
+- **Contract Dependencies**: `UserRegistration` requires the user to own a `WizardPassport` NFT.
+- **useWizardPassport Hook**: Handles XP, levels, and minting.
+- **useUserRegistration Hook**: Handles profile data including social links and avatar via Ipfs or DiceBear.
 - Confetti on celebration step (triggers after successful mint)
 - Language toggle between English and Spanish

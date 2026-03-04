@@ -2,8 +2,9 @@ import { useAccount, useReadContract, useWriteContract, useWaitForTransactionRec
 import { WizardPassportABI } from '@/contracts/WizardPassport';
 import { useEffect } from 'react';
 
-export function useWizardPassport() {
-    const { address } = useAccount();
+export function useWizardPassport(targetAddress?: `0x${string}`) {
+    const { address: connectedAddress } = useAccount();
+    const address = targetAddress || connectedAddress;
     const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_WIZARD_PASSPORT_ADDRESS as `0x${string}`;
 
     // Read balance to check ownership
@@ -54,6 +55,20 @@ export function useWizardPassport() {
         }
     });
 
+    // Read next level XP threshold
+    const {
+        data: nextLevelXP,
+        isLoading: isXPThresholdLoading,
+    } = useReadContract({
+        address: contractAddress,
+        abi: WizardPassportABI,
+        functionName: 'getXPThreshold',
+        args: [BigInt(level + 1)],
+        query: {
+            enabled: hasPassport,
+        }
+    });
+
     // Minting logic
     const {
         data: hash,
@@ -92,10 +107,12 @@ export function useWizardPassport() {
         balance,
         xp,
         level,
+        nextLevelXP: nextLevelXP ? Number(nextLevelXP) : (level + 1) * 500, // Fallback to old formula if loading or error
         levelImage: levelImage as string,
         isBalanceLoading,
         isBalanceError,
         isStatsLoading,
+        isXPThresholdLoading,
         mintPassport,
         isMinting,
         isMintedSuccess,
@@ -105,6 +122,19 @@ export function useWizardPassport() {
         refetchBalance,
         refetchStats,
         address,
+        connectedAddress,
         contractAddress,
     };
+}
+
+// Separate hook for XP Thresholds
+export function useXPThreshold(level: number) {
+    const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_WIZARD_PASSPORT_ADDRESS as `0x${string}`;
+
+    return useReadContract({
+        address: contractAddress,
+        abi: WizardPassportABI,
+        functionName: 'getXPThreshold',
+        args: [BigInt(level)],
+    });
 }

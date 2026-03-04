@@ -433,33 +433,7 @@ export const en = {
       noConnections: "No connections yet. Start building to connect with other wizards!",
     },
 
-    protocols: {
-      title: "Protocols & Opportunities",
-      interested: "Protocols Interested in You",
-      opportunities: "Available Opportunities",
-      apply: "Apply",
-      viewDetails: "View Details",
-      hired: "Hired!",
-      noInterest: "No protocols have reached out yet. Keep building to attract attention!",
-      interestedSince: "Interested",
-      wantMore: "Want more opportunities?",
-      completeQuests: "Complete more quests and earn badges to attract protocol attention!",
-      names: {
-        avalanche: "Avalanche",
-        layerzero: "LayerZero",
-        uniswap: "Uniswap",
-      },
-      descriptions: {
-        avalanche: "Interested in your DeFi skills",
-        layerzero: "Looking for cross-chain developers",
-        uniswap: "Hiring for protocol development",
-      },
-      timeAgo: {
-        days: "days ago",
-        week: "week ago",
-        weeks: "weeks ago",
-      },
-    },
+
 
     quests: {
       title: "Completed Quests",
@@ -482,6 +456,28 @@ export const en = {
       contracts: "Deployed Contracts",
       viewOnExplorer: "View on Explorer",
       noContracts: "No contracts deployed yet.",
+    },
+    registration: {
+      title: "User Registration",
+      editTitle: "Edit Profile",
+      description: "Register your onchain identity to unlock full features.",
+      username: "Username",
+      firstName: "First Name",
+      lastName: "Last Name",
+      email: "Email",
+      avatarUrl: "Avatar URL (optional)",
+      twitterUrl: "Twitter URL",
+      instagramUrl: "Instagram URL",
+      linkedinUrl: "LinkedIn URL",
+      telegramUrl: "Telegram URL",
+      gasWarning: "This is an onchain transaction. You will need to pay network gas fees.",
+      onboardingRequired: "To register, you must first have the Wizard Passport NFT. You can acquire it for free by completing the onboarding process.",
+      goToOnboarding: "Complete Onboarding",
+      submitRegister: "Register Now",
+      submitUpdate: "Update Profile",
+      success: "Profile updated successfully!",
+      error: "Failed to update profile. Please try again.",
+      wizardNftMissing: "Complete the onboarding process to obtain your free Wizard NFT Passport!",
     },
   },
 };

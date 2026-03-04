@@ -2,8 +2,9 @@ import { useAccount, useReadContract, useWriteContract, useWaitForTransactionRec
 import { UserRegistrationABI } from '@/contracts/UserRegistration';
 import { useEffect } from 'react';
 
-export function useUserRegistration() {
-    const { address } = useAccount();
+export function useUserRegistration(targetAddress?: `0x${string}`) {
+    const { address: connectedAddress } = useAccount();
+    const address = targetAddress || connectedAddress;
     const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_USER_REGISTRATION_ADDRESS as `0x${string}`;
 
     // Read registration status
@@ -36,6 +37,26 @@ export function useUserRegistration() {
         }
     });
 
+    // Read user count
+    const {
+        data: userCount,
+        refetch: refetchUserCount
+    } = useReadContract({
+        address: contractAddress,
+        abi: UserRegistrationABI,
+        functionName: 'getUserCount',
+    });
+
+    // Read all users
+    const {
+        data: allUsers,
+        refetch: refetchAllUsers
+    } = useReadContract({
+        address: contractAddress,
+        abi: UserRegistrationABI,
+        functionName: 'getAllUsers',
+    });
+
     const isRegistered = !!registrationStatus;
 
     // Registration logic
@@ -60,8 +81,10 @@ export function useUserRegistration() {
         if (isRegistrationSuccess) {
             refetchRegistrationStatus();
             refetchUserProfile();
+            refetchUserCount?.();
+            refetchAllUsers?.();
         }
-    }, [isRegistrationSuccess, refetchRegistrationStatus, refetchUserProfile]);
+    }, [isRegistrationSuccess, refetchRegistrationStatus, refetchUserProfile, refetchUserCount, refetchAllUsers]);
 
     const registerUser = (
         username: string,
@@ -95,6 +118,8 @@ export function useUserRegistration() {
     return {
         isRegistered,
         userProfile,
+        userCount,
+        allUsers,
         isRegistrationLoading,
         isProfileLoading,
         registerUser,
@@ -105,7 +130,25 @@ export function useUserRegistration() {
         waitError,
         refetchRegistrationStatus,
         refetchUserProfile,
+        refetchUserCount,
+        refetchAllUsers,
         address,
+        connectedAddress,
         contractAddress,
     };
+}
+
+// Separate hook for searching users by username
+export function useUserLookup(username: string) {
+    const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_USER_REGISTRATION_ADDRESS as `0x${string}`;
+
+    return useReadContract({
+        address: contractAddress,
+        abi: UserRegistrationABI,
+        functionName: 'getUserByUsername',
+        args: [username],
+        query: {
+            enabled: !!username,
+        }
+    });
 }

@@ -3,5 +3,7 @@ export { StatsGrid } from './StatsGrid';
 export { BadgesSection } from './BadgesSection';
 export { ActivityFeed } from './ActivityFeed';
 export { SocialConnections } from './SocialConnections';
-export { ProtocolInterest } from './ProtocolInterest';
+
 export { SkillProgressComponent } from './SkillProgress';
+export { EditProfileModal } from './EditProfileModal';
+export { OnboardingInviteCard } from './OnboardingInviteCard';
