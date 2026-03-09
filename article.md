@@ -691,4 +691,12 @@ I am particularly excited about the long-term potential. As more users complete 
 
 The vision we are working toward is becoming the LinkedIn for Web3, except with actual verification that cannot be faked. When you look at someone's passport, you are seeing blockchain-native proof of their skills, not self-reported claims on a profile page. This will make hiring more efficient, grants more effective, and collaboration easier.
 
-If you have ever wanted to learn Web3 development but felt held back by the barriers we discussed, I encourage you to start your journey with us. The onboarding process is designed to be approachable, the learning path is structured to take you from zero to hero, and the credentials you earn will follow you throughout your career in this space. Your wizard passport is waiting for you.
+
+
+## Project Resources
+
+- **WizardPassport.sol**: https://testnet.snowtrace.io/address/0x2341452ba859F19fF6D93054cb9759E118DdA50C
+- **UserRegistration.sol**: https://testnet.snowtrace.io/address/0x7DCDc8FFDA78400f5a32158f2D60122173E2e58A
+- **Project Repository**: https://github.com/cjbaezilla/Avalanche-Build-Games-Hackathon-Monorepo
+- **Project Submission & Video Pitch**: https://www.linkedin.com/posts/carlos-baeza-negroni_web3-avalanche-buildgameshackathon-activity-7432039151312490497-MqSg
+- **Hackathon Acceptance**: https://www.linkedin.com/posts/carlos-baeza-negroni_avalanche-buildgames-web3gaming-activity-7429570650459107328-87sE
