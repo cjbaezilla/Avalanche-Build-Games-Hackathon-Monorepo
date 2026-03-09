@@ -1,4 +1,4 @@
-# Vibe2Wizard: Your Journey from Curious Beginner to Verified Onchain Wizard
+# Vibe2Wizard Avalanche Hakachton Update: Project Repository And Contracts Under The Hood
 
 ## Executive Summary
 
