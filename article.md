@@ -597,6 +597,1025 @@ We also integrated internationalization from day one. All user-facing strings ar
 
 The entire system — smart contracts and frontend — is designed to work together seamlessly. The contracts provide the trustless, permanent, verifiable core. The frontend provides an approachable, educational, and delightful interface. When you put them together, you get a platform where someone with zero Web3 knowledge can arrive, learn step by step, deploy real contracts, earn real credentials, and walk away with something that neither we nor anyone else can take away from them.
 
+## The React Component Architecture: Building the User Interface
+
+Now I want to walk you through the actual frontend code that brings this platform to life. I've already shown you the custom hook system, but I'd like to dive into the React components that make up the user interface. These are the TypeScript files with the .tsx extension that you'll find in our `web_client_nextjs` folder. I'll explain each component's responsibility and how it works, with plenty of code snippets so you can see exactly how everything fits together.
+
+### The Application Foundation: _app.tsx
+
+Let me start at the very top: the `_app.tsx` file. In Next.js using the Pages Router, this file is the root of your application. Every page gets wrapped by what you put here. This is where I set up all the important providers that make our features work across the entire site.
+
+```tsx
+import '../styles/globals.css';
+import '@rainbow-me/rainbowkit/styles.css';
+import type { AppProps } from 'next/app';
+
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { WagmiProvider } from 'wagmi';
+import { RainbowKitProvider, darkTheme } from '@rainbow-me/rainbowkit';
+import { avalancheFuji } from 'wagmi/chains';
+
+import { config } from '../wagmi';
+import { I18nProvider, useI18n } from '@/i18n';
+import { Navbar } from '@/components/ui/navbar';
+
+const client = new QueryClient();
+
+function AppContent({ Component, pageProps }: AppProps) {
+  const { language } = useI18n();
+
+  return (
+    <RainbowKitProvider 
+      theme={darkTheme({
+        accentColor: '#ef4444',
+        accentColorForeground: 'white',
+        borderRadius: 'medium',
+        fontStack: 'system',
+      })}
+      initialChain={avalancheFuji}
+      locale={language}
+    >
+      <Navbar>
+        <Component {...pageProps} />
+      </Navbar>
+    </RainbowKitProvider>
+  );
+}
+
+function MyApp(props: AppProps) {
+  return (
+    <WagmiProvider config={config}>
+      <QueryClientProvider client={client}>
+        <I18nProvider>
+          <AppContent {...props} />
+        </I18nProvider>
+      </QueryClientProvider>
+    </WagmiProvider>
+  );
+}
+
+export default MyApp;
+```
+
+I love this structure because it clearly separates concerns. The outermost layer is the `WagmiProvider`, which connects to our blockchain configuration. Inside that, we have `QueryClientProvider` from React Query, which manages all our data fetching and caching. Then `I18nProvider` wraps everything to provide translations. Finally, `AppContent` adds the `RainbowKitProvider` for wallet UI and our custom `Navbar` component that provides the site navigation and user status.
+
+Notice the `darkTheme` configuration with our signature red accent color `#ef4444`. This gives the entire application a cohesive wizard-themed aesthetic with dark backgrounds and red highlights. The `initialChain={avalancheFuji}` ensures the wallet defaults to the Avalanche Fuji testnet when it first connects.
+
+### Internationalization with I18nProvider
+
+Let me show you the `I18nProvider` implementation because it's such an elegant solution for supporting multiple languages. This provider sits near the root of our component tree and makes translation functions available to any component that needs them.
+
+```tsx
+import { createContext, useContext, useState, useCallback, ReactNode } from 'react';
+import { en, TranslationKeys } from './en';
+import { es } from './es';
+
+type Language = 'en' | 'es';
+
+interface I18nContextType {
+  t: TranslationKeys;
+  language: Language;
+  setLanguage: (lang: Language) => void;
+  toggleLanguage: () => void;
+}
+
+const translations: Record<Language, TranslationKeys> = { en, es };
+
+const I18nContext = createContext<I18nContextType | undefined>(undefined);
+
+interface I18nProviderProps {
+  children: ReactNode;
+}
+
+export function I18nProvider({ children }: I18nProviderProps) {
+  const [language, setLanguage] = useState<Language>('en');
+
+  const t = translations[language];
+
+  const toggleLanguage = useCallback(() => {
+    setLanguage(prev => prev === 'en' ? 'es' : 'en');
+  }, []);
+
+  return (
+    <I18nContext.Provider value={{ t, language, setLanguage, toggleLanguage }}>
+      {children}
+    </I18nContext.Provider>
+  );
+}
+
+export function useI18n() {
+  const context = useContext(I18nContext);
+  if (!context) {
+    throw new Error('useI18n must be used within I18nProvider');
+  }
+  return context;
+}
+```
+
+The pattern here is classic React Context usage. We create a context that holds the current language, the translation object `t`, and functions to change the language. The `useI18n` hook is how components consume this context. The `toggleLanguage` function simply switches between English and Spanish, which is perfect for our bilingual platform. The `translations` object maps language codes to their respective translation objects imported from `en.ts` and `es.ts`. This makes adding more languages straightforward: you just add a new entry to the `translations` record and provide the translation file.
+
+Any component that needs to display text can now do `const { t, toggleLanguage } = useI18n()` and then use `t.onboarding.step1.title` or similar keys. The actual translation keys are defined in TypeScript as a union type to ensure type safety across the whole app.
+
+### The Navigation System: Navbar Component
+
+Our Navbar component is one of the most visible parts of the interface. It appears at the top of every page and provides navigation, wallet connection status, and language switching. I'm really proud of how this component came together because it handles both desktop and mobile layouts elegantly.
+
+```tsx
+export function Navbar({ children }: { children: ReactNode }) {
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
+
+  return (
+    <NavbarContext.Provider value={{ isMobileOpen, setIsMobileOpen }}>
+      <div className="min-h-screen bg-background flex flex-col">
+        <TopBar onMobileToggle={() => setIsMobileOpen(!isMobileOpen)} />
+        <MainNav />
+        <MobileNav isOpen={isMobileOpen} onClose={() => setIsMobileOpen(false)} />
+        
+        <main className="flex-1 p-4 lg:p-8">
+          {children}
+        </main>
+      </div>
+    </NavbarContext.Provider>
+  );
+}
+```
+
+This top-level Navbar component creates a context to share mobile menu state across its child components, and it composes three sub-components: `TopBar`, `MainNav`, and `MobileNav`. The `children` prop renders the current page content in the main area. The layout uses flexbox to make the content area fill the remaining vertical space.
+
+The `TopBar` component is the thin strip at the very top (40px tall) that contains language selector and social media icons on desktop, plus a mobile menu toggle on small screens. `MainNav` is the main navigation bar (64px tall) with the logo and wallet connection button. `MobileNav` is a slide-out drawer that appears on mobile devices when the hamburger menu is tapped.
+
+Let me show you the `MainNav` component because it contains the wallet connection button, which is central to the Web3 experience:
+
+```tsx
+function MainNav() {
+  return (
+    <div className="bg-card border-b border-border px-4 py-3">
+      <div className="flex items-center justify-between gap-4">
+        <Link href="/" className="relative shrink-0">
+          <Image
+            src="/logo_text.jpg"
+            alt="Vibe2Wizard"
+            width={160}
+            height={40}
+            className="h-auto w-40"
+          />
+        </Link>
+        <div className="flex items-center gap-4">
+          <ConnectButton />
+        </div>
+      </div>
+    </div>
+  );
+}
+```
+
+The `ConnectButton` comes from RainbowKit and is the magic component that handles wallet connection. When you're not connected, it shows a "Connect Wallet" button. When you are connected, it shows your address (shortened) and a wallet icon. Clicking it opens a dropdown with options like copy address, view on explorer, and disconnect. RainbowKit takes care of all the wallet detection, connection flow, and chain switching logic, which is incredibly complex to build from scratch.
+
+The mobile navigation uses Framer Motion for smooth slide-in animation:
+
+```tsx
+function MobileNav({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+            onClick={onClose}
+          />
+          <motion.div
+            initial={{ x: '-100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '-100%' }}
+            transition={{ type: 'spring', damping: 25 }}
+            className="fixed top-0 left-0 h-full w-[280px] bg-card border-r border-border z-50 lg:hidden overflow-y-auto"
+          >
+            {/* Mobile nav content */}
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  );
+}
+```
+
+The `AnimatePresence` component from Framer Motion allows the mobile drawer to animate both when it appears (from `x: '-100%'` to `x: 0`) and when it disappears. The backdrop overlay fades in and out. When you tap the backdrop, the `onClose` callback fires and the drawer slides back off-screen. This creates a polished, app-like feel that users expect on mobile devices.
+
+The Navbar also exports some reusable sub-components like `UserAvatar`, `UserLevelBadge`, `ExperienceBar`, and `UserBadges` that are used throughout the app, especially on the profile page. The `UserAvatar` component generates a DiceBear bot avatar based on the user's wallet address, so it's deterministic (same address always produces same avatar) and doesn't require storing custom avatars unless the user uploads one in their profile.
+
+### The Onboarding Flow: A Guided Journey
+
+The onboarding experience is the heart of our platform. We designed it to be a nine-step wizard that takes someone from never having used a wallet to minting their first NFT. Each step is a separate React component, and they're all orchestrated by the `OnboardingLayout` component and the main `OnboardingPage`.
+
+Let me start with the main page component:
+
+```tsx
+const TOTAL_STEPS = 9;
+
+function OnboardingContent() {
+  const router = useRouter();
+  const { toggleLanguage } = useI18n();
+  const { isConnected, address } = useAccount();
+  const { data: balanceData } = useBalance({ address });
+  const { hasPassport } = useWizardPassport();
+  const [currentStep, setCurrentStep] = useState(1);
+  const [hasSigned, setHasSigned] = useState(false);
+
+  const handleNext = useCallback(() => {
+    if (currentStep < TOTAL_STEPS) {
+      setCurrentStep(prev => prev + 1);
+    }
+  }, [currentStep]);
+
+  const handleBack = useCallback(() => {
+    if (currentStep > 1) {
+      setCurrentStep(prev => prev - 1);
+    }
+  }, [currentStep]);
+
+  const handleComplete = useCallback(() => {
+    router.push('/profile');
+  }, [router]);
+
+  const renderStep = () => {
+    switch (currentStep) {
+      case 1:
+        return <IntroStep />;
+      case 2:
+        return <BackgroundStep />;
+      case 3:
+        return <WalletsStep />;
+      case 4:
+        return <WalletTypesStep />;
+      case 5:
+        return <WalletInstallationStep />;
+      case 6:
+        return <ConnectionStep onNext={handleNext} />;
+      case 7:
+        return <SignatureStep onNext={handleNext} onSuccess={() => setHasSigned(true)} />;
+      case 8:
+        return <FaucetStep onNext={handleNext} />;
+      case 9:
+        return <CelebrationStep onComplete={handleComplete} />;
+      default:
+        return <IntroStep />;
+    }
+  };
+
+  const getStepProps = () => {
+    if (currentStep === 6) {
+      return { showNext: true, isNextDisabled: !isConnected };
+    }
+    if (currentStep === 7) {
+      return { showNext: true, isNextDisabled: !isConnected || !hasSigned };
+    }
+    if (currentStep === 8) {
+      const balance = balanceData ? parseFloat(balanceData.formatted) : 0;
+      return { showNext: true, isNextDisabled: balance <= 0 };
+    }
+    if (currentStep === 9) {
+      return { showBack: false, showNext: false };
+    }
+
+    if (hasPassport && currentStep < 9) {
+      return { showBack: false, showNext: false };
+    }
+
+    return { showNext: true };
+  };
+
+  return (
+    <OnboardingLayout
+      currentStep={currentStep}
+      totalSteps={TOTAL_STEPS}
+      onNext={handleNext}
+      onBack={currentStep > 1 && currentStep < 9 ? handleBack : undefined}
+      onLanguageToggle={toggleLanguage}
+      {...getStepProps()}
+    >
+      {hasPassport && currentStep < 9 ? (
+        <AlreadyOnboardedStep />
+      ) : (
+        renderStep()
+      )}
+    </OnboardingLayout>
+  );
+}
+```
+
+This is a beautiful example of state-driven UI. The `currentStep` state variable controls which step component gets rendered. The `renderStep` function is a simple switch statement that returns the appropriate component for each step number. The `getStepProps` function implements the logic for when the "Next" button should be disabled, because some steps have prerequisites before the user can proceed.
+
+For instance, on step 6 (connection step), the user must actually connect their wallet before they can continue, so `isNextDisabled` is true when `!isConnected`. On step 7 (signature step), they must both be connected and have signed the message, so the disabled condition is `!isConnected || !hasSigned`. On step 8 (faucet step), they need to have a balance greater than zero, indicating they've received testnet tokens. These conditional checks ensure users cannot skip essential steps.
+
+The `AlreadyOnboardedStep` is a special case: if the user already has a passport (`hasPassport` is true) and they somehow land on the onboarding page again, we don't want them to go through all the steps again. Instead, we show them a message saying they've already completed onboarding and maybe direct them to their profile.
+
+Now let me show you the `OnboardingLayout` component, which wraps each step and handles the progress bar and navigation buttons:
+
+```tsx
+export function OnboardingLayout({
+  children,
+  currentStep,
+  totalSteps,
+  onNext,
+  onBack,
+  onLanguageToggle,
+  showBack = true,
+  showNext = true,
+  nextLabel,
+  isLoading = false,
+  isNextDisabled = false,
+}: OnboardingLayoutProps) {
+  const { t } = useI18n();
+
+  return (
+    <div className="min-h-screen bg-background flex flex-col">
+      <div className="flex-1 flex flex-col items-center justify-start p-4 md:p-8">
+        <div className="w-full max-w-2xl">
+          <div className="bg-black border border-border rounded-xl p-6 md:p-8">
+            <div className="mb-8">
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-lg font-medium text-foreground">
+                  {t.onboarding.stepIndicator.replace('{{current}}', String(currentStep)).replace('{{total}}', String(totalSteps))}
+                </span>
+                <span className="text-lg font-medium text-foreground">
+                  {Math.round((currentStep / totalSteps) * 100)}%
+                </span>
+              </div>
+              <div className="h-2 bg-muted rounded-full overflow-hidden">
+                <motion.div
+                  className="h-full bg-primary"
+                  initial={{ width: 0 }}
+                  animate={{ width: `${(currentStep / totalSteps) * 100}%` }}
+                  transition={{ duration: 0.5 }}
+                />
+              </div>
+            </div>
+
+            <div className="relative min-h-[450px]">
+              <AnimatePresence mode="wait" custom={currentStep}>
+                <motion.div
+                  key={currentStep}
+                  variants={stepVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{ duration: 0.4, type: 'spring', damping: 25 }}
+                  className="w-full"
+                >
+                  {children}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            <div className="flex justify-between mt-8">
+              {showBack && onBack ? (
+                <Button
+                  variant="outline"
+                  onClick={onBack}
+                  disabled={isLoading}
+                >
+                  <ChevronLeft className="w-4 h-4 mr-2" />
+                  {t.onboarding.backButton}
+                </Button>
+              ) : (
+                <div />
+              )}
+
+              {showNext && (
+                <Button
+                  onClick={onNext}
+                  disabled={isLoading || isNextDisabled}
+                >
+                  {nextLabel || t.onboarding.nextButton}
+                  {!isLoading && <ChevronRight className="w-4 h-4 ml-2" />}
+                  {isLoading && (
+                    <motion.div
+                      className="w-4 h-4 ml-2 border-2 border-primary-foreground border-t-transparent rounded-full"
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+                    />
+                  )}
+                </Button>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+```
+
+What I find elegant here is the `AnimatePresence` with `mode="wait"` and the `stepVariants` that define entrance and exit animations. When the step changes, the current motion.div exits (slides out to the left or right depending on direction), and the new one enters. The `custom={currentStep}` prop allows the variants to know which direction to animate based on the step number.
+
+The `stepVariants` object defines three states:
+
+```tsx
+const stepVariants = {
+  enter: (direction: number) => ({
+    x: direction > 0 ? 300 : -300,
+    opacity: 0,
+  }),
+  center: {
+    x: 0,
+    opacity: 1,
+  },
+  exit: (direction: number) => ({
+    x: direction > 0 ? -300 : 300,
+    opacity: 0,
+  }),
+};
+```
+
+When moving forward (higher step number), the current step exits to the left (negative x) and the new step enters from the right (positive x). When moving backward, the directions reverse. This creates a natural sliding effect that helps users understand they're moving through a sequence.
+
+The progress bar at the top uses a `motion.div` with animated width from 0% to the current percentage. This gives immediate visual feedback about how far along the user is.
+
+Now let me show you one of the step components in detail, so you can see how they're built. The `ConnectionStep` is a good example because it demonstrates wallet integration:
+
+```tsx
+export function ConnectionStep({ onNext }: ConnectionStepProps) {
+  const { t } = useI18n();
+  const { isConnected, address } = useAccount();
+  const { data: balanceData } = useBalance({
+    address,
+    query: {
+      enabled: !!address,
+    },
+  });
+  const steps = t.onboarding.steps.connection;
+
+  return (
+    <StepContent
+      title={steps.title}
+      description={steps.description}
+      icon={<Link className="w-16 h-16 text-primary" />}
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+        className="mt-8 flex flex-col items-center gap-6"
+      >
+        <div className="relative group">
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-orange-500 rounded-full blur opacity-30 group-hover:opacity-60 transition duration-1000 group-hover:duration-200" />
+          <motion.div
+            animate={isConnected ? { scale: [1, 1.1, 1] } : {}}
+            transition={{ duration: 0.5 }}
+            className="relative w-24 h-24 rounded-full bg-card border-2 border-primary/20 flex items-center justify-center shadow-xl"
+          >
+            {isConnected ? (
+              <Wallet className="w-10 h-10 text-green-500" />
+            ) : (
+              <Link className="w-10 h-10 text-primary" />
+            )}
+          </motion.div>
+        </div>
+
+        <p className="text-center text-muted-foreground max-w-sm">
+          {isConnected
+            ? "Your wallet is successfully connected! Get ready for your first spell..."
+            : steps.instruction}
+        </p>
+
+        <div className="transform transition-transform hover:scale-105 active:scale-95">
+          <ConnectButton />
+        </div>
+
+        {!isConnected && (
+          <p className="text-xs text-muted-foreground/60">{steps.hint}</p>
+        )}
+      </motion.div>
+    </StepContent>
+  );
+}
+```
+
+The `ConnectButton` from RainbowKit is the star here. It automatically shows different states: when not connected, it's a button that opens a modal with wallet options. When connected, it shows the wallet name or address. The circular icon above it pulses with a breathing animation when connected, giving nice visual feedback. The surrounding gradient glow effect attracts attention to the connection area.
+
+Each step component follows a similar pattern: they use `StepContent` as a wrapper, which provides consistent title, description, and icon layout. The `StepContent` component itself is simple:
+
+```tsx
+export function StepContent({
+  title,
+  description,
+  icon,
+  children
+}: StepContentProps) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+      className="space-y-6"
+    >
+      <div className="flex items-start gap-4">
+        <div className="flex-shrink-0">{icon}</div>
+        <div>
+          <h2 className="text-2xl font-bold text-foreground mb-2">{title}</h2>
+          <p className="text-muted-foreground">{description}</p>
+        </div>
+      </div>
+      {children}
+    </motion.div>
+  );
+}
+```
+
+This ensures every step has a consistent header with an icon and text. The children are the interactive parts specific to each step.
+
+Let's look at the `CelebrationStep`, which is the grand finale where the user mints their passport:
+
+```tsx
+export function CelebrationStep({ onComplete }: CelebrationStepProps) {
+  const { t } = useI18n();
+  const steps = t.onboarding.steps.celebration;
+  const reward = steps.reward;
+  const mintStrings = steps.mint;
+
+  const {
+    hasPassport,
+    mintPassport,
+    isMinting,
+    isMintedSuccess,
+    hash,
+    writeError,
+  } = useWizardPassport();
+
+  const canProceed = hasPassport || isMintedSuccess;
+
+  const handleMint = () => {
+    mintPassport();
+  };
+
+  useEffect(() => {
+    if (!canProceed) return;
+
+    // Confetti animation setup (omitted for brevity)
+    // This creates a canvas overlay with falling confetti particles
+  }, [canProceed]);
+
+  return (
+    <StepContent
+      title={canProceed ? steps.title : mintStrings.title}
+      description={canProceed ? steps.description : mintStrings.description}
+      icon={
+        <motion.div
+          animate={canProceed ? { rotate: [0, 10, -10, 0] } : {}}
+          transition={{ duration: 0.5, repeat: Infinity }}
+        >
+          {canProceed ? (
+            <Trophy className="w-16 h-16 text-yellow-500" />
+          ) : (
+            <Award className="w-16 h-16 text-primary animate-pulse" />
+          )}
+        </motion.div>
+      }
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+        className="mt-6"
+      >
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ delay: 0.5, type: 'spring', damping: 10 }}
+          className="p-6 bg-gradient-to-br from-primary/20 via-red-500/10 to-rose-900/20 rounded-xl border border-primary/30 shadow-[0_0_20px_rgba(239,68,68,0.1)]"
+        >
+          {/* Content showing the passport NFT and mint button */}
+          {!canProceed && (
+            <Button
+              onClick={handleMint}
+              disabled={isMinting}
+              size="lg"
+              className="px-12 py-8 text-xl font-black bg-primary hover:bg-primary/90 shadow-[0_0_30px_rgba(239,68,68,0.4)] transition-all hover:scale-105 active:scale-95"
+            >
+              {isMinting ? (
+                <>
+                  <Loader2 className="mr-2 h-6 w-6 animate-spin" />
+                  {mintStrings.minting}
+                </>
+              ) : (
+                mintStrings.button
+              )}
+            </Button>
+          )}
+
+          {canProceed && (
+            <div className="mt-6 flex flex-col items-center">
+              <p className="text-center text-foreground font-medium mb-6">
+                {steps.message}
+              </p>
+              <Button onClick={onComplete} size="lg" className="px-8 py-6 text-lg font-bold">
+                {steps.continueButton}
+              </Button>
+            </div>
+          )}
+        </motion.div>
+      </motion.div>
+    </StepContent>
+  );
+}
+```
+
+This step is quite elaborate. It uses the `useWizardPassport` hook to check if the user already has a passport (`hasPassport`) or if they've just minted one (`isMintedSuccess`). If they don't have a passport yet, it shows a large, dramatic "Mint Your Passport" button that calls `mintPassport()`. While minting, it shows a spinner. Once minted (or if they already had a passport), it shows a success message and a "Continue to Profile" button.
+
+The confetti animation is created with a canvas element that gets appended to the body when the component mounts and `canProceed` is true. The confetti particles are animated with requestAnimationFrame, falling and rotating with physics-like motion. The colors match our theme: reds, oranges, and yellows. This celebratory effect makes the minting moment feel special and rewarding.
+
+### The Profile Page Components
+
+After onboarding, users land on the profile page, which displays all their credentials and stats. The profile page is composed of several reusable components, each focusing on a specific aspect of the user's identity.
+
+The main `profile.tsx` page ties everything together:
+
+```tsx
+export default function ProfilePage() {
+  const { t } = useI18n();
+  const { address: connectedAddress } = useAccount();
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
+  const {
+    isRegistered,
+    userProfile,
+    isProfileLoading,
+    registerUser,
+    isProcessing: isRegProcessing,
+    isRegistrationSuccess,
+    refetchUserProfile,
+    refetchRegistrationStatus,
+  } = useUserRegistration(connectedAddress);
+
+  const {
+    hasPassport,
+    level,
+    xp,
+    nextLevelXP,
+    levelImage,
+    isStatsLoading,
+    isBalanceLoading,
+    isXPThresholdLoading,
+  } = useWizardPassport(connectedAddress);
+
+  const isLoading = isProfileLoading || isStatsLoading || isBalanceLoading || isXPThresholdLoading;
+
+  const handleSaveProfile = useCallback((formData: any) => {
+    registerUser(
+      formData.username,
+      formData.firstName,
+      formData.lastName,
+      formData.email,
+      formData.twitterUrl,
+      formData.instagramUrl,
+      formData.linkedinUrl,
+      formData.telegramUrl,
+      formData.avatarUrl
+    );
+  }, [registerUser]);
+
+  return (
+    <>
+      <Head>
+        <title>{t.profile.title} | Vibe2Wizard</title>
+      </Head>
+
+      <div className="space-y-6">
+        <StatsGrid stats={DEMO_STATS} />
+
+        <ProfileHeader
+          userAddress={connectedAddress}
+          profile={userProfile as any}
+          level={level}
+          xp={xp}
+          nextLevelXP={nextLevelXP}
+          hasPassport={hasPassport}
+          levelImage={levelImage}
+          isLoading={isLoading}
+          onEdit={handleEditClick}
+          followersCount={DEMO_FOLLOWERS.length}
+          followingCount={DEMO_FOLLOWING.length}
+        />
+
+        {!isLoading && !hasPassport && (
+          <OnboardingInviteCard />
+        )}
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="space-y-6">
+            <BadgesSection badges={DEMO_BADGES} />
+          </div>
+          <div className="space-y-6">
+            <ActivityFeed activities={DEMO_ACTIVITIES} />
+          </div>
+        </div>
+      </div>
+
+      <EditProfileModal
+        isOpen={isEditModalOpen}
+        onClose={() => setIsEditModalOpen(false)}
+        initialData={userProfile}
+        onSave={handleSaveProfile}
+        isProcessing={isRegProcessing}
+        isRegistered={isRegistered}
+      />
+    </>
+  );
+}
+```
+
+I'll acknowledge that some sections currently use placeholder data (`DEMO_STATS`, `DEMO_BADGES`, `DEMO_ACTIVITIES`), but the architecture is in place to replace those with real onchain data as we build out the reward contracts and activity tracking. The important parts—level, XP, passport ownership, and profile registration—are all connected to the blockchain.
+
+The `ProfileHeader` component is the centerpiece of the profile page. It displays the user's avatar, username, level badge, XP progress bar, social links, and the passport NFT image. Let me show you the key parts of this component:
+
+```tsx
+export function ProfileHeader({
+  userAddress,
+  profile,
+  level = 1,
+  xp = 0,
+  nextLevelXP = 1000,
+  hasPassport = false,
+  levelImage,
+  isLoading = false,
+  onEdit,
+  followersCount = 0,
+  followingCount = 0
+}: ProfileHeaderProps) {
+  const { t } = useI18n();
+
+  const avatarUrl = profile?.avatarUrl || `https://api.dicebear.com/9.x/bottts-neutral/svg?seed=${userAddress || 'wizard'}`;
+  const expProgress = (xp / nextLevelXP) * 100;
+
+  const getTier = (lvl: number) => {
+    if (lvl >= 10) return 'archmage';
+    if (lvl >= 7) return 'wizard';
+    if (lvl >= 4) return 'journeyman';
+    if (lvl >= 2) return 'apprentice';
+    return 'initiate';
+  };
+
+  const tier = getTier(level);
+  const tierConfig = {
+    initiate: 'from-gray-400 to-gray-600',
+    apprentice: 'from-green-400 to-emerald-600',
+    journeyman: 'from-blue-400 to-cyan-600',
+    wizard: 'from-purple-400 to-pink-600',
+    archmage: 'from-yellow-400 to-orange-500',
+  }[tier];
+
+  // ... loading state skeleton ...
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="relative overflow-hidden rounded-2xl bg-card border border-border p-6 lg:p-8"
+    >
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
+
+      <div className="relative flex flex-col lg:flex-row lg:items-start gap-6 lg:gap-8">
+        {/* Left Side: Avatar and Tier */}
+        <div className="flex flex-col items-center shrink-0 lg:pt-2">
+          <Avatar.Root className="h-28 w-28 lg:h-32 lg:w-32 rounded-2xl overflow-hidden bg-secondary ring-4 ring-primary/30 shadow-xl">
+            <Avatar.Image src={avatarUrl} alt={profile?.username || 'User'} className="h-full w-full object-cover" />
+            <Avatar.Fallback className="h-full w-full flex items-center justify-center bg-secondary">
+              <User className="h-10 w-10 text-muted-foreground" />
+            </Avatar.Fallback>
+          </Avatar.Root>
+
+          {/* Social Stats */}
+          <div className="flex gap-6 mt-4 mb-1">
+            <div className="flex flex-col items-center">
+              <span className="text-lg font-bold leading-none">{followingCount}</span>
+              <UserCheck className="h-4 w-4 text-primary/70 my-1" />
+              <span className="text-[10px] uppercase font-bold tracking-tight text-muted-foreground">
+                {t.profile.social.following}
+              </span>
+            </div>
+            <div className="flex flex-col items-center">
+              <span className="text-lg font-bold leading-none">{followersCount}</span>
+              <Users className="h-4 w-4 text-primary/70 my-1" />
+              <span className="text-[10px] uppercase font-bold tracking-tight text-muted-foreground">
+                {t.profile.social.followers}
+              </span>
+            </div>
+          </div>
+
+          {!hasPassport && (
+            <div className="mt-3 flex items-center gap-1.5 text-xs font-medium text-amber-500 bg-amber-500/10 px-2 py-1 rounded-full border border-amber-500/20">
+              <ShieldAlert className="h-3.3 w-3.3" />
+              Unverified
+            </div>
+          )}
+        </div>
+
+        {/* Middle: User Info */}
+        <div className="flex-1 text-center lg:text-left lg:pt-2">
+          {/* Username, edit button, email, social icons */}
+          
+          <div className="mt-8 max-w-2xl mx-auto lg:mx-0 flex flex-col md:flex-row items-center gap-6">
+            <div className={cn(
+              "shrink-0 flex flex-col items-center justify-center w-20 h-20 rounded-2xl shadow-lg border-2 border-white/10 bg-gradient-to-br text-white",
+              tierConfig
+            )}>
+              <span className="text-[10px] uppercase font-black tracking-tighter opacity-80 leading-none mb-1">{t.profile.level}</span>
+              <span className="text-3xl font-black leading-none">{level}</span>
+            </div>
+
+            <div className="flex-1 w-full bg-secondary/20 p-4 rounded-xl border border-border/50">
+              <div className="flex justify-between text-sm mb-2">
+                <span className="flex items-center gap-1.5 font-medium">
+                  <Zap className="h-4 w-4 text-yellow-500 fill-yellow-500" />
+                  {t.profile.experience}
+                </span>
+                <span className="text-muted-foreground font-mono">
+                  {xp.toLocaleString()} / {nextLevelXP.toLocaleString()} {t.profile.xp}
+                </span>
+              </div>
+              <Progress.Root className="h-4 w-full overflow-hidden rounded-full bg-secondary shadow-inner">
+                <Progress.Indicator
+                  className="h-full bg-gradient-to-r from-primary via-primary/80 to-accent transition-all duration-700 ease-in-out"
+                  style={{ width: `${Math.min(100, expProgress)}%` }}
+                />
+              </Progress.Root>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Side: NFT Card */}
+        {hasPassport && (
+          <div className="flex-shrink-0 w-full lg:w-48 xl:w-56 mt-6 lg:mt-0 space-y-3">
+            <h3 className="text-xs font-bold uppercase tracking-widest text-muted-foreground/80 text-center lg:text-left pl-1">
+              Wizard Passport NFT
+            </h3>
+            <div className="relative aspect-square rounded-2xl border border-border bg-card overflow-hidden group shadow-lg">
+              {levelImage ? (
+                <img
+                  src={levelImage}
+                  alt="Wizard NFT"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center bg-secondary/50">
+                  <span className="text-muted-foreground text-xs italic">NFT Loading...</span>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+    </motion.div>
+  );
+}
+```
+
+This component is packed with details. The avatar uses Radix UI's Avatar primitive for accessible image display with fallback. The avatar URL defaults to a DiceBear generated SVG if the user hasn't set a custom one. The level badge is a circular gradient container that changes colors based on the tier (initiate gray, apprentice green, journeyman blue, wizard purple, archmage gold). The XP progress bar uses Radix UI's Progress primitive with our custom styling. The passport NFT image scales up on hover for a nice interactive effect. The entire header has a subtle gradient background overlay with `animate-presence` for smooth entry.
+
+The `StatsGrid`, `BadgesSection`, and `ActivityFeed` components follow similar patterns of fetching data (currently with demo data) and displaying it in visually appealing cards. These are good candidates for future enhancement with real onchain data.
+
+The `EditProfileModal` uses a form to update the user's profile information. It calls the `registerUser` function from `useUserRegistration`, which sends a transaction to the blockchain. The modal handles loading states, success callbacks, and error display. The form validation ensures required fields are filled before submission.
+
+### The UI Component Library: Building Blocks
+
+We created a small design system of reusable UI components that appear throughout the app. The most important is the `Button` component, which provides consistent styling across all our action elements.
+
+```tsx
+const buttonVariants = cva(
+  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  {
+    variants: {
+      variant: {
+        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+        outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+        ghost: "hover:bg-accent hover:text-accent-foreground",
+        link: "text-primary underline-offset-4 hover:underline",
+      },
+      size: {
+        default: "h-10 px-4 py-2",
+        sm: "h-9 rounded-md px-3",
+        lg: "h-11 rounded-md px-8",
+        icon: "h-10 w-10",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  }
+);
+
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant, size, asChild = false, ...props }, ref) => {
+    const Comp = asChild ? Slot : "button";
+    return (
+      <Comp
+        className={cn(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        {...props}
+      />
+    );
+  }
+);
+```
+
+The `cva` function from `class-variance-authority` is a brilliant pattern for creating components with multiple visual variants. The `buttonVariants` function takes a `variant` and `size` and returns the appropriate Tailwind classes. Our default variant uses the primary color (red in our theme), and we have variants for destructive actions, outline buttons, secondary buttons, ghost buttons, and link buttons. The sizes range from small to large to an icon-only square.
+
+The `asChild` prop is a powerful pattern borrowed from Radix UI. When `asChild` is true, the Button component renders its child as the actual DOM element instead of a `<button>`, allowing you to pass a Link component or other interactive element while still getting the button styling. This is useful for navigation links that should look like buttons.
+
+We also have an Avatar component built on Radix UI's Avatar primitive, which provides proper accessibility attributes and fallback handling. The Progress component from Radix UI gives us accessible progress bars with ARIA attributes.
+
+### The Custom Hooks: Glue Code
+
+I've already shown you `useWizardPassport` and `useUserRegistration` in detail, but let me also mention the other custom hooks that make our components clean and focused.
+
+The `useUserLookup` hook is a convenience for searching users by username:
+
+```tsx
+export function useUserLookup(username: string) {
+  const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_USER_REGISTRATION_ADDRESS as `0x${string}`;
+
+  return useReadContract({
+    address: contractAddress,
+    abi: UserRegistrationABI,
+    functionName: 'getUserByUsername',
+    args: [username],
+    query: {
+      enabled: !!username,
+    }
+  });
+}
+```
+
+This hook is used when someone searches for another user by their username, perhaps in a future search feature. It queries the `getUserByUsername` function on the UserRegistration contract, which we saw earlier iterates through the `_allUsernames` array to find a match.
+
+These hooks abstract away all the Wagmi-specific details from the components. A component that wants to display user stats just calls `const { level, xp, hasPassport } = useWizardPassport()` and gets back nicely typed JavaScript values. The component doesn't need to know about ABIs, bigints, or transaction states. That's the power of good abstraction.
+
+### Styling with Tailwind CSS
+
+Our styling approach uses Tailwind CSS v4, which provides utility classes for virtually every CSS property. We also use shadcn/ui's approach of composable classes with the `cn` utility function:
+
+```tsx
+import { cn } from "@/lib/utils";
+
+cn("px-2 py-1", condition && "bg-red-500", className)
+```
+
+The `cn` function (which uses `tailwind-merge`) intelligently merges class names and removes conflicts. This lets us build complex responsive designs without leaving our JSX.
+
+Our color scheme is defined in `globals.css` using CSS custom properties. The primary color is red (for our wizard theme), secondary is a muted gray, accent is something else, etc. We use these semantic tokens throughout our Tailwind classes like `bg-primary`, `text-foreground`, `border-border`. This makes it easy to change the entire color scheme by modifying just the CSS variable definitions.
+
+### Configuration: wagmi.ts
+
+The `wagmi.ts` file is where we configure our blockchain connection:
+
+```tsx
+import { getDefaultConfig } from '@rainbow-me/rainbowkit';
+import {
+  avalancheFuji,
+} from 'wagmi/chains';
+
+export const config = getDefaultConfig({
+  appName: 'Vibe2Wizard',
+  projectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID || '',
+  chains: [
+    avalancheFuji,
+  ],
+  ssr: true,
+});
+```
+
+The `projectId` comes from WalletConnect, which is a service that helps wallets connect to dApps on mobile. RainbowKit uses WalletConnect under the hood. The `avalancheFuji` chain definition tells wallets that we want them to connect to the Avalanche Fuji testnet specifically. By setting `ssr: true`, we enable server-side rendering compatibility, which is important for Next.js to render the initial page without requiring client-side JavaScript first.
+
+This configuration gets imported by the `WagmiProvider` in `_app.tsx`, setting up the entire blockchain connection for the app.
+
+### Data Flow Summary
+
+I want to step back and summarize how data flows through our frontend, because understanding this architecture is key to extending the platform:
+
+1. A component renders using state from React hooks (like `useWizardPassport`).
+2. The hook calls `useReadContract` or `useWriteContract` from Wagmi, which internally uses React Query.
+3. React Query checks its cache; if the data is stale or missing, it sends a JSON-RPC request to an Avalanche Fuji node (the blockchain's API server).
+4. The blockchain node executes the read-only function (like `balanceOf`) or includes the write transaction in a block.
+5. The response comes back, gets decoded using the ABI, and passed through the hook to the component.
+6. The component re-renders with the new data.
+7. For write transactions, the user's wallet shows a confirmation, the transaction is broadcast, and `useWaitForTransactionReceipt` polls until it's mined. Then we refetch the read queries to get updated state.
+
+This declarative data-fetching pattern means we rarely need to manage loading states manually; React Query and Wagmi handle caching, deduplication, background updates, and error states automatically. Our components stay clean and focused on presentation.
+
+### What Makes This Architecture Special
+
+What excites me about this architecture is how it scales in complexity without becoming unmanageable. The smart contracts are minimal and secure. The frontend uses well-established libraries (Next.js, Wagmi, RainbowKit, Framer Motion, Radix UI, Tailwind) that have large communities and good documentation. The custom hooks provide a thin, well-defined layer between the UI and the blockchain. The component hierarchy is logical and each piece has a single responsibility.
+
+If we wanted to add a new feature, like a leaderboard page, we would create a new page component, use `useWizardPassport` to fetch stats for many users (maybe with a new contract function that returns a list), and render a table. The scaffolding is already there. If we wanted to add a new onboarding step, we'd create a new step component, add it to the switch statement in `onboarding.tsx`, and update the `TOTAL_STEPS` constant. The flow is intuitive.
+
+This is the kind of codebase that feels good to work in because it's obvious where new code should go and how existing code works. I hope that by walking you through it in this detail, you can see how a Web3 application with real utility can be built using modern frontend practices without sacrificing security or decentralization.
+
 ## Why This Changes Everything
 
 The impact of this platform extends far beyond individual learners, though I believe the personal benefits are substantial enough to make this worthwhile on their own.
