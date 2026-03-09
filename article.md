@@ -691,7 +691,7 @@ I am particularly excited about the long-term potential. As more users complete 
 
 The vision we are working toward is becoming the LinkedIn for Web3, except with actual verification that cannot be faked. When you look at someone's passport, you are seeing blockchain-native proof of their skills, not self-reported claims on a profile page. This will make hiring more efficient, grants more effective, and collaboration easier.
 
-
+If you have ever wanted to learn Web3 development but felt held back by the barriers we discussed, I encourage you to start your journey with us. The onboarding process is designed to be approachable, the learning path is structured to take you from zero to hero, and the credentials you earn will follow you throughout your career in this space. Your wizard passport is waiting for you.
 
 ## Project Resources
 
