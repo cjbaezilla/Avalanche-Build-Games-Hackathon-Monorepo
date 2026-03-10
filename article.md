@@ -430,26 +430,118 @@ Your profile displays all of the key information that represents your Web3 journ
 
 What I'm most proud of in this design is how everything ties together into a coherent system where each contract has a clear responsibility. The WizardPassport handles identity and level progression. The UserRegistration handles profile data. The two contracts reference each other, creating a dependency graph that makes sense. You cannot register a profile without a passport, which ensures every registered user has earned their place. And your passport stats are independent of your profile — you could have a passport without a profile, and your level would still be valid. The separation of concerns makes the architecture clean and maintainable.
 
-## 🖼️ NFT Evolution
+## 🖼️ NFT Evolution: Your Visual Journey from Novice to Grandmaster
 
-The Wizard Passport visually evolves as you reach specific level milestones. The contract automatically updates the `image` field in the metadata to point to the corresponding IPFS asset.
+I want to walk you through one of the most magical aspects of the Wizard Passport because when you see it in action, it truly feels like watching a digital caterpillar transform into a butterfly. Your passport isn't just a static image that sits in your wallet gathering digital dust. No, it's a living, breathing representation of your actual progress. Every time you level up, the image magically updates to show your new form. When you start, you're a hooded novice with cautious eyes and simple robes. After you've deployed a few contracts and passed some security challenges, you become an apprentice with brighter colors and more confidence showing in your pose. Keep going and you'll transform into an acolyte, then an adept, then a full mage with swirling energy all around you. The journey continues all the way to archmage with glowing runes, and finally the legendary grandmaster with cosmic power radiating from every pixel. This visual evolution isn't just pretty to look at—it's a story. Every single person who looks at your passport can instantly see how far you've traveled on your Web3 learning journey.
+
+Now the really cool part is how we made this happen technically. I wanted the evolution to feel seamless and automatic, like magic, but behind the scenes there's some clever engineering that makes it all work reliably. Let me peel back the curtain and show you exactly how the dynamic image switching works, because once you understand this, you'll see why blockchain technology enables possibilities that traditional apps can't match.
+
+Every NFT on the blockchain has something called a tokenURI, which is essentially a web address (or link) that points to the NFT's metadata—the information that describes what the NFT is: its name, description, image, and any special attributes. Most NFTs store this metadata on external servers or on IPFS, and the tokenURI just returns that fixed link. When you mint the NFT, its image is locked in forever. That's why your CryptoPunk or Bored Ape never changes—the tokenURI always returns the same metadata with the same image.
+
+We took a completely different approach with the Wizard Passport. Our tokenURI doesn't return a static link. Instead, it generates fresh metadata every single time someone asks for it, and the image it returns depends entirely on who's asking and what their current level is. Let me show you the actual function that makes this possible because it's a thing of beauty.
+
+```solidity
+function tokenURI(uint256 tokenId)
+    public
+    view
+    override
+    returns (string memory)
+{
+    _requireOwned(tokenId);
+    address owner = ownerOf(tokenId);
+    UserStats memory stats = _userStats[owner];
+
+    return string(
+        abi.encodePacked(
+            "data:application/json;base64,",
+            Base64.encode(
+                bytes(
+                    abi.encodePacked(
+                        '{"name": "Wizard Passport #', tokenId.toString(), 
+                        '", "description": "An official identity passport for the Vibe2Wizard ecosystem.", ',
+                        '"image": "', getLevelImage(stats.level), 
+                        '", "attributes": [',
+                        '{"trait_type": "Level", "value": ', stats.level.toString(), '}, ',
+                        '{"trait_type": "XP", "value": ', stats.xp.toString(), '}, ',
+                        '{"trait_type": "Type", "value": "Wizard Passport"}]}'
+                    )
+                )
+            )
+        )
+    );
+}
+```
+
+I need to explain what's happening here in plain language because this code is the key to everything. When your wallet, or OpenSea, or any app wants to display your passport, they call this function with your token ID. The function does three important things. First, it checks that the person asking actually owns this token, because we don't want someone snooping on other people's passports without permission. Second, it looks up the owner's wallet address and then retrieves that person's current stats—their level and experience points—from our contract storage. Third, and most importantly, it builds a fresh metadata JSON object where the image field is set by calling `getLevelImage(stats.level)`.
+
+That last part is where the magic happens. Instead of hardcoding one image link that never changes, we call a function that returns a different IPFS link depending on the user's current level. If they're level 15, the function returns the Novice image. If they just reached level 20, it returns the Apprentice image. At level 100, it returns the Grandmaster image. The metadata is assembled on the spot, encoded into Base64, and returned as a special "data URI" that contains the entire JSON object built right into the link itself. This means there's no external database that we could tamper with—the image is mathematically determined by the user's on-chain stats every single time someone asks to see it.
+
+Now let me show you the getLevelImage function because it's the piece that maps levels to visual assets:
+
+```solidity
+function getLevelImage(uint256 level) public pure returns (string memory) {
+    if (level >= 100) {
+        return "https://ipfs.io/ipfs/bafybeiaq4ned3zzjaxeyrpomwemqa4a7e323bdemql3bjaz2yha6342i5q";
+    }
+    if (level >= 90) {
+        return "https://ipfs.io/ipfs/bafybeih62jvinvvccfmsdhylev2eigyorgxpy4igmxvcoes5p7ftokaeie";
+    }
+    if (level >= 80) {
+        return "https://ipfs.io/ipfs/bafybeicvihyvmo3d7euimen3bcbuftbho3hfapaenfh6j2stiomsrrc57u";
+    }
+    if (level >= 70) {
+        return "https://ipfs.io/ipfs/bafybeic7oozlteewjzxf243smhvat6jcmrewhryb367u5ohqzq5zu7znlu";
+    }
+    if (level >= 60) {
+        return "https://ipfs.io/ipfs/bafybeifgwdnylz6jjyruuqasmlwakeijz3pzs4kkly3bg6ci6puurm5lwm";
+    }
+    if (level >= 50) {
+        return "https://ipfs.io/ipfs/bafybeigmnycqbpico4lqznj6xagdwjaocaqzzssjrumyffyt2duzd76u6m";
+    }
+    if (level >= 40) {
+        return "https://ipfs.io/ipfs/bafybeidfmztwlyiw223mubieumegpvhb5fdfcvpmuc3sgj323iw5mkqule";
+    }
+    if (level >= 30) {
+        return "https://ipfs.io/ipfs/bafybeidzduxp2rytrx2eqxg6skx6huffju6uvmdrnde4oashbw6lcticsq";
+    }
+    if (level >= 20) {
+        return "https://ipfs.io/ipfs/bafybeie4ufdq7kqm6gk24kpekcpwkfijmxsxc33ogtxgeixxxnjtl5gzny";
+    }
+    return "https://ipfs.io/ipfs/bafybeicd5pabcwgppnekgimxur4n3jjagc2n3b6pmu5blp5td3kvuz2osu";
+}
+```
+
+I love this cascade of if statements because it's so straightforward and effective. The function checks the user's level against each threshold from highest to lowest. The moment it finds a level where the user meets or exceeds the requirement, it returns the corresponding IPFS link for that tier. If none of the higher thresholds match, it falls through to the default return at the bottom, which is the Novice image for levels 1 through 19. The IPFS links you see there are permanent addresses on the InterPlanetary File System—think of it as a decentralized version of the internet where files are stored across many computers and once uploaded, they can't be altered or deleted. Each image has a unique content identifier (that long string of letters) that's mathematically derived from the file itself. If we changed even a single pixel, the CID would be completely different. This makes the artwork immutable and verifiable. When you look at your passport, you're seeing exactly the artwork we intended for your tier, and that artwork is stored on a network that's resistant to censorship and link rot.
+
+Now let's talk about when and how this image actually changes. The crucial detail is that the image doesn't update automatically at a specific moment. Instead, it updates the next time anyone (including you) asks to see your passport metadata. Here's what happens in a typical level-up scenario. You complete a challenging deployment, the system awards you 5000 XP, and your total XP crosses the threshold for level 20. At that moment, the contract updates your stats: your `_userStats[yourAddress].xp` increases and `_userStats[yourAddress].level` gets recalculated to 20. But your passport image in your wallet still shows the Novice because your wallet's last cached metadata still had the old image. The magic happens when something—maybe you, maybe a marketplace, maybe a friend—calls the `tokenURI` function again. That function reads your fresh stats, sees that your level is now 20, calls `getLevelImage(20)`, gets the Apprentice image link, and returns that in the metadata. The wallet or marketplace then updates what it displays. In practice, this update can happen within seconds or it might take a few minutes depending on whether the app actively polls for updates or waits for you to manually refresh. But the important thing is that the image is never wrong—it always reflects the current on-chain reality whenever someone queries it.
+
+This dynamic approach is fundamentally different from how traditional apps handle profile pictures. In a normal web app, you might upload a new avatar and the server updates a database row. From that moment on, everyone sees the new image because the server always sends the latest version. That works fine when there's a central server. But in the decentralized world of Web3, we don't have that luxury. We can't go updating some NFT metadata server every time someone levels up because that would require trusted infrastructure, which defeats the purpose. Instead, we designed the contract to be a self-contained truth machine: the metadata generation happens on-chain, reading from the authoritative state (your XP and level) and producing an output that anyone can verify without trusting us. This is what we mean by "trustless"—no one needs to ask us to update your image; the blockchain itself computes it correctly every single time based on the immutable record of your achievements.
+
+What makes this particularly powerful is that your passport image is not just a reward you earn; it's an ongoing proof that travels with you across the entire Web3 ecosystem. If you display your passport on your personal website, on a social platform that supports NFTs, or on a decentralized gallery, all those places will show your current level without us having to push updates to them. The image they fetch is always computed fresh from the source of truth: your wallet's stats on the Avalanche blockchain. This is a pattern that can be used for any kind of evolving digital identity—imagine a gaming NFT that changes as you win more battles, or a reputation badge that updates as you complete more jobs, all without any central server coordinating the changes.
+
+I'm also really excited about how this sets us up for future enhancements. Because the image is computed dynamically, we could make it even more sophisticated. We could add your XP as a glowing number overlaid on the image. We could show different variants based on not just your level but also the specific badges you've earned. We could even incorporate on-chain data like your most recently deployed contract address as a small rune in the background. All of that would be just additional logic in the tokenURI or getLevelImage functions, and it would instantly update everywhere the passport is displayed. The architecture is built to scale in richness, not just in levels.
+
+When I think about the entire NFT evolution system, what gives me the most satisfaction is how it demonstrates the unique capabilities of blockchain for identity and credentials. This isn't about making pretty pictures that change; it's about creating a verifiable, unstoppable representation of real achievement that cannot be faked, purchased, or altered. Your evolving image is the visual summary of your learning journey, and that journey is permanently recorded in the code and transactions of the Avalanche blockchain. Every time you look at your passport and see that you've become an Archmage, you're not just seeing a cool picture—you're seeing a mathematical proof that you've earned it. That's the kind of system that could genuinely change how we think about skills, credentials, and reputation in the decentralized future we're building.
+
+And here's the complete picture of all ten tiers so you can see the full visual journey that awaits:
 
 ![Level Evolution](./evolution.png)
 
-### Level Tiers & Artwork
+| Level Range | Tier Name | What It Means |
+|-------------|-----------|---------------|
+| 1-19 | Novice | You've just begun your journey, but you've taken the first step |
+| 20-29 | Apprentice | You've deployed your first contracts and passed basic challenges |
+| 30-39 | Acolyte | You're gaining confidence and building real experience |
+| 40-49 | Adept | You're becoming skilled and others start to notice your work |
+| 50-59 | Mage | You've reached an impressive level of mastery |
+| 60-69 | Sorcerer | Your deep knowledge produces impressive results |
+| 70-79 | High Mage | You're among the elite practitioners in the ecosystem |
+| 80-89 | Archmage | Your contributions and skills are legendary |
+| 90-99 | Master Wizard | You've achieved near-perfect mastery with vast experience |
+| 100 | Grandmaster | You've reached the pinnacle—a true master of the craft |
 
-| Level Range | Tier Name | Local Portrait | IPFS Link |
-| :--- | :--- | :--- | :--- |
-| **1 - 19** | Novice | <img src="./nft1.png" width="200" /> | https://ipfs.io/ipfs/bafybeicd5pabcwgppnekgimxur4n3jjagc2n3b6pmu5blp5td3kvuz2osu |
-| **20 - 29** | Apprentice | <img src="./nft2.png" width="200" /> | https://ipfs.io/ipfs/bafybeie4ufdq7kqm6gk24kpekcpwkfijmxsxc33ogtxgeixxxnjtl5gzny |
-| **30 - 39** | Acolyte | <img src="./nft3.png" width="200" /> | https://ipfs.io/ipfs/bafybeidzduxp2rytrx2eqxg6skx6huffju6uvmdrnde4oashbw6lcticsq |
-| **40 - 49** | Adept | <img src="./nft4.png" width="200" /> | https://ipfs.io/ipfs/bafybeidfmztwlyiw223mubieumegpvhb5fdfcvpmuc3sgj323iw5mkqule |
-| **50 - 59** | Mage | <img src="./nft5.png" width="200" /> | https://ipfs.io/ipfs/bafybeigmnycqbpico4lqznj6xagdwjaocaqzzssjrumyffyt2duzd76u6m |
-| **60 - 69** | Sorcerer | <img src="./nft6.png" width="200" /> | https://ipfs.io/ipfs/bafybeifgwdnylz6jjyruuqasmlwakeijz3pzs4kkly3bg6ci6puurm5lwm |
-| **70 - 79** | High Mage | <img src="./nft7.png" width="200" /> | https://ipfs.io/ipfs/bafybeic7oozlteewjzxf243smhvat6jcmrewhryb367u5ohqzq5zu7znlu |
-| **80 - 89** | Archmage | <img src="./nft8.png" width="200" /> | https://ipfs.io/ipfs/bafybeicvihyvmo3d7euimen3bcbuftbho3hfapaenfh6j2stiomsrrc57u |
-| **90 - 99** | Master Wizard | <img src="./nft9.png" width="200" /> | https://ipfs.io/ipfs/bafybeih62jvinvvccfmsdhylev2eigyorgxpy4igmxvcoes5p7ftokaeie |
-| **100** | Grandmaster | <img src="./nft10.png" width="200" /> | https://ipfs.io/ipfs/bafybeiaq4ned3zzjaxeyrpomwemqa4a7e323bdemql3bjaz2yha6342i5q |
+Each tier represents not just a number, but a story of dedication, learning, and real accomplishment. And your passport will show the world exactly where you are on that path.
+
 
 
 ## Frontend Technology and Contract Integration
