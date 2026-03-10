@@ -1,6 +1,6 @@
 # Vibe2Wizard - From Vibe Coder to Onchain Wizard: The Gamified Web3 & Solidity Mastery Platform - Complete Project Proposal
 
-![Vibe2Wizard Cover](vibe2wizard_cover.png)
+![Vibe2Wizard Cover](1.png)
 
 ## Executive Summary
 

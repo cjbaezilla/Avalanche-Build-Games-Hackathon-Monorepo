@@ -1,6 +1,6 @@
 # Avalanche Build Games Hackathon Monorepo
 
-![Vibe2Wizard Cover](./vibe2wizard_cover.png)
+![Vibe2Wizard Cover](./1.png)
 
 This is a monorepo for the Avalanche Build Games Hackathon.
 

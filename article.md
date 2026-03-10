@@ -1,5 +1,7 @@
 # Vibe2Wizard Avalanche Hakachton Update: Project Repository And Contracts Under The Hood
 
+![Cover](./1.png)
+
 ## Executive Summary
 
 I want to share with you what our team accomplished during the Avalanche Build Games Hackathon, because I believe what we built represents something genuinely meaningful for the Web3 community, even though our journey with this particular hackathon has reached its natural conclusion. We poured our hearts into creating Vibe2Wizard, a gamified learning platform that guides people from complete beginners to verified onchain developers, and I am incredibly proud of everything we delivered during this intense creative sprint.
@@ -427,6 +429,28 @@ Here we iterate through `_allUsernames`, compute the keccak256 hash of each stor
 Your profile displays all of the key information that represents your Web3 journey. This includes your current level and XP (retrieved from the WizardPassport contract), your progress toward the next level (calculated using `getXPThreshold`), the badges you have earned (from other contracts we've built), your deployment history (tracked by platform integrations), and your social connections (from your profile data). All of this data is either stored onchain directly or is verifiable onchain, making it permanently trustworthy. Nobody can alter your level or XP retroactively because those values are mathematically tied to the actual transactions recorded on the Avalanche blockchain.
 
 What I'm most proud of in this design is how everything ties together into a coherent system where each contract has a clear responsibility. The WizardPassport handles identity and level progression. The UserRegistration handles profile data. The two contracts reference each other, creating a dependency graph that makes sense. You cannot register a profile without a passport, which ensures every registered user has earned their place. And your passport stats are independent of your profile — you could have a passport without a profile, and your level would still be valid. The separation of concerns makes the architecture clean and maintainable.
+
+## 🖼️ NFT Evolution
+
+The Wizard Passport visually evolves as you reach specific level milestones. The contract automatically updates the `image` field in the metadata to point to the corresponding IPFS asset.
+
+![Level Evolution](./evolution.png)
+
+### Level Tiers & Artwork
+
+| Level Range | Tier Name | Local Portrait | IPFS Link |
+| :--- | :--- | :--- | :--- |
+| **1 - 19** | Novice | <img src="./nft1.png" width="200" /> | <img src="https://ipfs.io/ipfs/bafybeicd5pabcwgppnekgimxur4n3jjagc2n3b6pmu5blp5td3kvuz2osu" width="200" /> |
+| **20 - 29** | Apprentice | <img src="./nft2.png" width="200" /> | <img src="https://ipfs.io/ipfs/bafybeie4ufdq7kqm6gk24kpekcpwkfijmxsxc33ogtxgeixxxnjtl5gzny" width="200" /> |
+| **30 - 39** | Acolyte | <img src="./nft3.png" width="200" /> | <img src="https://ipfs.io/ipfs/bafybeidzduxp2rytrx2eqxg6skx6huffju6uvmdrnde4oashbw6lcticsq" width="200" /> |
+| **40 - 49** | Adept | <img src="./nft4.png" width="200" /> | <img src="https://ipfs.io/ipfs/bafybeidfmztwlyiw223mubieumegpvhb5fdfcvpmuc3sgj323iw5mkqule" width="200" /> |
+| **50 - 59** | Mage | <img src="./nft5.png" width="200" /> | <img src="https://ipfs.io/ipfs/bafybeigmnycqbpico4lqznj6xagdwjaocaqzzssjrumyffyt2duzd76u6m" width="200" /> |
+| **60 - 69** | Sorcerer | <img src="./nft6.png" width="200" /> | <img src="https://ipfs.io/ipfs/bafybeifgwdnylz6jjyruuqasmlwakeijz3pzs4kkly3bg6ci6puurm5lwm" width="200" /> |
+| **70 - 79** | High Mage | <img src="./nft7.png" width="200" /> | <img src="https://ipfs.io/ipfs/bafybeic7oozlteewjzxf243smhvat6jcmrewhryb367u5ohqzq5zu7znlu" width="200" /> |
+| **80 - 89** | Archmage | <img src="./nft8.png" width="200" /> | <img src="https://ipfs.io/ipfs/bafybeicvihyvmo3d7euimen3bcbuftbho3hfapaenfh6j2stiomsrrc57u" width="200" /> |
+| **90 - 99** | Master Wizard | <img src="./nft9.png" width="200" /> | <img src="https://ipfs.io/ipfs/bafybeih62jvinvvccfmsdhylev2eigyorgxpy4igmxvcoes5p7ftokaeie" width="200" /> |
+| **100** | Grandmaster | <img src="./nft10.png" width="200" /> | <img src="https://ipfs.io/ipfs/bafybeiaq4ned3zzjaxeyrpomwemqa4a7e323bdemql3bjaz2yha6342i5q" width="200" /> |
+
 
 ## Frontend Technology and Contract Integration
 

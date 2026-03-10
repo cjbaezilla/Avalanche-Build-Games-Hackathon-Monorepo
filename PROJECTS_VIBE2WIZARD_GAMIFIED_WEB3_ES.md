@@ -1,6 +1,6 @@
 # Vibe2Wizard - De Vibe Coder a Wizard Onchain: La Plataforma Gamificada de Dominio Web3 y Solidity - Propuesta Completa del Proyecto
 
-![Vibe2Wizard Cover](vibe2wizard_cover.png)
+![Vibe2Wizard Cover](1.png)
 
 ## Resumen Ejecutivo
 
