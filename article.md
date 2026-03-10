@@ -122,7 +122,7 @@ When I look back at what we built in the short time we had, I feel a deep sense 
 
 The vision I believe in is this: Web3 needs better ways to prove what people actually know and have done. Your skills should follow you across chains and platforms. Your achievements should be permanently yours. Learning should be accessible and safe. We built a tangible step toward that world, and even though this hackathon chapter is closing, the code lives on. If you have ever wanted to learn Web3 development but felt held back by the barriers we discussed, I encourage you to explore what we have built. The onboarding is waiting, the passports are ready to be minted, and your journey from vibe coder to onchain wizard can begin today.
 
-## Introduction
+## What Was Vibe2Wizard Trying To Accomplish
 
 Have you ever wanted to build something on the blockchain but felt intimidated by the complexity and the financial risk? You are certainly not alone in this feeling. Every day, thousands of talented designers, developers, and creators look at Web3 and see an exciting future but also see a minefield of potential mistakes that could cost them real money. I have spoken to people who have lost their savings to simple errors, who have given up on their dreams of building in the decentralized space because the learning curve felt impossible, and who have eventually succeeded professionally but had no way to prove their skills to the very protocols and DAOs that might want to hire them.
 
