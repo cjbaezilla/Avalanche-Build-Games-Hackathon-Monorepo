@@ -527,22 +527,22 @@ And here's the complete picture of all ten tiers so you can see the full visual 
 
 ![Level Evolution](./evolution.png)
 
-| Level Range | Tier Name | What It Means |
-|-------------|-----------|---------------|
-| 1-19 | Novice | You've just begun your journey, but you've taken the first step |
-| 20-29 | Apprentice | You've deployed your first contracts and passed basic challenges |
-| 30-39 | Acolyte | You're gaining confidence and building real experience |
-| 40-49 | Adept | You're becoming skilled and others start to notice your work |
-| 50-59 | Mage | You've reached an impressive level of mastery |
-| 60-69 | Sorcerer | Your deep knowledge produces impressive results |
-| 70-79 | High Mage | You're among the elite practitioners in the ecosystem |
-| 80-89 | Archmage | Your contributions and skills are legendary |
-| 90-99 | Master Wizard | You've achieved near-perfect mastery with vast experience |
-| 100 | Grandmaster | You've reached the pinnacle—a true master of the craft |
+### Level Tiers & Artwork
+
+| Level Range | Tier Name | Local Portrait | IPFS Link |
+| :--- | :--- | :--- | :--- |
+| **1 - 19** | Novice | <img src="./nft1.png" width="200" /> | https://ipfs.io/ipfs/bafybeicd5pabcwgppnekgimxur4n3jjagc2n3b6pmu5blp5td3kvuz2osu |
+| **20 - 29** | Apprentice | <img src="./nft2.png" width="200" /> | https://ipfs.io/ipfs/bafybeie4ufdq7kqm6gk24kpekcpwkfijmxsxc33ogtxgeixxxnjtl5gzny |
+| **30 - 39** | Acolyte | <img src="./nft3.png" width="200" /> | https://ipfs.io/ipfs/bafybeidzduxp2rytrx2eqxg6skx6huffju6uvmdrnde4oashbw6lcticsq |
+| **40 - 49** | Adept | <img src="./nft4.png" width="200" /> | https://ipfs.io/ipfs/bafybeidfmztwlyiw223mubieumegpvhb5fdfcvpmuc3sgj323iw5mkqule |
+| **50 - 59** | Mage | <img src="./nft5.png" width="200" /> | https://ipfs.io/ipfs/bafybeigmnycqbpico4lqznj6xagdwjaocaqzzssjrumyffyt2duzd76u6m |
+| **60 - 69** | Sorcerer | <img src="./nft6.png" width="200" /> | https://ipfs.io/ipfs/bafybeifgwdnylz6jjyruuqasmlwakeijz3pzs4kkly3bg6ci6puurm5lwm |
+| **70 - 79** | High Mage | <img src="./nft7.png" width="200" /> | https://ipfs.io/ipfs/bafybeic7oozlteewjzxf243smhvat6jcmrewhryb367u5ohqzq5zu7znlu |
+| **80 - 89** | Archmage | <img src="./nft8.png" width="200" /> | https://ipfs.io/ipfs/bafybeicvihyvmo3d7euimen3bcbuftbho3hfapaenfh6j2stiomsrrc57u |
+| **90 - 99** | Master Wizard | <img src="./nft9.png" width="200" /> | https://ipfs.io/ipfs/bafybeih62jvinvvccfmsdhylev2eigyorgxpy4igmxvcoes5p7ftokaeie |
+| **100** | Grandmaster | <img src="./nft10.png" width="200" /> | https://ipfs.io/ipfs/bafybeiaq4ned3zzjaxeyrpomwemqa4a7e323bdemql3bjaz2yha6342i5q |
 
 Each tier represents not just a number, but a story of dedication, learning, and real accomplishment. And your passport will show the world exactly where you are on that path.
-
-
 
 ## Frontend Technology and Contract Integration
 
