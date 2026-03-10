@@ -122,6 +122,8 @@ When I look back at what we built in the short time we had, I feel a deep sense 
 
 The vision I believe in is this: Web3 needs better ways to prove what people actually know and have done. Your skills should follow you across chains and platforms. Your achievements should be permanently yours. Learning should be accessible and safe. We built a tangible step toward that world, and even though this hackathon chapter is closing, the code lives on. If you have ever wanted to learn Web3 development but felt held back by the barriers we discussed, I encourage you to explore what we have built. The onboarding is waiting, the passports are ready to be minted, and your journey from vibe coder to onchain wizard can begin today.
 
+![Home Page Screenshot](./screenshot_home.png)
+
 ## What Was Vibe2Wizard Trying To Accomplish
 
 Have you ever wanted to build something on the blockchain but felt intimidated by the complexity and the financial risk? You are certainly not alone in this feeling. Every day, thousands of talented designers, developers, and creators look at Web3 and see an exciting future but also see a minefield of potential mistakes that could cost them real money. I have spoken to people who have lost their savings to simple errors, who have given up on their dreams of building in the decentralized space because the learning curve felt impossible, and who have eventually succeeded professionally but had no way to prove their skills to the very protocols and DAOs that might want to hire them.
@@ -308,25 +310,55 @@ We use `Base64.encode` from OpenZeppelin to convert the JSON bytes into a Base64
 
 One of the things I am most proud of is the onboarding experience we created. We designed it to be approachable for complete beginners while still being valuable for experienced developers. The journey is broken down into nine clearly defined steps that guide you from absolute zero to having your first verifiable onchain credential.
 
+![Onboarding first step](./screenshot_onboarding1.png)
+
 The first step is simply an introduction where we explain what the platform is and why it matters. We want you to understand from the beginning that this is not just another online course where you watch videos and answer quizzes. This is about actually deploying code to the blockchain and earning credentials that belong to you forever.
+
+![Onboarding second step](./screenshot_onboarding2.png)
 
 The second step explores your background and helps us understand where you are coming from. Are you a designer who wants to launch NFT collections without hiring a developer? A junior developer trying to break into Web3? A senior engineer looking for a way to prove your skills to DAOs? This helps us customize your learning path.
 
+![Onboarding third step](./screenshot_onboarding3.png)
+
 The third and fourth steps explain what a cryptocurrency wallet is and walk you through the different types available. Many beginners are intimidated by this concept, so we take our time and ensure you understand why you need a wallet and how it works.
+
+![Onboarding fourth step](./screenshot_onboarding4.png)
 
 The fifth step helps you install a wallet if you do not already have one. We recommend specific wallets that work well with our platform and provide clear instructions for the installation process.
 
+![Onboarding fifth step](./screenshot_onboarding5.png)
+
 The sixth step is when you actually connect your wallet to our platform. This is the moment when your journey truly begins, as you establish the cryptographic identity that will represent you onchain.
+
+![Onboarding sixth step](./screenshot_onboarding6.png)
 
 The seventh step asks you to sign a message with your wallet. This serves two purposes: it proves that you control the wallet you have connected, and it familiarizes you with the signing process that you will use frequently as you interact with blockchain applications.
 
+![Onboarding seventh step](./screenshot_onboarding7.png)
+
 The eighth step ensures you have some test network tokens so you can begin your learning without risking real money. We provide these tokens through our sponsorship program, which is funded by protocol partners who want to attract genuine users rather than airdrop hunters.
 
+![Onboarding eighth step](./screenshot_onboarding8.png)
+
 The ninth and final step is where the magic happens. This is when you mint your Wizard Passport NFT, officially entering the ecosystem as a verified learner. We trigger celebratory animations and confetti to mark this milestone, because it genuinely is an important moment in your Web3 journey.
+
+![Onboarding ninth step](./screenshot_onboarding9.png)
+
+- Transaction Hash: https://testnet.snowtrace.io/tx/0x47193363ad70e75d4babe693fe42c64391087a4d6643cd52a1744ace75a6bfd5
 
 ## The User Profile System
 
 Once you have completed onboarding, you gain access to your personal profile page where all of your progress is tracked and displayed. This is where the UserRegistration smart contract comes into play, handling the storage of your profile information.
+
+![Profile page](./screenshot_profile1.png)
+
+All registrations are Onchain and require users to hold at least one Wizard NFT Passport
+
+![Onchain registration](./screenshot_profile2.png)
+
+- **Registration Transaction Link:** https://testnet.snowtrace.io/tx/0x035306df666c0ee8bf2a873504193e3214ed42a4a426b8c37a8d663c315c50af
+
+![Profile updated](./screenshot_profile3.png)
 
 The registration system is designed to require ownership of a Wizard Passport as a prerequisite. This creates a natural gate that ensures every user in our system has at least started the learning journey. You cannot simply create a profile with any wallet address; you must have actually completed the onboarding process and minted your passport. The `onlyWithPassport` modifier enforces this rule:
 
