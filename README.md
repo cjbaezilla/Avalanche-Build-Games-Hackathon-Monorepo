@@ -24,6 +24,7 @@ This is a monorepo for the Avalanche Build Games Hackathon.
 ## Project Announcements
 
 - [Linkedin Post](https://www.linkedin.com/posts/carlos-baeza-negroni_web3-avalanche-buildgameshackathon-activity-7432039151312490497-MqSg)
+- [Linkedin Follow Up Post](https://www.linkedin.com/posts/carlos-baeza-negroni_avalanchebuildgames-hackathon-vibe2wizard-activity-7437125632595124226-FeQJ)
 - [Twitter Thread](https://x.com/twitter/status/2026100769439600736)
 - [Video Pitch](https://www.youtube.com/watch?v=rZDsbkWI6hM)
 
